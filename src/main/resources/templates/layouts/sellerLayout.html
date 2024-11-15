@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script th:src="@{/js/utils.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminaside.css}">
+    <link rel="shortcut icon" th:href="@{/uploads/ConfigImg/favicon.ico}" type="image/x-icon">
+
+
+</head>
+
+<body>
+<div id="wrapper">
+    <main id="admin_main">
+        <div id="admin_container">
+            <!--aside-->
+            <th:block th:replace="~{include/adminAside}"> </th:block>
+
+            <!--content-->
+            <th:block  layout:fragment="content"></th:block>
+
+
+            <th:block th:replace="~{include/adminFooter}"> </th:block>
+
+        </div>
+    </main>
+</div>
+
+<script th:src="@{/js/admin.js}"></script>
+
+
+</body>
+</html>

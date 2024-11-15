@@ -1,0 +1,125 @@
+/*.search{*/
+/*    width: 1200px;*/
+/*}*/
+.product-search-list  {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.product-search-list >a{
+    width: 25%;
+}
+
+.product-search-item {
+    width: 220px;
+    height: 350px;
+    position: relative;
+    /* margin: 0px; */
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;      /* Background color */
+    border-radius: 8px;          /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+.product-search-item >a{
+    width: 220px;
+    height: 350px;
+    position: relative;
+    /* margin: 0px; */
+    margin: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;      /* Background color */
+    border-radius: 8px;          /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.product-search-list .product-image {
+    width: 180px;
+    height: 150px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin: 5px auto;
+}
+
+
+
+
+.product-search-list .product-image img {
+    width: 180px;
+    height: 150px;
+    /* border: 1px solid black; */
+    object-fit: cover;
+    /* height: fit-content; */
+    min-height: 150px;
+}
+
+.product-search-list .product-name{
+
+}
+
+
+
+.product-search-list .product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: inherit;
+    text-align: center;
+    padding: 5px 10px;
+    /* margin-bottom: 10px; */
+    box-sizing: border-box;
+    height: 100px;
+    justify-content: flex-start;
+    margin-left: 0px;
+    flex-grow: initial;
+}
+
+.product-search-list .price-seller-info{
+    width: 100%
+;
+}
+
+
+.product-search-list .product-seller {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-left: 20px;
+    margin-right: 20px;
+    align-content: center;
+    flex-direction: column;
+    width: 100%
+;
+}
+
+.product-seller .customer{
+    display: flex;
+}
+
+
+.product-search-list .shipping-info {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 24px;
+
+}
+
+.product-search-list .product-price {
+    height: 35px;
+    align-items: center;
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}

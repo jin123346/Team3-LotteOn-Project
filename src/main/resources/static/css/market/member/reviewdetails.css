@@ -1,0 +1,200 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: normal 12px '고딕';
+}
+
+ul,ol{list-style: none;}
+a{text-decoration: none; color: #111;}
+
+#wrapper{
+    width: 100%;
+    height: 100%;
+}
+main {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+.info{
+    width: 1200px;
+    height: 75px;
+    background-color: antiquewhite;
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+
+}
+.info-title {
+    position: relative;
+    width: 101x;
+    height: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    left: 100px;
+}
+
+.summary-table {
+    position: relative;
+    display: flex;
+    left: 750px;
+    justify-content: space-around; /* 항목 간격 조정 */
+    width: 300px; /* 전체 폭 사용 */
+    padding: 10px 0; /* 위아래 여백 */
+
+}
+
+.summary-item {
+    width: 80px;
+    text-align: center; /* 항목 중앙 정렬 */
+    border-right: 1px solid black;
+}
+.summary-item:last-child {
+    border-right: none; /* 마지막 항목의 오른쪽 검은 줄 제거 */
+}
+
+.summary-value {
+    font-size: 16px; /* 값의 크기 조정 */
+    font-weight: bold; /* 값 두껍게 */
+}
+#container{
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+aside {
+    float: left;
+    width: 200px;
+    height: auto;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    border-right:1px solid #ccc;
+}
+
+aside > ul {
+    padding: 0; /* ul의 기본 패딩 제거 */
+    margin: 0; /* ul의 기본 마진 제거 */
+}
+
+aside > ul > li {
+    font-size: 16px;
+    margin: 15px 0; /* 위아래 간격 조정 */
+}
+aside > ul > li:nth-child(4){
+    text-decoration: underline;
+}
+.center {
+    flex-grow: 1;
+    width: 994px;
+    height: auto;
+
+}
+
+.ad{
+    width: 900px;
+    height: 86px;
+    margin: 10px auto;
+    border: 1px solid red;
+    background-color: beige;
+    display: flex;
+    justify-content: center; /* 수평 정렬: flex-start, flex-end, center */
+    align-items: center; /* 수직 정렬: flex-start, flex-end, center */
+    font-size: large;
+
+}
+.details{
+    width: 880px;
+    height: 20px;
+    margin: 0 48px;
+
+}
+.center p{
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+}
+.center a{
+    font-size: 12px;
+    font-weight: 400;
+    float: right;
+}
+
+table {
+    width: 900px;
+    height: 133px;
+    margin: 0 48px;
+    border-top: 2px solid black;
+    border-bottom: 1px solid #b4b0b0;
+    border-collapse: collapse;
+}
+th {
+    background-color: gray;
+    height: 42.5px;
+}
+
+.Review-table th:nth-child(1) {width: 9.41%}
+.Review-table th:nth-child(2) {width: 24.71%}
+.Review-table th:nth-child(3) {width: 35.29%}
+.Review-table th:nth-child(4) {width: 15.29%}
+.Review-table th:nth-child(5) {width: 15.29%}
+
+
+.font{
+    color: white;
+}
+
+
+.tr3{
+    border-bottom: 1px solid #b4b0b0;
+}
+
+
+td {
+    height: 89px;
+    font-weight: bold;
+    text-align: center;
+
+
+}
+
+.eximg2 > img{
+    width: 100px;
+    height: 98px;
+    float: left;
+    margin-left: 30px   ;
+}
+
+
+.Pinf2 {
+    display: flex;               /* Flexbox 사용 */
+    flex-direction: column;      /* 세로 정렬 */
+    align-items: flex-start;     /* 왼쪽 정렬 */
+    justify-content: center;      /* 수직 중앙 정렬 (부모 요소의 높이에 따라 다름) */
+    text-align: center;
+    height: 100px;              /* 필요에 따라 높이 설정 */
+    margin-left: 40px;          /* 왼쪽에 10px 여백 추가 */
+}
+.Pinf2 >p {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 5px;
+}
+.star {
+    color: gold;
+}
+.gray-star {
+    color: #ccc;
+}
+.paging {
+    overflow: hidden;
+    height: auto;
+}
+.paging > p {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    height: 19px;
+}

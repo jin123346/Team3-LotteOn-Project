@@ -1,0 +1,89 @@
+<!-- fragments/dynamicContent.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<th:block th:fragment="contents(content,cate)">
+<th:block th:if="${cate=='config'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'banner'">
+      <th:block th:relpace="~{content/admin/config/admin_Banner}"></th:block>
+    </th:block>
+    <th:block th:case="'basic'">
+      <th:block th:relpace="~{content/admin/config/admin_basic}"></th:block>
+    </th:block>
+    <th:block th:case="'terms'">
+      <th:block th:relpace="~{content/admin/config/admin_Terms}"></th:block>
+    </th:block>
+    <th:block th:case="'version'">
+      <th:block th:relpace="~{content/admin/config/admin_Version}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='store'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'sholist'">
+      <th:block th:relpace="~{content/admin/shop/admin_shoplist}"></th:block>
+    </th:block>
+    <th:block th:case="'sale'">
+      <th:block th:relpace="~{content/admin/shop/admin_shopsales}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='user'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'list'">
+      <th:block th:relpace="~{content/admin/user/memberlist}"></th:block>
+    </th:block>
+    <th:block th:case="'point'">
+      <th:block th:relpace="~{content/admin/user/memberpoint}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='notice'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'list'">
+      <th:block th:relpace="~{content/admin/notice/noticeList}"></th:block>
+    </th:block>
+    <th:block th:case="'modify'">
+      <th:block th:relpace="~{content/admin/notice/noticeModify}"></th:block>
+    </th:block>
+    <th:block th:case="'view'">
+      <th:block th:relpace="~{content/admin/notice/noticeView}"></th:block>
+    </th:block>
+    <th:block th:case="'write'">
+      <th:block th:relpace="~{content/admin/notice/noticeWrite}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='faq'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'list'">
+      <th:block th:relpace="~{content/admin/faq/faqList}"></th:block>
+    </th:block>
+    <th:block th:case="'modify'">
+      <th:block th:relpace="~{content/admin/faq/faqModify}"></th:block>
+    </th:block>
+    <th:block th:case="'view'">
+      <th:block th:relpace="~{content/admin/faq/faqView}"></th:block>
+    </th:block>
+    <th:block th:case="'write'">
+      <th:block th:relpace="~{content/admin/faq/faqWrite}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='qna'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'list'">
+      <th:block th:relpace="~{content/admin/qna/qnaList}"></th:block>
+    </th:block>
+    <th:block th:case="'reply'">
+      <th:block th:relpace="~{content/admin/qna/qnaReply}"></th:block>
+    </th:block>
+    <th:block th:case="'write'">
+      <th:block th:relpace="~{content/admin/qna/qnaWrite}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+
+</th:block>

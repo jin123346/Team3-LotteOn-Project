@@ -1,0 +1,38 @@
+.admin_terms_table {
+    width: 900px;
+    border-collapse: collapse;
+    table-layout: fixed; 
+    margin: 20px auto 0;
+    border-radius: 8px;
+    overflow: hidden; /* 모서리 둥글게 하기 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+
+}
+
+.admin_terms_table td{
+    
+    padding: 8px; /* 셀 안쪽 여백 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */}
+
+.admin_terms_table td:nth-of-type(2) { background-color: #fbfdff;}
+.admin_terms_table td:nth-of-type(1) { background-color:rgb(226,232,238);}
+
+.admin_terms_table tr{
+    border-top: 1px solid  rgba(172, 172, 172, 0.5); /* 셀 경계 색상 및 두께 설정 */
+    border-bottom: 1px solid  rgba(172, 172, 172, 0.5); /* 셀 경계 색상 및 두께 설정 */
+    padding: 8px; /* 셀 안쪽 여백 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */}
+
+textarea{resize: none; width: 700px; height: 300px; padding: 3px; border: 1px solid rgba(172, 172, 172, 0.5);}
+
+.admin_term_button {width: 900px; margin: 20px auto; text-align: right;}
+.admin_term_button > button {width: 65px; height: 35px; margin-bottom: 20px;}
+
+
+.admin_terms div {width: 900px; margin: 3px auto;  padding: 3px;}
+
+.admin_term_button button {margin-top: 5px; width: 60px; height: 35px; background-color: #81a6d3; border: none; color: white; border-radius: 6px;}
+
+
+.top1 {font-weight: bold; font-size: 14px;}
+.top2 {width: auto; padding: 3px; background: linear-gradient(to top, #cdd8e6 50%, transparent 50%);}

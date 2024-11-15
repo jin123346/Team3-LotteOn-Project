@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/companyLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn::company</title>
+    <link rel="stylesheet"  th:href="@{/css/admin/adminbanner.css}">
+    <link rel="stylesheet"  th:href="@{/css/admin/adminBannerModal.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+<div class="main-background recruit"></div>
+
+<main>
+    <div class="mainbackgoroud">
+        <p>
+            쇼핑을 새롭게, 세상을 이롭게 이끌<br>
+            쇼핑 좀 해 본 인재를 모십니다!
+        </p>
+    </div>
+
+    <div class="job-wrapper">
+        <main class="jobIn">
+            <div class="main-header"></div>
+            <div class="filters">
+                <div class="filter">
+                    <label for="job-type">전체 직군</label>
+                    <select id="job-type">
+                        <option>IT</option>
+                        <option>UX</option>
+                        <option>마케팅</option>
+                        <option>영업</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="location">전체 소속</label>
+                    <select id="location">
+                        <option>광고사업</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="employment-type">전체 고용 형태</label>
+                    <select id="employment-type">
+                        <option>정규직</option>
+                        <option>계약직</option>
+                        <option>인턴</option>
+                        <option>아르바이트</option>
+                        <option>프리랜서</option>
+                        <option>파견직</option>
+                        <option>일용직</option>
+                        <option>교육생</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="employment-type">키워드 검색</label>
+                    <input type="text" placeholder="키워드 검색">
+                </div>
+            </div>
+            <div class="job-listings">
+                <ul class="job-list">
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/qbgApfZr" target="_blank"
+                               class="job-link">
+                                <h3>뷰티 (백화점, 명품) MD</h3>
+                                <span>영업 | MD | 경력 6~12년 | 정규직 | 롯데캐어스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/og6tv9rY" target="_blank"
+                               class="job-link">
+                                <h3>퍼포먼스 마케터 (Paid 광고)</h3>
+                                <span>마케팅 | 경력 4~12년 | 정규직 | 롯데캐어스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/X1axuGBI" target="_blank"
+                               class="job-link">
+                                <h3>패션 MD</h3>
+                                <span>영업 | MD | 경력 3~12년 | 정규직 | 롯데캐어스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/ADFRDbZj" target="_blank"
+                               class="job-link">
+                                <h3>뷰티 마케터(뷰티 카테고리 담당)</h3>
+                                <span>마케팅 | MD | 경력 3~12년 | 정규직 | 롯데e커머스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/XizgTvg7" target="_blank"
+                               class="job-link">
+                                <h3>뷰티(3P) MD</h3>
+                                <span>영업 | MD | 경력 3~12년 | 정규직 | 롯데e커머스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/6jFYXBGz" target="_blank"
+                               class="job-link">
+                                <h3>광고 플랫폼 영업 및 운영</h3>
+                                <span>광고사업 | 경력 4~15년 | 정규직 | 롯데e커머스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/wNpZY3Ku" target="_blank"
+                               class="job-link">
+                                <h3>광고 플랫폼 서비스 기획</h3>
+                                <span>광고사업 | UX | 경력 4~15년 | 정규직 | 롯데e커머스 삼성오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="job-info">
+                            <a href="https://recruit.lotteon.com/job_posting/tsjI6W0n" target="_blank"
+                               class="job-link">
+                                <h3>IT 인재 상시 영입(경력)</h3>
+                                <span>IT | 경력 2~15년 | 정규직 | 롯데e커머스 삼성오피스 · 롯데e커머스 역삼오피스</span>
+                            </a>
+                        </div>
+                        <div class="job-action">
+                            <span>상시 채용</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+</main>
+<hr>
+</th:block>

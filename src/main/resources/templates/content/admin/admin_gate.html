@@ -1,0 +1,22 @@
+<div class="admin_gate">
+    <div class="left-icons">
+        <a href="#" id="toggle-aside"><img src="/images/sample/menu.png" alt=""></a>
+    </div>
+    <div class="right-icons">
+        <a th:href="@{/admin/main}"><img src="/images/sample/home.png" alt=""></a>
+        <a href="#"><img src="/images/sample/login.png" alt=""></a>
+        <a th:href="@{/user/logout}"><img src="/images/sample/logout.png" alt=""></a>
+        <th:block th:if="${#authentication.name != 'anonymousUser'}">
+            <!-- 판매자 로그인 시 -->
+            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                        관리자님
+            </span>
+
+            <!-- 일반 사용자 로그인 시 -->
+            <span th:if="${#authorization.expression('hasRole(''ROLE_SELLER'')')}">
+                        <span th:text="${memberName}"></span> 회원님 환영합니다!
+             </span>
+        </th:block>
+
+    </div>
+</div>

@@ -1,0 +1,600 @@
+
+/* /////////// */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-section {
+    position: fixed; /* 고정 위치 */
+    top: 0; /* 화면 상단 */
+    left: 0; /* 화면 왼쪽 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: none; /* 기본적으로 숨김 */
+    z-index: 999; /* 모달보다 아래에 위치 */
+    align-items: center;
+
+}
+
+.order-modal {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px; /* 최대 너비 */
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
+    max-height: 90vh; /* 최대 높이 */
+    overflow-y: auto; /* 세로 스크롤 */
+    overflow-x: hidden; /* 가로 스크롤 숨기기 */
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background: white;
+    margin: 0 auto; /* 좌우 중앙 정렬을 위한 마진 설정 */
+    z-index: 1001; /* 추가: 모달이 그림자 위에 있도록 설정 */
+    max-height: 800px;
+}
+.modal-section-shipping {
+    position: fixed; /* 고정 위치 */
+    top: 0; /* 화면 상단 */
+    left: 0; /* 화면 왼쪽 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: none; /* flexbox로 설정 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    z-index: 1001; /* 모달이 그림자 위에 있도록 설정 */
+}
+
+.order-modal-shipping {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px; /* 최대 너비 */
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
+    max-height: 90vh; /* 최대 높이 */
+    overflow-y: auto; /* 세로 스크롤 */
+    overflow-x: hidden; /* 가로 스크롤 숨기기 */
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background: white;
+    margin: 0 auto; /* 좌우 중앙 정렬을 위한 마진 설정 */
+    z-index: 1001; /* 추가: 모달이 그림자 위에 있도록 설정 */
+    max-height: 800px;
+}
+
+.modal-main {
+    position: relative; /* 상대 위치 */
+    width: 900px; /* 최대 너비 설정 */
+    background: white; /* 배경 색상 */
+}
+
+.order-close {
+    cursor: pointer;
+    float: right; /* 우측 정렬 */
+    font-size: 30px; /* 크기 조정 */
+    margin-top: 10px;
+}
+.product-details {border-collapse: collapse;}
+.product-details th {background-color: rgb(226, 232, 238);}
+.product-details tr {border-bottom: 1px solid rgba(172, 172, 172, 0.5);}
+
+
+h3{
+    font-size: 18px;
+    font-weight: bold;
+}
+/* !!!!!!!!!!!!!!!!!!order!!!!!!!!!!!!!!!!! */
+.order-items{
+    width: auto;
+    height: 70px;
+    max-height: 600px;
+    padding: 1px 15px;
+    background-color: #293042;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+}
+.order-items h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+.order-details{
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px; /* 내부 여백 */
+    max-height: 600px;
+
+}
+
+.product-info{
+    width: auto;
+    height: auto;
+
+}
+.product-info h3{
+    margin: 0;
+}
+.pro-details{
+    width: auto;
+    height: auto;
+    display: flex;
+    border-top: 2.5px solid;
+
+}
+.details{
+    width: auto;
+    height: auto;
+    display: flex;
+}
+.total-price {
+    width: auto;
+    height: auto; /* 자동 높이로 조정 */
+    display: flex;
+    justify-content: space-between; /*양쪽정렬*/
+    align-items: flex-start; /* 오른쪽으로 정렬 */
+    margin-top: 10px;
+}
+
+.pay-title {
+    margin-top: 95px;
+}
+.pay-title h3{
+    margin: 0;
+}
+
+.total-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    justify-content: center;
+    background-color: #ddd;
+    margin-left: auto;
+}
+
+.total-item {
+    align-items: center;
+    width: 250px;
+    display: flex; /* 각 항목을 가로 방향으로 정렬 */
+    justify-content: space-between; /* 항목 사이 공간을 균등하게 배치 */
+    margin-bottom: 5px; /* 항목 간 간격 */
+}
+
+.shipping{
+    width: auto;
+    height: auto;
+    margin-bottom: 30px;
+}
+.shipping h3{ margin: 20px 0 5px 0; font-size: 16px;}
+.shipping-flex,
+.payment-flex{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+
+}
+.pay-total-details {
+    display: flex; /* 가로 방향으로 정렬 */
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 100%; /* 부모 요소의 전체 너비 사용 */
+}
+
+.total-amount-container {
+    display: flex; /* 가로 방향으로 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+.total-amount {
+    margin-left: 570px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+#OrderTotalPrices {font-weight: bold; color: red;}
+
+.payment-info,
+.user-info{
+    width: 150px;
+    height: auto;
+    padding: 2px 0;
+    background: rgb(226, 232, 238);
+    line-height: 1.5; /* 줄 간격 조정 */
+    padding: 10px;
+
+}
+.payment-info div, .user-info div, .payment-details div, .user-details div  {line-height: 25px;}
+.payment-details div:nth-of-type(4) {margin-right: 10px;}
+.payment-details {
+    width: 100%;
+    height: auto; /* 자동 높이 */
+    padding: 10px;
+    border-bottom: 1px solid rgba(172, 172, 172, 0.5);
+    border-top: 1px solid rgba(172, 172, 172, 0.5);
+
+}
+
+.pay-details,
+.pay-id-details,
+.pay-user-details,
+.pay-total-details {
+    line-height: 1.5; /* 줄 간격 조정 */
+    width: 100%;
+    display: flex; /* 내용을 수직으로 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.user-details{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-bottom: 1px solid rgba(172, 172, 172, 0.5);
+    border-top: 1px solid rgba(172, 172, 172, 0.5);
+}
+.user-name-details,
+.user-hp-details,
+.user-addr-details{
+    line-height: 1.5; /* 줄 간격 조정 */
+    width: 100%;
+    height: auto;
+}
+
+/*.pro-num { width: 12%; }*/
+/*.pro-name { width: 17%; }*/
+/*.pro-seller { width: 12%; }*/
+/*.pro-price { width: 12%; }*/
+/*.pro-sell { width: 9%; }*/
+/*.pro-stock { width: 8%; }*/
+/*.pro-ship { width: 8%; } !* 배송비 비율 증가 *!*/
+/*.total-pay { width: 11%; } !* 결제금액 비율 감소 *!*/
+/*.pro-img { width: 10%; }*/
+
+/*.pro-num-details,*/
+/*.pro-name-details,*/
+/*.pro-seller-details,*/
+/*.pro-price-details,*/
+/*.pro-sell-details,*/
+/*.pro-stock-details,*/
+/*.pro-ship-details,*/
+/*.total-pay-details,*/
+/*.pro-img-details{*/
+/*    font-size: 15px;*/
+/*    height: 80px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    border-bottom: 1px solid #ddd; !* 테두리 색상 *!*/
+/*}*/
+/*.pro-num-details { width: 12%; }*/
+/*.pro-name-details { width: 17%; font-size: 10px;}*/
+/*.pro-seller-details { width: 12%; }*/
+/*.pro-price-details { width: 12%; }*/
+/*.pro-sell-details { width: 9%; }*/
+/*.pro-stock-details { width: 8%; }*/
+/*.pro-ship-details { width: 8%; } !* 배송비 비율 증가 *!*/
+/*.total-pay-details { width: 11%; } !* 결제금액 비율 감소 *!*/
+/*.pro-img-details { width: 10%; }*/
+
+img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+.pro-num,
+.pro-name,
+.pro-seller,
+.pro-price,
+.pro-sell,
+.pro-stock,
+.pro-ship,
+.total-pay,
+.pro-img {
+    font-size: 15px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ddd; /* 테두리 색상 */
+}
+
+
+
+
+
+/********************* shipping modal *****************/
+
+
+.shipping-modal {
+
+    max-width: 900px; /* 최대 너비 */
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
+    max-height: 90vh; /* 최대 높이 */
+    overflow-y: auto; /* 세로 스크롤 */
+    overflow-x: hidden; /* 가로 스크롤 숨기기 */
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background: white;
+    margin: 0 auto; /* 좌우 중앙 정렬을 위한 마진 설정 */
+
+    /* margin-left: 200px; */ /* 이 줄을 삭제 */
+}
+.shipping-modals {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #293042;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+.shipping-modal span {padding: 10px;}
+.shipping-modal span:nth-of-type(1) { font-weight: bold; font-size: 18px;}
+#shippin_d_modal th {background-color: rgb(226, 232, 238);}
+
+.shipping-close {
+    cursor: pointer;
+    font-size: 30px; /* 크기 조정 */
+    margin-bottom: 5px;
+}
+
+.shipping-items{
+    width: auto;
+    height: auto;
+    background-color: black;
+    color: white;
+    padding: 1px 15px;
+}
+.shipping-items h3{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.shipping-section {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* 고정 위치 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+#zipcode,#address1,#address2 {margin-top: 10px;}
+
+#etc {resize: none; padding: 3px 10px 10px 5px; border:1px solid #ccc; border-radius: 4px}
+#classification {border:1px solid #ccc; padding: 5px 10px 5px 3px; border-radius: 4px}
+
+#orderNo:focus,
+#recipient:focus,
+#zipcode:focus,
+#address1:focus,
+#address2:focus,
+#classification:focus,
+#ownerName:focus,
+#etc:focus {outline: none; box-shadow: 0 0 5px 1px rgba(129, 166, 211, 0.8);}
+
+#order_submit_btn_div {width: 100%}
+#order_submit_btn {background-color: #8EB4E3; color: white; margin-left: 400px;}
+
+
+.shipping-main {
+    position: relative; /* 상대 위치 */
+    width: 900px; /* 최대 너비 설정 */
+    background: white; /* 배경 색상 */
+}
+.shipping-items{
+    width: auto;
+    height: auto;
+    background-color: black;
+    color: white;
+    padding: 1px 15px;
+}
+.shipping-items h3{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.shipping-list{
+    width: auto;
+    height: auto;
+    margin: 10px 15px 0px 20px ;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+}
+.shipping-list * input{
+    padding-left: 5px;
+}
+.shipping-order-num,
+.shipping-user-name,
+.shipping-addr-num,
+.shipping-addr1,
+.shipping-addr2,
+.shipping-name,
+.shipping-num,
+.shipping-exc{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.order-num,
+.user-name,
+.addr-num,
+.addr1,
+.addr2,
+.con-name,
+.num{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    background: #e4d2d2;
+    width: 200px;
+    height: auto;
+    font-weight: bold;
+}
+
+.etc{
+    display: flex;
+    align-items: center;
+    background: #e4d2d2;
+    width: 200px;
+    height: auto;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+
+
+.shipping-order-num div:nth-child(2),
+.shipping-user-name div:nth-child(2),
+.shipping-addr-num div:nth-child(2),
+.shipping-addr1 div:nth-child(2),
+.shipping-addr2 div:nth-child(2),
+.shipping-name div:nth-child(2),
+.shipping-num div:nth-child(2),
+.shipping-exc div:nth-child(2)
+{
+    padding: 5px 15px;
+}
+.shipping-exc textarea {
+    width: 500px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+    resize: none;
+}
+
+.shipping-exc textarea:focus {
+    border-color: #66afe9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(102, 175, 233, .5);
+}
+.first_choice{
+    padding: 10px;
+    width: 150px;
+    height: 40px;
+
+}
+
+.btn-controller{
+    width: auto;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+
+}
+.shipping-regis-btn{
+    width: 100px;
+    height: 40px;
+    background: rgb(100, 134, 37);
+    margin-top: 15px;
+    color: white;
+}
+
+
+
+
+/* ----------------------------- shipping-info-modal  --------------------------- */
+
+
+.shipping-info-main {
+    position: relative; /* 상대 위치 */
+    width: 900px; /* 최대 너비 설정 */
+    background: white; /* 배경 색상 */
+}
+
+.shipping-info-close {
+    cursor: pointer;
+    float: right; /* 우측 정렬 */
+    font-size: 30px; /* 크기 조정 */
+    margin-bottom: 5px;
+}
+
+.pro-info-details{
+    width: auto;
+    height: auto;
+    display: flex;
+    border-top: 2.5px solid;
+
+}
+.details-info{
+    width: auto;
+    height: auto;
+    display: flex;
+}
+.shipping-info-items{
+    width: auto;
+    height: auto;
+    background-color:  rgb(35, 63, 99);
+    color: white;
+    padding: 1px 15px;
+}
+.shipping-info-items h3{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+.product-info-table h3{
+    margin: 0;
+    font-size: 18px;
+}
+
+.order-info-num,
+.user-info-name,
+.addr-info-hp,
+.addr1-info,
+.shipping-addr2,
+.con-info-name,
+.num-info,
+.etc-info{
+    display: flex;
+    align-items: center;
+    padding: 20px 0 10px 20px;
+    background: #ddd;
+    width: 200px;
+    height: auto;
+    font-weight: bold;
+}
+.product-table{
+    padding: 20px;
+}
+.addr2-info{
+    width: 200px;
+    height: 10px;
+    background: #ddd;
+    padding: 20px 0 10px 20px;
+}
+
+.product-title, .shipping-title h3{
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.user-info-list{
+    border-top: 2.5px solid ;
+
+}
+
+
+/**/
+
+.product-details {
+    width: 100%;
+
+}

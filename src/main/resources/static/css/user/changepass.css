@@ -1,0 +1,115 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+#changePass {
+    width: 520px;
+    margin: 76px auto 60px;
+    box-sizing: border-box;
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#changePass h2 {
+    padding: 12px;
+    font-size: 24px;
+    margin: 20px auto;
+    text-align: center;
+    color: #333;
+}
+
+.pwChange {
+    width: 100%;
+    border-collapse: collapse;
+
+    margin-bottom: 35px;
+}
+
+.pwChange th,
+.pwChange td {
+    padding: 12px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.pwChange th {
+    text-align: center;
+    width: 25%;
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.pwChange td {
+
+    padding-left: 20px;
+    height: 35px;
+    border-top: 1px solid #ddd;
+    color: #666;
+}
+
+
+.pwChange td:nth-child(1) {
+    padding-left: 20px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+
+}
+
+.btnCancel,
+.btnNext {
+    flex: 1;
+    margin: 0 5px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btnCancel:hover {
+    background-color: #f0f0f0;
+}
+
+.btnNext {
+    background-color: #333;
+    color: #fff;
+}
+
+.btnNext:hover {
+    background-color: #555;
+}
+
+h5 {
+
+    height: 32px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #999;
+}
+
+#newPassword, #confirmPassword {
+    width: 93%;
+    height: 40px;
+    border-radius: 4px;
+    padding-left: 10px;
+    font-size: 12.5px;
+
+}

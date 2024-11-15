@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}" xmlns:c="https://jakarta.ee/xml/ns/jakartaee">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // 서버에서 전달된 에러 메시지 확인 후 alert로 표시
+            /*[[${errorMessage}]]*/
+            var errorMessage = /*[[${errorMessage}]]*/ '';
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+
+            // 로그인 버튼 클릭 시
+            const loginButton = document.getElementById('loginButton');
+
+            if (loginButton) { // 버튼이 존재하는지 확인
+                loginButton.addEventListener('click', function () {
+                    const uid = document.getElementById('uid').value;
+                    const password = document.getElementById('password').value;
+
+                    // 로그인 유효성 검사 요청
+                    fetch('/user/loginValid', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({inId: uid, password: password})
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                // 응답 상태가 200이 아닐 경우 에러 처리
+                                return response.json().then(data => {
+                                    throw new Error(data.message || '로그인 유효성 검사 실패');
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                // 로그인 처리 요청
+                                return fetch('/user/login', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    },
+                                    body: new URLSearchParams({
+                                        'inId': uid,
+                                        'password': password
+                                    })
+                                })
+                                    .then(response => {
+                                        if (response.redirected) {
+                                            window.location.href = response.url; // 성공 시 리다이렉트
+                                        } else {
+                                            return response.text(); // 오류가 발생하면 응답 내용을 가져옴
+                                        }
+                                    })
+                                    .then(errorPage => {
+                                        // 로그인 처리 중 오류 발생 시
+                                        alert("로그인 처리 중 오류가 발생했습니다."); // 오류 메시지 표시
+                                    });
+                            } else {
+                                // 로그인 유효성 검사 실패 메시지
+                                alert("로그인 오류");
+                            }
+                        })
+                        .catch(error => {
+                            // 모든 에러 메시지를 alert로 표시
+                            alert("오류: " + error.message);
+                        });
+                });
+            } else {
+                console.error("lonin error...");``
+            }
+        });
+
+    </script>
+
+
+    <c:if test="${not empty error}">
+        <div className="alert alert-danger">
+            ${error} <!-- 오류 메시지 출력 -->
+        </div>
+    </c:if>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <!-- 롯데온 로그인 영역 추가 -->
+
+    <main id="content" role="main" class="contentArea on">
+        <div class="loginContent withAd vertical">
+            <div class="loginWrap lotteOn">
+                <h2 class="titLogin">
+                    <span class="tit">로그인</span>
+                </h2>
+                <form action="/user/login" method="post">
+                    <div class="section input loginForm">
+                        <div class="inputSet login">
+                            <div>
+                                <input type="hidden" id="tempid" name="tempid">
+                                <input name="inId" type="text" placeholder="아이디 또는 이메일 아이디" id="inId"
+                                       title="아이디 또는 이메일 입력">
+                                <div class="alertTxt">
+
+                                </div>
+                            </div>
+                            <div class="inputSet login">
+                                <div class="passwordWrap">
+                                    <input type="hidden" id="tempPwd" name="tempPwd">
+                                    <input id="Password" type="password" placeholder="8~15자리 영문+숫자+특수문자 조합"
+                                           name="password"
+                                           autocomplete="new-password" title="비밀번호 입력 (8~15자리 영문+숫자+특수문자 조합)">
+                                    <button type="button">
+                                        <span class="blind">비밀번호 숨기기</span>
+                                    </button>
+                                </div>
+                                <div class="alertTxt">
+                                    <!---->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btnConfirmWrap">
+                            <button data-v-5e1c3199="" class="hasBgColor bgColorRed util sizeFull alignLeft">
+                            <span data-v-5e1c3199="" class="inner">
+                                <!---->
+                                <span data-v-5e1c3199="" class="">로그인하기</span>
+                                <!---->
+                            </span>
+                            </button>
+                        </div>
+                        <div class="autoLogin">
+                            <div class="checkboxSet">
+                                <input id="autoLogin" type="checkbox" name="remember-me" checked="checked">
+                                <label for="autoLogin">자동 로그인</label>
+                            </div>
+                            <input id="checkbox11" type="hidden" name="checkbox" value="N">
+                            <div class="btnFindIdPasswordWrap">
+                                <a href="/user/findid" class="findIdPassword">아이디찾기</a>
+                                <a href="/user/findpass" class="findIdPassword">비밀번호찾기</a>
+                            </div>
+                        </div>
+                        <div class="signupSpeed lineType">
+                            <strong class="subTitle"> 간편하게 시작하기 </strong>
+                            <div class="socialSignupWrap">
+                                <div class="btnLoginGroup">
+                                    <button type="button" class="kakaoLoginBtn"
+                                            onclick="location.href='/oauth2/authorization/kakao'">
+                                        카카오
+                                    </button>
+                                    <button type="button" class="naverLoginBtn"
+                                            onclick="location.href='/oauth2/authorization/naver'">
+                                        네이버
+                                    </button>
+                                    <button type="button" class="googleLoginBtn"
+                                            onclick="location.href='/oauth2/authorization/google'">
+                                        구글
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conerWrap">
+                            <div class="cornorBox">
+                                <div class="moveJoinMember">
+                                    <a th:href="@{/user/join}" class="moveJoinMemberItem">LotteON 회원 가입하기</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                    </div>
+                </form>
+
+                <!-- 폼 태그 닫기 -->
+            </div>
+            <div class="adWrap" th:each="banner : ${banners}" th:if="${banner.ban_location} == '회원 로그인 배너'">
+                <a th:href="${banner.ban_link}" target="_blank">
+                    <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                </a>
+            </div>
+        </div>
+    </main>
+
+
+</th:block>

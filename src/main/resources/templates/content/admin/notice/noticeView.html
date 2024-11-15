@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::notice</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminnoticeview.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>고객센터</p>
+                <p>
+                    <a href="#">HOME</a>
+                    <span>></span>
+                    <a href="#">고객센터</a>
+                    <span>></span>
+                    <a href="#">자주묻는질문</a>
+                </p>
+            </section>
+            <div id="admin_notice_view">
+                <table class="admin_notice_view_table">
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 90%">
+                    </colgroup>
+                    <tr>
+                        <td>유형</td>
+                        <td th:text="${notice.noticetype}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td th:text="${notice.noticetitle}"></td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td>
+                            <p th:text="${notice.noticecontent}"></p><br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="notice_view_button">
+                <a class="admin_notice_delete_a" th:href="@{/admin/notice/delete(no=${notice.noticeNo})}">삭제</a>
+                <a class="notice_view_modify-btn" th:href="@{/admin/notice/modify(no=${notice.noticeNo})}">수정</a>
+                <a class="notice_view_list-btn" th:href="@{/admin/notice/list}">목록</a>
+            </div>
+            <div th:if="${message}" class="hidden" th:text="${message}" id="messageDiv"></div>
+        </section>
+        <script>
+            document.querySelectorAll('.admin_notice_delete_a').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    const deleteconfirm = confirm('정말 삭제하시겠습니까?');
+                    if (deleteconfirm) {
+                        window.location.href = url;
+                    }
+                })
+            })
+            document.addEventListener('DOMContentLoaded', function() {
+                const messageDiv = document.getElementById('messageDiv');
+                const message = messageDiv.textContent;
+                if (message) {
+                    alert(message);
+                }
+            });
+        </script>
+</th:block>

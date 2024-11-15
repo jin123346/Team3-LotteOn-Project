@@ -1,0 +1,75 @@
+/* 공지사항 테이블 */
+.view-div {
+    width: 90%;
+    border: 1px solid #efefef;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 20px 40px;
+}
+
+/* 공지사항 제목 */
+.view-title {
+    background-color: #f0f0f0;
+    font-size: 18px;
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+}
+
+.view-subtitle {
+    font-size: 18px;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* 날짜 스타일 */
+.view-title .view-data {
+    display: block;
+    font-size: 14px;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* 본문 텍스트 스타일 */
+.view-div td {
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+.view-div td p {
+    margin: 0;
+    padding-left: 15px;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* 목록 버튼 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}

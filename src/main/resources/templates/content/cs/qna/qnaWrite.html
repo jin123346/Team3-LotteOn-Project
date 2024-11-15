@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/qnawrite.css}">
+    <script src="/js/cateQna.js"></script> <!-- qna.js 파일을 추가 -->
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/qnaAside}"></th:block>
+
+    <div id="service">
+        <div class="title">
+            <h2>회원</h2>
+            <p>회원 관련 문의내용 입니다.</p>
+        </div>
+        <form th:action="@{/cs/qna/write}" method="post" enctype="multipart/form-data">
+            <input  type="hidden" name="qnawriter" th:value="${#authentication.name == 'anonymousUser' && #authentication.principal.user.uid}">
+
+            <div class="qna-section">
+                <table class="qna-table">
+                    <colgroup>
+                        <col style="width: 150px">
+                        <col style="width: 750px">
+                    </colgroup>
+                    <tr class="type">
+                        <td><label for="selectOption1">문의유형</label></td>
+                        <td>
+                            <select class="first_choice" id="selectOption1">
+                                <option value="" disabled selected>1차 선택</option>
+                                <th:block th:each="board : ${boardCate}">
+                                    <option th:value="${board.boardCateId}" th:text="${board.name}"></option>
+                                </th:block>
+                            </select>
+                            <select class="second_choice" name="categoryid" id="selectOption2">
+                                <option value="2차 선택" disabled selected>2차 선택</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td><label for="subject">제목</label></td>
+                        <td>
+                            <input id="subject" type="text" name="qnatitle" class="texts" placeholder="제목을 입력하세요">
+
+                        </td>
+                    </tr>
+                    <tr class="content">
+                        <td><label for="content">내용</label></td>
+                        <td>
+                            <textarea id="content" name="qnacontent" class="texts" placeholder="내용을 입력하세요" rows="5" style="height: 200px"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="button-section">
+                    <a class="cancel" href="/cs/qna/list?cate=8">취소하기</a>
+                    <button type="submit" class="insert">등록하기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const selectOption1 = document.getElementById('selectOption1');
+        const selectOption2 = document.getElementById('selectOption2');
+
+        selectOption1.addEventListener('change',function(){
+            const parentId = this.value;
+
+            selectOption2.innerHTML = '<option value="2차 선택" disabled selected>2차 선택</option>';
+
+            fetch(`/api/faq/subcate/${parentId}`)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data);
+                    data.forEach(boardsubCate => {
+                        const option = document.createElement('option');
+                        option.value = boardsubCate.boardCateId;
+                        option.text = boardsubCate.name;
+                        selectOption2.appendChild(option)
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+
+        })
+
+    </script>
+</th:block>
+</body>
+</html>

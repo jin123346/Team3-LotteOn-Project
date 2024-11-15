@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminLogin.css}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <a th:href="@{/}"><img src="/images/company/lottte_ON_CI_BI.png" alt="로고" class="logo"></a>
+            <h2>관리자 로그인</h2>
+            <form action="/seller/login" method="post">
+                <div class="input-group">
+                    <label for="username">아이디</label>
+                    <input type="text" id="username" name="inId" placeholder="아이디를 입력하세요.">
+                </div>
+                <div class="input-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요.">
+                </div>
+                <div class="links">
+                    <input id="autoLogin" type="checkbox" name="remember-me" checked="checked">
+                    <label for="autoLogin">자동 로그인</label>
+                    <a th:href="@{/user/findid}">아이디찾기</a>
+                    <a th:href="@{/user/findpass}">비밀번호찾기</a>
+                    <a th:href="@{/user/join}">회원가입</a>
+                </div>
+                <button type="submit">로그인</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

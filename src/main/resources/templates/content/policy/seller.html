@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/policyLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main class="main_content">
+        <div class="header-title">
+            <h2>LotteON 서비스 이용약관</h2>
+            <div class="print-image">
+                <a href="javascript:void(0);" onclick="window.print();">
+                    <img src="/images/policy/print1.png" alt="프린트">
+                </a>
+            </div>
+        </div>
+
+        <section class="terms">
+            <h2>개인정보처리 약관</h2>
+            <div class="image-row">
+                <!-- 각 이미지에 링크 추가 -->
+                <div class="image-container">
+                    <a th:href="@{/policy/buyer}">
+                        <img src="/images/policy/buyer.png" alt="구매회원 약관">
+                    </a>
+                    <p>구매회원 약관</p>
+                </div>
+                <div class="image-container">
+                    <a th:href="@{/policy/seller}">
+                        <img src="/images/policy/seller.png" alt="판매회원 약관">
+                    </a>
+                    <p>판매회원 약관</p>
+                </div>
+                <div class="image-container">
+                    <a th:href="@{/policy/finance}">
+                        <img src="/images/policy/finance.png" alt="전자금융거래">
+                    </a>
+                    <p>전자금융거래</p>
+                </div>
+                <div class="image-container">
+                    <a th:href="@{/policy/location}">
+                        <img src="/images/policy/location.png" alt="위치정보 약관">
+                    </a>
+                    <p>위치정보 약관</p>
+                </div>
+                <div class="image-container">
+                    <a th:href="@{/policy/privacy}">
+                        <img src="/images/policy/persnal.png" alt="개인정보처리">
+                    </a>
+                    <p>개인정보처리</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="content">
+            <section class="terms">
+                <div class="articles">
+                    <div th:each="term : ${termsList}">
+                        <!--                    <h3 th:text="${term.title}">약관 제목</h3>-->
+                        <p th:utext="${term.htmlContent}">약관 내용</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</th:block>

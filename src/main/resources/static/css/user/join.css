@@ -1,0 +1,251 @@
+span[data-v-5e1c3199] {
+	position: relative;
+}
+
+a[data-v-5e1c3199],
+button[data-v-5e1c3199] {
+	display: inline-block;
+	width: 100%;
+	height: 52px;
+	-o-object-fit: contain;
+	object-fit: contain;
+	border-radius: 6px;
+	border: 1px solid #bfbfbf;
+	background-color: transparent;
+	font-size: 18px;
+	font-style: normal;
+	font-stretch: normal;
+	letter-spacing: -0.5px;
+	text-align: center;
+	color: #757575;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+a.bgColorRed[data-v-5e1c3199],
+button.bgColorRed[data-v-5e1c3199] {
+	background-color: #ef2a23;
+}
+
+a.bgColorRed[data-v-5e1c3199]:active,
+button.bgColorRed[data-v-5e1c3199]:active {
+	background-color: #d81d16;
+}
+
+a.hasBgColor[data-v-5e1c3199]:not(.bgColorLightGray):not(.bgColorWhite):not(.bgColorKakao),button.hasBgColor[data-v-5e1c3199]:not(bgColorLightGray):not(.bgColorWhite):not(.bgColorKakao) {
+	border: none;
+	color: #fff !important;
+}
+
+.socialSignupWrap {
+	margin-top: 20px;
+}
+
+.socialSignupWrap .btnLoginGroup {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.socialSignupWrap .btnLoginGroup button {
+	display: inline-block;
+	margin: 0 20px;
+	padding-top: 58px;
+	width: 50px;
+	font-size: 15px;
+	letter-spacing: -0.27px;
+	color: #000;
+	background-repeat: no-repeat;
+	background-position: top;
+	background-size: 50px 50px;
+	white-space: nowrap;
+}
+
+.socialSignupWrap .kakaoLoginBtn {
+	background-image: url(/images/member/icon_easy_kakao.svg);
+}
+
+.socialSignupWrap .kakaoLoginBtn.disabled {
+	background-image: url(/images/member/icon_easy_kakao.svg);
+}
+
+.socialSignupWrap .naverLoginBtn {
+	background-image: url(/images/member/icon_easy_naver.svg);
+}
+
+.socialSignupWrap .naverLoginBtn.disabled {
+	background-image: url(/images/member/icon_easy_naver.svg);
+}
+
+.socialSignupWrap .googleLoginBtn {
+	background-image: url(/images/member/icon_easy_google.svg);
+}
+
+.signupWrapper {
+	padding-top: 55px;
+}
+
+.signupWrapper .titSignup {
+	font-size: 36px;
+	line-height: 1.39;
+	letter-spacing: -1.1px;
+}
+
+.signupWelcome {
+	margin-top: 80px;
+	text-align: left;
+}
+
+.signupWelcome strong {
+	font-size: 26px;
+	line-height: 1.15;
+	letter-spacing: -0.56px;
+	font-weight: 700;
+}
+
+.signupWelcome img {
+	width: 100%;
+}
+
+.signupWelcome button {
+	margin-top: 30px;
+}
+
+.signupSpeed {
+	margin-top: 50px;
+}
+
+.signupSpeed.lineType {
+	padding-top: 50px;
+	margin-top: 100px;
+	border-top: 1px solid #dfdfdf;
+}
+
+.signupSpeed .subTitle {
+	display: block;
+	text-align: center;
+	font-size: 18px;
+	line-height: 1.11;
+	letter-spacing: -0.26px;
+	font-weight: 400;
+}
+
+.signupSpeed .subTitle .v-popover {
+	margin-top: 0;
+}
+
+.signupSpeed .grayBox {
+	position: relative;
+	margin-top: 50px;
+	padding: 22px 30px;
+	background-color: #f8f8f8;
+	border-radius: 8px;
+}
+
+.signupSpeed .grayBox .title {
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: -0.3px;
+}
+
+.signupSpeed .grayBox .desc {
+	padding-top: 4px;
+	font-size: 13px;
+	line-height: 1.46;
+	color: #757575;
+}
+
+.signupSpeed .grayBox .btnSummit {
+	position: absolute;
+	top: 50%;
+	right: 30px;
+	display: inline-block;
+	width: 135px;
+	height: 36px;
+	font-size: 13px;
+	line-height: 36px;
+	letter-spacing: -0.2px;
+	border: 1px solid #333;
+	border-radius: 6px;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	text-align: center;
+}
+
+.lotteBiWrap {
+	margin-top: 82px;
+	text-align: center;
+}
+
+.lotteBiWrap .imgBi {
+	display: inline-block;
+	width: 137px;
+	height: 40px;
+}
+
+.signupLayout {
+	margin: 0 auto;
+	max-width: 530px;
+	padding-bottom: 162px;
+}
+
+.signupLayout.smallLayout {
+	max-width: 420px;
+}
+
+/*  text/css 텍스트 추가 */
+.comebineConer {
+	width: 420px;
+	height: 344px;
+	border-radius: 6px;
+	background: url("/images/member/social-lotteon-benefit.jpg") no-repeat 0 0 /
+		cover;
+}
+
+.comebineConer strong {
+	display: block;
+	padding-top: 32px;
+	font-weight: normal;
+	color: #fff;
+	text-align: center;
+}
+
+.comebineConer .listItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 24px;
+	padding: 0 20px;
+}
+
+.comebineConer .listItem li {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 110px;
+	height: 110px;
+	background: #fff;
+	border-radius: 100%;
+}
+
+.comebineConer .listItem li span {
+	display: block;
+	font-size: 13px;
+	line-height: 1.46;
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: -0.26px;
+}
+
+/* pull 이후 추가 */
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0
+}

@@ -1,0 +1,285 @@
+#mainArea .mainWrapper section{
+
+}
+
+#mainArea > .mainWrapper{
+    align-items: normal;
+}
+#mainArea .mainWrapper .cart{
+    /* Subtract the aside's width and some padding/margin */
+    width: calc(100% - 310px); /* Subtract the aside's width and some padding/margin */
+    box-sizing: border-box; /* Ensure proper width calculation */
+    margin-top: 30px;
+}
+
+#mainArea .section .sectionWrapper{
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#mainArea .section.cart .sectionWrapper .sub_tit{
+
+    margin: 20px auto;
+}
+#product_cart{
+    box-sizing: border-box;
+    width: calc(100% - 30px);
+    margin: 10px auto 20px;
+
+}
+#product_cart table{
+    border-spacing: 0px;
+    width: calc(100% - 10px);
+    margin: 0 5px;
+    border: 1px;
+    border-collapse: collapse;
+
+
+}
+
+#product_cart table tr:nth-child(1){
+    border-bottom: 1px soild #232323;
+    height: 50px;
+}
+
+
+/* #product_cart .productCart tr th:nth-child(1){width: 2%;}
+#product_cart .productCart tr th:nth-child(2){width: 50%;}
+#product_cart .productCart tr th:nth-child(3){width: 10%;}
+#product_cart .productCart tr th:nth-child(4){width: 10%;}
+#product_cart .productCart tr th:nth-child(5){width: 10%;}
+#product_cart .productCart tr th:nth-child(6){width: 8%;}
+#product_cart .productCart tr th:nth-child(7){width: 10%;}
+#product_cart .productCart tr th:nth-child(8){width: 10%;} */
+
+#product_cart .productCart tr{
+    text-align: center;
+    /* text-indent: 10px; */
+    border: 1px;
+    height: 110px;
+  
+
+}
+
+#product_cart .productCart tr td{
+    margin-top: 10px;
+}
+#product_cart .productCart input[type=number]{
+    width: 30px;
+    height: 20px;
+    text-indent: 10px;
+    box-sizing: border-box;
+}
+#product_cart .productCart tr:first-child {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    /* background-color: #f5f5f5; */
+    border-bottom: 1px solid #000000;
+   padding-bottom: 5px;
+   box-sizing: border-box;
+}
+
+#product_cart .productCart tr:last-child{
+    border-bottom: 1px solid #999;
+}
+
+#product_cart .productCart tr:nth-child(2){margin-top: 10px;}
+
+#product_cart .productCart tr td:nth-child(2){
+    text-align: left;
+    text-indent: 10px;
+    display: flex;
+    align-items: center;
+}
+#product_cart .productCart tr td:nth-child(2) img{
+    /*border: 1px solid #000000;*/
+    width: 80px;
+    height: 80px;
+}
+
+
+#product_cart .productCart tr td:nth-child(2) div div{
+    display: block;
+}
+
+#product_cart .productCart tr td:nth-child(2) div span{
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.qnt{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.countModifyBtn{
+    width: 50px;
+    height: 20px;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    box-sizing: border-box;
+    
+    /* margin: 4px 18px */
+}
+
+.countModifyBtn.hidden{
+    display: none;
+}
+
+
+.number-controls {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    align-self: center;
+    text-align: center;
+    line-height: inherit;
+}
+
+.number-controls button {
+    font-size: 16px;
+    border: none;
+    background: none;
+    padding: 0 5px;
+    line-height: 20px;
+}
+.number-controls button .qnt-decrease{
+    margin-right: 2px;
+}
+
+
+.number-controls button .qnt-increase{
+    margin-left: 2px;
+}
+.number-controls input {
+    box-sizing: border-box;
+}
+
+
+
+.edit-buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.edit-buttons button {
+    margin-right: 5px;
+    background-color: #ffff;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-buttons .cancel-btn {
+}
+
+.countModify a {
+    cursor: pointer;
+}
+
+/* btn-group */
+.btn-group{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-group .selected-delete,.btn-group div .selected-order,.btn-group div .selected-all{
+    width: 62px;
+    height: 30px;
+    text-align: center;
+    line-height: 16px;
+    padding: 5px;
+    color: #ef2a23;
+    font-weight: 500;
+    border: 1px solid #ef2a23;
+    background-color: #ffff;
+    border-radius: 4px;
+}
+
+.btn-group .selected-delete:hover,.btn-group div .selected-order:hover,.btn-group div .selected-all:hover{
+    background-color: #ef2a23;
+    border: 1px solid #ef2a23;
+    color: #ffff;
+}
+
+
+.cartOrder_window{
+    width: 290px;
+    height: auto;
+    /* position: sti; */
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    position: relative;
+    transition: top 0.3s ease; 
+}
+
+.cartOrder_window.scroll{
+    position: fixed;
+    top: 0px;
+}
+
+.cartOrderAsideWrapper{
+    padding: 0 10px;
+}
+.cartOrder_window h3{
+    margin-top: 20px;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #494949;
+    margin-bottom: 20px;
+
+}
+
+
+.cartOrderAsideWrapper div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 30px;
+    padding: 0 10px;
+    
+
+}
+.cartOrderAsideWrapper div label{
+    font-size: 15px;
+
+}
+.cartOrderAsideWrapper div span{
+    font-size: 15px;
+
+}
+
+.cartOrderAsideWrapper .orderBtn{
+    height: 40px;
+    background-color: #ffff;
+    border: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.orderBtn button{
+    text-align: center;
+    box-sizing: border-box;
+
+    border: 1px solid #ef2a23;
+    background-color: #ef2a23;
+    border-radius: 4px;
+    color: #ffff;
+    font-size: 18px;
+    width: 180px;
+    text-align: center;
+    align-items: center;
+}
+

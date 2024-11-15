@@ -1,0 +1,76 @@
+.admin_banner {
+    width: 900px;
+    background-color: #bdbdbd;
+    height: 50px;
+
+    margin: 20px auto;
+}
+.banner_menu {
+    display: flex;
+    justify-content: left;
+}
+.banner_menu li {
+    width: 90px;
+    display: flex;
+    height: 50px;
+    margin: 0 auto;
+    color: rgb(24, 24, 24);
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner_menu li:hover {
+    color: #ddd;
+}
+
+#admin_banner_main div {font-weight: bold; margin: 10px auto; width: 900px;}
+.admin_banner_table {width: 900px; border-collapse: collapse; border-top: 1px solid black;}
+.admin_banner_table td, th {border-bottom: 1px solid rgb(196, 196, 196); height: 80px; text-align: center;}
+.admin_banner_table th {height: 50px;}
+
+
+button{cursor: pointer;}
+.list_button {width: 900px; height: 250px; margin: 20px auto; display: flex; }
+.list_button button:nth-of-type(1) {width: 80px; height: 35px; margin-top: 150px; background: #bfbfbf; color: white;  border: none;}
+
+.list_button button:nth-of-type(2){margin-left: auto; margin-top: 150px; width: 80px; height: 35px; background: #8EB4E3;color: white;  border: none;}
+
+.status{
+    text-align: right;
+}
+.status-icon-in-operation, .status-text-in-operation{
+    color: #00B050;
+}
+.status-icon-ready, .status-text-readyd{
+    color: #0070C0;
+}
+.status-icon-stop-operation, .status-text-stop-operation{
+    color: #FF0000;
+}
+#shopsearch {
+    width: 95px;
+    height: 33px;
+}
+#search{
+    width: 145px;
+    height: 33px;
+}
+#serachbtn{
+    width: 62px;
+    height: 33px;
+    color: #FFFFFF;
+    background: #BFBFBF;
+    border: none;
+}
+
+/*footer*/
+#admin_footer {
+padding-top: 10px;
+padding-bottom: 10px;
+width: 100%;
+background: #ffffff ;
+box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
+}

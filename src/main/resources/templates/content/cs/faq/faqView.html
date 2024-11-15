@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/faqView.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/faqAside}"></th:block>
+
+    <div id="service">
+        <div class="title">
+            <h2>회원</h2>
+            <p>회원관련 자주묻는 질문 입니다.</p>
+        </div>
+        <div>
+            <table class="view-div">
+                <tr>
+                    <td class="view-title" th:text="'Q. ' + ${faq.faqtitle}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="context">
+                            <p style="padding: 20px; font-size: 14px; line-height: 30px;" th:text="${faq.faqcontent}">
+                                여기에 FAQ 내용이 들어갑니다.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="faq-pagination">
+                <a class="list-btn" href="/cs/faq/list">목록</a>
+            </div>
+        </div>
+    </div>
+</th:block>>
+</body>

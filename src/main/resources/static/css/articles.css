@@ -1,0 +1,384 @@
+/* 통합 */
+.article-navi {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+*{font-size: 15px;}
+.article-innavi {
+    width: 100%;
+    height: auto;
+    padding: 20px 0px 10px 30px;
+}
+.article-main {
+    display: flex;
+    flex-direction: column;
+    width: 1200PX;
+    margin: 0 auto;
+    height: auto;
+    min-height: 600px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+.article-navi a {
+    font-weight: bold; 
+    font-size: 18px;
+}
+
+.article-navi span {
+    font-weight: bold; 
+}
+#aside{
+    width: 200px;
+    
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 18px;
+}
+.article-in{
+    display: flex;
+    width: auto;
+    height: auto;
+
+}
+.article-box {
+    width: calc(100% - 200px);
+    max-width: 1000px;
+    height: auto;
+    max-height: 2000px;
+    box-sizing: border-box;
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding-left: 30px;
+}
+
+.article-box h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+}
+
+/* aricleView css */
+.view-box {
+    width: 960px;
+    height: auto;
+    box-sizing: border-box;
+    margin: 0 auto;
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding-left: 30px;
+}
+
+.view-box h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+}
+
+.view-coment {
+    border-bottom: 2px solid black;
+    padding-bottom: 20px;
+    font-size: 17px;
+    color: #ccc;
+}
+
+.view-coment > h3 {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+.view-coment > p {
+    font-size: 15px;
+}
+.view-title {
+    width: 100%;
+    height: 80px;
+    font-size: 19px;
+    padding: 20px;
+}
+
+.view-data {
+    display: block;
+    margin-top: 8px;
+    font-size: 17px;
+    color: #ccc;
+}
+
+.view-coment > p {
+    margin-left: 10px;
+    
+}
+
+
+
+
+
+.view-div {
+    width: 930px;
+    height: auto;
+}
+
+.contex {
+    width: 930px;
+    height: auto;
+    border-top: 1px solid #ccc;
+    outline: none;
+    max-height: 2000px;
+    overflow: hidden;
+    line-height: normal;
+}
+
+.faq-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+    
+}
+
+
+
+.list-btn {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+    display: flex;               /* Flexbox 사용 */
+    justify-content: center;     /* 가로 중앙 정렬 */
+    align-items: center;         /* 세로 중앙 정렬 */
+    background-color: #ccc;
+}
+    
+
+/* articleList css */
+
+
+.article-coment {
+    border-bottom: 2px solid black;
+    padding-bottom: 20px;
+    font-size: 17px;
+    color: #ccc;
+}
+
+.article-coment > h3 {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.article-coment > p {
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.article-div {
+    border-collapse: collapse;
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+}
+
+
+.article-list {
+    width: 100%;
+}
+
+.article-list td {
+    height: 60px;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
+    max-width: 250px;
+
+}
+
+
+.article-list td a {
+    font-size: 19px;
+}
+
+.article-list td.article-date {
+    text-align: right !important;
+}
+
+.article-date {
+    font-size: 19px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    flex-grow: 1;
+    padding-left: 100px;
+    
+}
+.inquire{
+    width: 100px;
+    height: 40px;
+    display: flex;
+    width: 80px;
+    height: 40px;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; 
+    background: #ddd;     
+}
+
+/* article-register-view */
+.article-regi-box {
+    width: 960px;
+    height: auto;
+    box-sizing: border-box;
+    margin: 0 auto;
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding-left: 30px;
+}
+
+.article-regi-box h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.article-regi-coment {
+    border-bottom: 2px solid black;
+    padding-bottom: 20px;
+    font-size: 17px;
+    color: #ccc;
+}
+
+.article-regi-coment > h3 {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.article-regi-coment > p {
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.article-regi-div {
+    border-collapse: collapse;
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+}
+
+
+
+
+
+.article-regi-list th {
+    background-color: #f2f2f2;
+    height: 60px;
+}
+
+.article-regi-list {
+    width: 100%;
+}
+
+.article-regi-list td {
+    height: 60px;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap; /* 줄바꿈을 하지 않음 */
+    overflow: hidden; /* 넘치는 내용은 숨김 */
+    text-overflow: ellipsis; /* 넘치는 내용은 '...'으로 표시 */
+    max-width: 100px; /* 원하는 최대 너비 설정 */
+}
+
+.article-regi-list td a {
+    font-size: 19px;
+}
+
+.article-regi-div {
+    width: 100%; /* div 전체 너비를 100%로 설정 */
+}
+
+
+
+.article-regi-content {
+    padding-left: 20px;
+    width: 59.14%; /* 4 / 7 */
+}
+.article-content  a{
+    font-weight: bold;
+    padding-left: 20px;
+    width: 59.14%; /* 4 / 7 */
+}
+
+.article-review,
+.article-id{
+    width: 12.29%;
+    text-align: left ;
+    font-size: 19px;
+}
+.article-date {
+    width: 10%;
+    text-align: center ;
+}
+.article-inlist {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.qna-list{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.qna-title{flex: 1; font-size: 18px;margin-left: 10px;} 
+.qna-status, .qna-id, .qna-data{
+    flex: 0 0 130px;
+    font-size: 15px;  
+    justify-content: center;  
+    display: flex;
+}
+
+
+
+.page{
+    width: 100%;
+    height: auto; 
+    display: flex;
+    margin-top: 10px;
+} 
+.qna-pagination {
+    display: flex;               
+    margin: 20px;   
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    padding-left: 120px;
+}
+
+.qna-pagination a {
+    text-decoration: none;       /* 링크 스타일 제거 (선택 사항) */
+    font-size: 15px;            /* 글자 크기 조정 */
+    margin: 5px;
+}
+
+.btn-Write {
+    display: flex;               /* Flexbox로 변경 */
+    justify-content: center;      /* 가로 방향 중앙 정렬 */
+    align-items: center;         /* 세로 방향 중앙 정렬 */
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    background: #ddd;
+    text-decoration: none; 
+    margin-right: 20px;
+    margin-top: 5px;
+}
+

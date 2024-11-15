@@ -1,0 +1,380 @@
+#mainArea{
+    width: 100%;
+    height: auto;
+}
+#mainArea > .mainWrapper{
+    width: 100%;
+    height: auto;
+    display: flex;
+
+}
+
+#mainArea > .mainWrapper > *{
+    display: inline-block;
+    vertical-align: top; /* Align elements to the top */
+}
+
+
+
+
+#mainArea .mainWrapper .section{
+    /* Subtract the aside's width and some padding/margin */
+
+    width: calc(100% - 200px); /* Subtract the aside's width and some padding/margin */
+    box-sizing: border-box; /* Ensure proper width calculation */
+
+     /* Ensure proper width calculation */
+}
+
+
+#mainArea .section .sectionWrapper{
+    /*border: 1px solid #eee;*/
+    margin-top: 10px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+
+#mainArea .list .sort-options {
+    margin-top: 10px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    height: 30px;
+}
+
+#mainArea .list .sort-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Aligns items horizontally */
+}
+
+#mainArea .list .sort-options ul li {
+    margin-right: 20px; /* Spacing between each sort option */
+}
+#mainArea .list .sort-options ul li::after{
+    content: "|";
+    margin-left:20px;
+}
+
+#mainArea .list .sort-options ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+#mainArea .list .sort-options ul li a:hover {
+    background-color: #f0f0f0; /* Change background on hover */
+}
+
+#mainArea .list .sort-options ul li.active a {
+   
+    font-weight: 700;
+    
+    
+}
+
+/* Product list container */
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between product items */
+    margin: 20px 0;
+}
+
+
+/* Individual product item */
+.product-item > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    transition: box-shadow 0.3s ease;
+}
+
+/* Product image */
+.product-image {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image fits inside the box */
+}
+
+/* Product details (name and description) */
+.product-details {
+    flex-grow: 1;
+    margin-left: 20px;
+    width: 40%;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-description {
+    font-size: 14px;
+    color: #666;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Price and seller info container */
+.price-seller-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 13%;
+}
+
+/* Product pricing */
+.product-price {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.final-price {
+    font-size: 23px;
+    font-weight: bold;
+    color: #000;
+}
+.sale-prices{
+    display: flex;
+    gap: 5px;
+}
+
+.price-seller-info .original-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.discount {
+    font-size: 14px;
+    color: red;
+}
+
+/* Shipping information */
+.shipping-info {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+.shipping-info .shipping-fee{
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.shipping-info .shipping-fee:before{
+    content:"배송비";
+    margin-right: 3px;
+}
+.shipping-label {
+    background-color: #d1e7ff;
+    padding: 3px 10px;
+    border-radius: 0px;
+    font-size: 12px;
+    color: #0056b3;
+    text-align: center;
+}
+
+.shipping-info .shipping-fee.shipping-label:before{
+    content: "";
+}
+
+/* Seller information */
+.product-seller {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 10%;
+}
+
+.seller-name {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.seller-rating {
+    font-size: 8px;
+    color: gold;
+}
+
+.seller-rank {
+    font-size: 12px;
+    color: gold;
+}
+
+
+
+
+
+/* search */
+.search-Area {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.search-Area > div{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.search-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.search-text span{
+    font-size: 25px;
+    color: #e23;
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+.search-text span::after,.search-text span::before{
+    content: "'";
+}
+
+.search-text p {
+    display: inline;
+    font-size: 14px;
+    color: #999;
+    margin-left: 20px;
+}
+
+.searchBar-Wrap > div{
+   
+
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.search-input input {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+   
+}
+
+.search-input button {
+    background-color: #d00000;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.search-input button:hover {
+    background-color: #a30000;
+}
+
+.search-options {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.search-options label {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.price-range {
+    display: flex;
+    align-items: center;
+}
+
+.price-range input {
+    width: 80px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.price-range input:nth-child(2) {
+    margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+.star {
+    font-size: 1.5em; /* 원하는 별 크기에 맞게 조정 */
+    display: inline-block;
+    color: lightgray; /* 기본 색상 (빈 별 색상) */
+}
+
+.star.full-star {
+    color: gold;
+}
+
+.star.half-star {
+    background: linear-gradient(90deg, gold 50%, lightgray 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* 텍스트 색상 투명화 */
+}
+
+.star.empty-star {
+    color: #cccccc; /* 빈 별 색상 */
+}

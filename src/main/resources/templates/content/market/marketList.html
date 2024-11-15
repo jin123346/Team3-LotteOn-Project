@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/marketLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/market/marketList.css}">
+    <link rel="stylesheet" th:href="@{/css/market/marketAside.css}">
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        .pagination a {
+            padding: 8px 12px;
+            margin: 0 5px;
+            color: #ef2323;
+            text-decoration: none;
+            border: 1px solid #ef2323;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #ef2323;
+            color: #fff;
+        }
+
+        .pagination a.disabled {
+            pointer-events: none;
+            color: #ccc;
+            border-color: #ccc;
+        }
+
+        .pagination .page-number {
+            padding: 8px 12px;
+            margin: 0 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .pagination .total-pages {
+            color: #666;
+        }
+
+        .pagination .prev, .pagination .next {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+
+        document.querySelectorAll('.seller-rating').forEach(function(ratingElement) {
+            const rating = parseFloat(ratingElement.getAttribute('data-rating'));
+            console.log("Rating:", rating);  // rating 값 확인용 로그
+
+            if (isNaN(rating)) {
+                console.warn("Rating attribute is missing or not a number.");
+                return;  // rating 값이 유효하지 않으면 생성을 중단
+            }
+
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 !== 0;
+
+            // 꽉 찬 별 추가
+            for (let i = 0; i < fullStars; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star', 'full-star');
+                star.innerHTML = '★';
+                ratingElement.appendChild(star);
+            }
+
+            // 반쪽 별 추가
+            if (halfStar) {
+                const star = document.createElement('span');
+                star.classList.add('star', 'half-star');
+                star.innerHTML = '★';
+                ratingElement.appendChild(star);
+            }
+
+            // 빈 별 추가
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star', 'empty-star');
+                star.innerHTML = '☆'; // 빈 별
+                ratingElement.appendChild(star);
+            }
+        });
+
+        let currentPage = 1;
+
+        window.onload = function (){
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+                document.querySelectorAll('.shipping-fee').forEach(function() {
+
+                    // shippingFee 값을 가져와 숫자로 변환
+                    const shippingFee = parseFloat(feeElement.innerText);
+                    console.log("shippingFee"+shippingFee);
+
+                    // shippingFee가 0이면 무료배송으로 텍스트 변경 및 클래스 추가
+                    if (shippingFee === 0) {
+                        feeElement.innerText = "무료배송";
+                        feeElement.classList.add("shipping-label");
+                    }
+                });
+
+            });
+
+
+
+            // const loadMoreButton = document.getElementById("loadMoreButton");
+            // const productContainer = document.querySelector('.product-list');
+            // const paginationInfo = document.getElementById("totalPages");
+            // const totalPages = parseInt(paginationInfo.getAttribute("data-total-pages"));
+            // const sort = paginationInfo.getAttribute("data-sort");
+            // const categoryId = document.getElementById("categoryId").value;
+            //
+            // loadMoreButton.addEventListener("click", function () {
+            //     if (currentPage < totalPages) {
+            //         currentPage++;
+            //         loadMoreProducts(categoryId, sort);
+            //     } else {
+            //         loadMoreButton.disabled = true;
+            //         loadMoreButton.textContent = "No more products";
+            //     }
+            // });
+            //
+            // function loadMoreProducts() {
+            //     currentPage++;
+            //     fetch(`/market/list/${categoryId}?page=${currentPage}&sort=${sort}`, {
+            //         headers: { 'Accept': 'application/json' }
+            //     })
+            //         .then(response => response.json())
+            //         .then(data => {
+            //             console.log("data!!!",data);
+            //             if (data.productSummaryDTOs && data.productSummaryDTOs.length > 0) {
+            //                 data.productSummaryDTOs.forEach(product => {
+            //                     const productItem = document.createElement('div');
+            //                     productItem.className = 'product-item';
+            //                     productItem.innerHTML = `
+            //         <a href="/market/view/${product.categoryId}/${product.productId}">
+            //             <div class="product-image">
+            //                 <img src="${product.savedPath ? '/uploads/' + product.savedPath + '/' + product.file230 : '/uploads/productImg/' + product.file230}" alt="${product.productName}">
+            //             </div>
+            //             <div class="product-details">
+            //                 <h4 class="product-name">${product.productName}</h4>
+            //                 <p class="product-description">${product.productDesc}</p>
+            //             </div>
+            //             <div class="price-seller-info">
+            //                 <span class="final-price">${product.finalPrice}원</span>
+            //             </div>
+            //         </a>
+            //     `;
+            //                     document.querySelector('.product-list').appendChild(productItem);
+            //                 });
+            //
+            //                 // Hide the "Load More" button if no more products
+            //                 if (!data.hasMorePages) loadMoreButton.style.display = 'none';
+            //             }
+            //         })
+            //         .catch(error => console.error('Error loading more products:', error));
+            // }
+        }
+    </script>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/marketAside}"></th:block>
+                <section class="section list">
+
+                    <input type="hidden" id="totalPages" th:data-total-pages="${responseDTO.getTotal()}" th:data-sort="${sort}">
+                    <input type="hidden" id="categoryId" th:value="${categoryDTOs.get(0).getId()}">
+
+                    <div class="sectionWrapper">
+                        <div class="sub_tit">
+                            <h3 id="h3_list">상품목록</h3>
+                            <div class="location">
+
+                                <span><a th:href="@{'/market/main/'+${categoryDTOs.get(2).getId()}}">홈&nbsp;</a></span>
+                                <span th:text="${categoryDTOs.get(2).getName()}">&nbsp;</span>
+                                <span th:text="${categoryDTOs.get(1).getName()}"></span>
+                                <span><strong>[[${categoryDTOs.get(0).getName()}]]&nbsp;</strong></span>
+                            </div>
+                        </div>
+                        <div class="sort-options">
+                            <ul>
+                                <li th:classappend="${sort == 'popularity'} ? 'active' : ''">
+                                    <a th:href="@{'/market/list/' + ${categoryDTOs.get(0).getId()} + '?sort=popularity'}">판매많은순</a>
+                                </li>
+                                <li th:classappend="${sort == 'lowPrice'} ? 'active' : ''">
+                                    <a th:href="@{'/market/list/' +${categoryDTOs.get(0).getId()} + '?sort=lowPrice'}">낮은가격순</a>
+                                </li>
+                                <li th:classappend="${sort == 'highPrice'} ? 'active' : ''">
+                                    <a th:href="@{'/market/list/' + ${categoryDTOs.get(0).getId()} + '?sort=highPrice'}">높은가격순</a>
+                                </li>
+                                <li th:classappend="${sort == 'rating'} ? 'active' : ''">
+                                    <a th:href="@{'/market/list/' + ${categoryDTOs.get(0).getId()} + '?sort=rating'}">평점높은순</a>
+                                </li>
+                                <li th:classappend="${sort == 'reviews'} ? 'active' : ''">
+                                    <a th:href="@{'/market/list/' + ${categoryDTOs.get(0).getId()} + '?sort=reviews'}">후기많은순</a>
+                                </li>
+                                <li th:classappend="${sort == 'recent'} ? 'active' : ''">
+                                    <a th:href="@{'/market/list/' +${categoryDTOs.get(0).getId()}+ '?sort=recent'}">최근등록순</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sub-category-options">
+                            <ul class="sub-category-list">
+                                <!-- 여기에 하위 카테고리 리스트가 동적으로 추가될 예정 -->
+                            </ul>
+                        </div>
+                        <article class="product-list" th:if="${!responseDTO.getProductSummaryDTOs().isEmpty()}">
+                            <div class="product-item" th:each="product:${responseDTO.getProductSummaryDTOs()}">
+                                <a th:href="@{/market/view/{category}/{id}(category=${product.getCategoryId()},id=${product.productId})}">
+                                    <div class="product-image">
+                                        <img th:if="${product.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${product.file230}}" alt="">
+                                        <img th:unless="${product.getSavedPath()==null}" th:src="@{'/uploads/'+${product.savedPath}+'/'+${product.file230}}" alt="">
+                                    </div>
+                                <div class="product-details">
+                                    <h4 class="product-name">[[${product.productName}]]</h4>
+                                    <p class="product-description">[[${product.productDesc}]]</p>
+                                </div>
+                                <div class="price-seller-info">
+                                    <div class="product-price">
+                                        <span class="final-price">[[${product.finalPrice}]]원</span>
+                                        <span class="original-price">[[${product.price}]]원</span>
+                                        <span class="discount">[[${product.discount}]]%↓</span>
+
+                                    </div>
+                                    <div class="shipping-info">
+                                        <span class="shipping-fee" th:text="${product.shippingFee}"></span>
+                                    </div>
+                                </div>
+                                <div class="product-seller">
+                                    <span class="seller-name">[[${product.company}]]</span>
+                                    <span >고객만족우수</span>
+                                    <div class="seller-rating" th:data-rating="${#numbers.formatDecimal(product.rating, 0, 1)}"></div>
+                                    <p th:text="${product.rating} + ' (' + ${product.reviewCount} + ')'"></p>
+                                </div>
+                                </a>
+                            </div>
+
+
+
+                        </article> <!-- Repeat for more products -->
+
+
+                    </div><!--sectionWrapper-->
+                    <div class="pagination">
+                        <a th:href="@{'/market/list/' + ${categoryDTOs.get(0).getId()}(page=${responseDTO.pg - 1})}"
+                           th:if="${responseDTO.pg > 1}">&laquo; Prev</a>
+
+                        <span th:text="${responseDTO.pg}"></span> / <span th:text="${responseDTO.total}"></span>
+
+                        <a th:href="@{'/market/list/' + ${categoryDTOs.get(0).getId()}(page=${responseDTO.pg + 1})}"
+                           th:if="${responseDTO.pg < responseDTO.total}">Next &raquo;</a>
+                    </div>
+                </section>
+
+
+
+
+
+
+
+
+    <script th:src="@{/js/marketAside.js}"></script>
+    <script>
+
+    </script>
+</th:block>

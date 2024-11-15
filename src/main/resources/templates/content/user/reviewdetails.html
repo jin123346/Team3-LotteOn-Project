@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link  rel="stylesheet" th:href="@{/css/user/reviewdetails.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+    <div class="info">
+        <p class="info-title">나의 쇼핑정보</p>
+        <div class="summary-table">
+            <div class="summary-item">
+                <span>주문</span><br>
+                <span class="summary-value" th:text="${orderCount}">2</span>
+            </div>
+            <div class="summary-item">
+                <span>쿠폰</span><br>
+                <span class="summary-value" th:text="${IssuedList.size()}"></span>
+            </div>
+            <div class="summary-item">
+                <span>포인트</span><br>
+                <span class="summary-value" th:text="${totalPoints}">1,000</span> <!-- 최종 포인트 값 출력 -->
+            </div>
+            <div class="summary-item">
+                <span>문의</span><br>
+                <span class="summary-value">1</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="container">
+        <aside>
+            <ul>
+                <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+                <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+                <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+                <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+                <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+                <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+            </ul>
+        </aside>
+
+        <div class="center">
+            <div class="slider-wrapper">
+                <div class="ad" th:each="banner : ${banners}" th:if="${banner.ban_location} == '마이페이지 배너'">
+                    <a th:href="${banner.ban_link}" target="_blank">
+                        <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div class="details">
+                    <p>나의리뷰</p>
+                </div>
+
+                <table class="Review-table">
+                    <tbody>
+                    <tr class="font">
+                        <th>번호</th>
+                        <th>상품명</th>
+                        <th>평점</th>
+                        <th>작성일</th>
+
+                    </tr>
+                    <th:block th:if="${pageResponseReviewDTO.getDtoList().size() > 0}">
+                    <tr class="tr3" th:each="review : ${pageResponseReviewDTO.getDtoList()}">
+                        <td th:text="${review.reviewId}"><data value="">1</data></td>
+                        <td>
+
+                            <data value="">
+                                <div class="product-container">
+                                    <div class="eximg2">
+                                        <a th:href="@{'/market/view/' + ${review.product.categoryId}+ '/' + ${review.product.productId}}">
+                                        <img th:if="${review.reviewFileDTOS.size() > 0}"
+                                             th:src="@{'/uploads/ReviewImg/' + ${review.reviewFileDTOS[0].sname}}"
+                                             alt="상품 이미지">
+                                        </a>
+                                        <span th:if="${review.reviewFileDTOS.size() == 0}" class="no-image-text">이미지 없음</span>
+                                    </div>
+
+                                    <div class="product-info">
+                                        <div>
+                                            <p>상품번호:</p>
+                                            <span class="truncate" th:text="${review.product.productId}">123456</span>
+                                        </div>
+                                        <div>
+                                            <p>상품명:</p>
+                                            <span class="truncate" th:text="${review.product.productName}">치킨</span>
+                                        </div>
+                                        <div>
+                                            <p>리뷰:</p>
+                                            <span class="truncate" th:text="${review.content}">배송이 빠릅니다. 잘 사용하겠습니다.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </data>
+
+                        </td>
+                        <td>
+                            <data class="rating-display" th:text="${review.rating}">평점</data>
+                        </td>
+                        <td>[[${#strings.substring(review.rdate,0,10)}]]</td>
+                    </tr>
+                    </th:block>
+
+                    </tbody>
+
+                    <!-- 리뷰가 없을 때 표시할 내용 -->
+                    <tbody th:unless="${pageResponseReviewDTO.getDtoList().size() > 0}">
+                    <tr>
+                        <td colspan="4" style="text-align: center;">
+                            <div class="review-empty" style="display: flex; flex-direction: column; align-items: center; padding: 80px; justify-content: center; font-size: 15px;">
+                                <img src="/images/common/icon_no_result.svg" alt="No reviews"><br>
+                                <span>리뷰 내용이 없습니다.</span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="reviewpage">
+                <th:block th:if="${pageResponseReviewDTO.prev}">
+                    <a th:href="@{/market/reviewdetails(pg=${pageResponseReviewDTO.start - 1})}" class="prev">이전</a>
+                </th:block>
+
+                <th:block th:each="num : ${#numbers.sequence(pageResponseReviewDTO.start, pageResponseReviewDTO.end)}">
+                    <a th:href="@{/mypage/reviewdetails(pg=${num})}"
+                       th:class="${num == pageResponseReviewDTO.pg} ? 'current' : 'num'" class="num">[[${num}]]</a>
+                </th:block>
+
+                <th:block th:if="${pageResponseReviewDTO.next}">
+                    <a th:href="@{/mypage/reviewdetails(pg=${pageResponseReviewDTO.end + 1})}" class="next">다음</a>
+                </th:block>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+    <script>
+        document.querySelectorAll('.rating-display').forEach(display => {
+            const rating = parseInt(display.textContent);
+            let stars = '';
+
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<span class="star-selected">&#9733;</span>'; // 선택된 별
+                } else {
+                    stars += '<span class="star">&#9734;</span>'; // 선택되지 않은 별
+                }
+            }
+
+            display.innerHTML = stars; // 별 모양으로 업데이트
+        });
+    </script>
+</th:block>

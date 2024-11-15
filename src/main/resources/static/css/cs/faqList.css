@@ -1,0 +1,56 @@
+.faq_container {
+    margin-left: 25px;
+}
+/*첫번째 자주 묻는 질문*/
+h2 {
+    font-weight: bold;
+    font-size: large;
+    margin: 30px 40px 0px;
+}
+
+.faq_List {
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 7px;
+    margin: 20px 40px;
+}
+
+.faq_li {
+    height: 50px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.faq_li:last-child {
+    border-bottom: none;
+}
+
+.faq_List li a {
+    display: inline-block;
+    margin: 15px 20px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.faq_li span {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.faq_li span:nth-child(1) {
+    color: rgb(17, 86, 165);
+    font-weight: bold;
+}
+
+.faq_show {
+    text-align: center;
+}
+
+/*.showMore {*/
+/*    display: block; !* a 태그를 블록 요소로 변경 *!*/
+/*    text-align: center; !* 텍스트를 가운데 정렬 *!*/
+/*    margin: 0 auto; !* 부모 요소 내에서 중앙 정렬 *!*/
+/*}*/
+
+/*hover 추가*/
+.faq_li a:hover {
+    background: linear-gradient(to top, #ffe0e0 50%, transparent 50%);
+}

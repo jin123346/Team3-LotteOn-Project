@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/sellerLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn::Admin</title>
+        <link rel="stylesheet" th:href="@{/css/admin/adminproductList.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/js/productListAjax.js}"></script>
+</head>
+<body>
+<th:block layout:fragment="content">
+            <div id="admin_service">
+                <section>
+
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                    <section id="admin_navi">
+                        <p>상품현황</p>
+                        <p><a href="#">HOME</a> > 상품관리 > 상품목록</p>
+                    </section>
+                
+              
+                    <article id="admin_banner_main">
+                        <div>
+                            <table class="admin_banner_table">
+                                <colgroup>
+                                    <col style="width: 6%">
+                                    <col style="width: 9%">
+                                    <col style="width: 11%">
+                                    <col style="width: 16%">
+                                    <col style="width: 8%">
+                                    <col style="width: 8%">
+                                    <col style="width: 8%">
+                                    <col style="width: 7%">
+                                    <col style="width: 9%">
+                                    <col style="width: 9%">
+                                    <col style="width: 9%">
+                                </colgroup>
+                                <div>
+                                <select id="shopsearch" >
+                                    <option value="productName">상품명</option>
+                                    <option value="productCode">상품번호</option>
+                                    <option th:if="${#authentication.getAuthorities().contains('ROLE_ADMIN')}" value="sellerId">판매자</option>
+                                    <option value="manufacturer">제조사</option>
+                                </select>
+                                <input id="search" type="text" placeholder="키워드 입력">
+                                <button id="searchbtn" type="button">검색</button>
+                                </div>
+
+                                <tr>
+                                    <th><input type="checkbox" id="selectAll"> </th>
+                                    <th>사진</th>
+                                    <th>상품코드</th>
+                                    <th>상품명</th>
+                                    <th>판매가격</th>
+                                    <th>할인율</th>
+                                    <th>포인트</th>
+                                    <th>재고</th>
+                                    <th>판매자</th>
+                                    <th>조회</th>
+                                    <th>관리</th>
+                                </tr>
+                                <tbody id="productListContainer">
+
+
+                                <th:block th:if="${productPageResponseDTO.getProductDTOs().isEmpty()}">
+                                    <tr>
+                                        <th th:colspan="11">등록하신 상품이 없습니다.</th>
+                                    </tr>
+                                </th:block>
+                                <th:block th:unless="${productPageResponseDTO.getProductDTOs().isEmpty()}">
+                                    <tr th:each="product:${productPageResponseDTO.getProductDTOs()}">
+                                        <td>
+                                            <input type="checkbox" class="product-checkbox"  th:data-product-id="${product.productId}">
+                                        </td>
+                                        <td th:if="${product.getSavedPath()==null}"><img th:src="@{'/uploads/productImg/' + ${product.file190}}"></td>
+                                        <td th:unless="${product.getSavedPath()==null}"><img th:src="@{'/uploads/'+${product.savedPath}+'/'+${product.file190}}"></td>
+                                        <td><a th:href="@{'/market/view/'+${product.categoryId}+'/'+${product.productId}}">[[${product.productCode}]]</a></td>
+                                        <td>[[${product.productName}]]</td>
+                                        <td>[[${product.price}]]</td>
+                                        <td><span class="discount">[[${product.discount}]]</span></td>
+                                        <td>[[${product.point}]]</td>
+                                        <td>[[${product.stock}]]</td>
+                                        <td>[[${product.sellerId}]]</td>
+                                        <td>[[${product.hit}]]</td>
+                                        <td>
+                                            <a th:href="@{/seller/product/delete(id=${product.productId})}" class="delete">[삭제]</a><br>
+                                            <a th:href="@{'/seller/product/modify/'+${product.productId}}" class="edit">[수정]</a>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </article>
+                    <div class="paging">
+                        <th:block th:if="${productPageResponseDTO.prev}">
+                            <a th:unless="${productPageResponseDTO.getKeyword()!=null}" th:href="@{/seller/product/list(pg=${productPageResponseDTO.start - 1})}" class="prev">이전</a>
+                            <a th:if="${productPageResponseDTO.getKeyword()!=null}" th:href="@{/seller/product/list(pg=${productPageResponseDTO.start - 1},type=${productPageResponseDTO.type}, keyword=${productPageResponseDTO.keyword})}" class="prev">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num : ${#numbers.sequence(productPageResponseDTO.start, productPageResponseDTO.end)}">
+                            <a th:unless="${productPageResponseDTO.getKeyword()!=null}" th:href="@{/seller/product/list(pg=${num})}"
+                               th:classappend="${num == productPageResponseDTO.pg} ? 'current' : 'num'">
+                                [[${num}]]
+                            </a>
+                            <a  th:if="${productPageResponseDTO.getKeyword()!=null}" th:href="@{/seller/product/list(pg=${num},type=${productPageResponseDTO.type}, keyword=${productPageResponseDTO.keyword})}"
+                               th:classappend="${num == productPageResponseDTO.pg} ? 'current' : 'num'">
+                                [[${num}]]
+                            </a>
+                        </th:block>
+
+                        <th:block th:if="${productPageResponseDTO.next}">
+                            <a th:href="@{/seller/product/list(pg=${productPageResponseDTO.end + 1})}" class="next">다음</a>
+                            <a th:if="${productPageResponseDTO.getKeyword()!=null}" th:href="@{/seller/product/list(pg=${productPageResponseDTO.end + 1},type=${productPageResponseDTO.type}, keyword=${productPageResponseDTO.keyword})}" class="next">다음</a>
+                        </th:block>
+                    </div>
+
+                    <div class="list_button">
+                        <button id="deleteSelectedButton">선택삭제</button>
+                        <button><a th:href="@{/seller/product/register}">상품등록</a></button>
+                    </div>
+                </section>
+
+                <script th:src="@{/js/productList.js}"></script>
+</th:block>
+</body>

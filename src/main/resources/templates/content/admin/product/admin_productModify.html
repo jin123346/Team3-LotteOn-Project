@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/sellerLayout.html}" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn::Admin - Edit Product</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminProductReg.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminProductEdit.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>상품 수정</p>
+                <p><a href="#">HOME</a> > 관리자 상품 수정</p>
+            </section>
+
+            <form action="/seller/product/edit/{id}" method="post" id="productEditForm" enctype="multipart/form-data">
+                <!-- Category Selection -->
+                <article id="admin_version">
+                    <div class="top1">상품분류</div>
+                    <div><span class="top2">상품 분류는 수정이 불가능합니다.</span></div>
+                    <table class="admin_version_table">
+                        <colgroup>
+                            <col style="width: 150px">
+                            <col style="width: 750px">
+                        </colgroup>
+                        <tr>
+                            <td>1차 분류</td>
+                            <td>
+                                <span th:text="${categoryDTOs.get(2).getName()}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2차 분류</td>
+                            <td>
+                                <span th:text="${categoryDTOs.get(1).getName()}"></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3차 분류</td>
+                            <td>
+                                <span th:text="${categoryDTOs.get(0).getName()}"></span>
+
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+
+                <!-- Basic Information -->
+                <article id="admin_site">
+                    <div class="top1">기본정보</div>
+                    <table class="admin_site_table">
+                        <colgroup>
+                            <col style="width: 150px;">
+                            <col style="width: 750px">
+                        </colgroup>
+                        <tr>
+                            <td>상품명</td>
+                            <td>
+                                <input type="text" th:value="${product.productName}" name="productName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>기본설명</td>
+                            <td>
+                                <input type="text"th:value="${product.productDesc}" name="productDesc">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제조사</td>
+                            <td>
+                                <input type="hidden" name="sellerId" th:value="${product.sellerId}">
+                                <input type="text" th:value="${product.seller.getCompany()}" name="madeIn">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>상품금액</td>
+                            <td>
+                                <input type="text" th:value="${product.price}" name="price"> 원
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>할인율</td>
+                            <td>
+                                <input type="text" th:value="${product.discount}"name="discount"> %
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>재고수량</td>
+                            <td>
+                                <input type="text" placeholder="옵션이 없는 경우 필수 작성"  th:value="${product.stock}" name="stock"> 개
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td>
+                                <input type="number" placeholder="" th:value="${product.shippingFee}" name="shippingFee"> 원/
+                                <input type="number" placeholder="배송비 조건금액" th:value="${product.shippingTerms}" name="shippingTerms"> 이상 무료배송
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>상품 이미지</td>
+                            <td class="productImg">
+                                <div>
+                                    <img th:if="${product.getSavedPath()==null}" th:src="@{'/uploads/'+${product.getProductFiles().get(0).getPath()}+'/'+${product.getProductFiles().get(0).getSName()}}" alt="">
+                                    <img th:unless="${product.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${product.getProductFiles().get(0).getSName()}}" alt="">
+                                    <div>
+                                        <input type="file" class="product_img1" name="files[0]" placeholder="선택된 파일 없음">
+                                        <span>크기 190 x 190, 상품 목록에 출력될 이미지입니다.</span> <br>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <img th:if="${product.getSavedPath()==null}" th:src="@{'/uploads/'+${product.getProductFiles().get(1).getPath()}+'/'+${product.getProductFiles().get(1).getSName()}}" alt="">
+                                    <img th:unless="${product.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${product.getProductFiles().get(1).getSName()}}" alt="">
+                                    <div>
+                                        <input type="file" class="product_img2" name="files[1]" placeholder="선택된 파일 없음">
+                                        <span>크기 230 x 230, 상품 메인에 출력될 이미지입니다.</span> <br>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <img th:if="${product.getSavedPath()==null}" th:src="@{'/uploads/'+${product.getProductFiles().get(2).getPath()}+'/'+${product.getProductFiles().get(2).getSName()}}" alt="">
+                                    <img th:unless="${product.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${product.getProductFiles().get(2).getSName()}}" alt="">
+                                    <div>
+                                        <input type="file" class="product_img3" name="files[2]" placeholder="선택된 파일 없음">
+                                        <span>크기 456 x 456, 상품 상세에 출력될 이미지입니다.</span> <br>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>상품 상세이미지</td>
+                            <td class="productImg">
+                                <div>
+                                    <img th:if="${product.getSavedPath()==null}" th:src="@{'/uploads/'+${product.getProductFiles().get(3).getPath()}+'/'+${product.getProductFiles().get(3).getSName()}}" alt="">
+                                    <img th:unless="${product.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${product.getProductFiles().get(3).getSName()}}" alt="">                                 <div>
+                                        <input type="file" class="product_img3" name="files[2]" placeholder="선택된 파일 없음">
+                                        <span>크기 456 x 456, 상품 상세에 출력될 이미지입니다.</span> <br>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                    </table>
+                </article>
+
+                <!-- Option Management -->
+                <article id="option-container">
+                    <div class="top1">
+                        <span>옵션정보</span>
+                        <div>
+                            <button type="button" id="GroupModify" onclick="enableOptionEditing()" >수정하기</button>
+                            <button type="button" onclick="addOptionGroup()">옵션 그룹 추가</button>
+                        </div>
+                    </div>
+
+                    <table  class="admin_site_table" id="optionGroupTable">
+                        <colgroup>
+                            <col style="width: 150px;">
+                            <col style="width: 750px">
+                        </colgroup>
+                        <th:block th:each="optionGroup, index : ${product.getOptionGroups()}">
+                            <tr>
+                                <td>
+                                    <label for="optionGroupCheck[${index}]">옵션 그룹명</label>
+                                    <input type="checkbox" id="optionGroupCheck[${index}]">
+                                </td>
+                                <td>
+                                    <div>
+                                        <input type="text" th:value="${optionGroup.getGroupName()}" name="optionGroupName[]" readonly>
+                                        <button type="button" onclick="removeOptionGroup(this)">삭제</button>
+                                        <button type="button" onclick="addOptionItem(this)">옵션 항목 추가</button>
+
+                                    </div>
+
+                                    <span th:text="${optionGroup.isDeleted() ?'비활성':'활성'}"></span>
+                                </td>
+                            </tr>
+                            <tr class="optionItem">
+                                <td>옵션 항목</td>
+                                <td class="itemContainer">
+                                    <div class="option-items" th:each="item:${optionGroup.getOptionItems()}">
+                                        <div>
+                                            <input type="text" th:value="${item.optionName}" name="optionItems" readonly>
+                                            <button type="button" onclick="removeOptionItem(this)">삭제</button>
+                                        </div>
+                                        <span th:text="${item.isDeleted() ?'비활성':'활성'}"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </table>
+                </article>
+
+                <article id="combination-container">
+                    <div class="top1">
+                       <span>옵션 조합</span>
+                        <div>
+                            <button type="button" id="newCombination" onclick="generateCombinations()">옵션조합하기</button>
+                        </div>
+                    </div>
+                    <div id="stock-input-area"></div>
+                    <div id="codeArea" class="hidden"></div>
+                    <table  class="admin_site_table">
+                        <colgroup>
+                            <col style="width: 225px;">
+                            <col style="width: 225px">
+                            <col style="width: 225px">
+                            <col style="width: 225px">
+                        </colgroup>
+                            <tr>
+                                <th>옵션 조합</th>
+                                <th>옵션 코드</th>
+                                <th>옵션 추가금액</th>
+                                <th>옵션 재고수량</th>
+                            </tr>
+                            <tr th:each="combination, index : ${product.getOptionCombinations()}">
+                                <td>
+                                    <input type="hidden" name="optionCombinations[${index}].combinationId" th:value="${combination.combinationId}">
+                                    <input type="text" name="optionCombinations[${index}].combination" th:value="${combination.combination}">
+                                </td>
+                                <td><input type="text" name="optionCombinations[${index}].optionCode" th:value="${combination.optionCode}"></td>
+                                <td><input type="text" name="optionCombinations[${index}].additionalPrice" th:value="${combination.additionalPrice}"></td>
+                                <td><input type="text" name="optionCombinations[${index}].stock" th:value="${combination.stock}"></td>
+                            </tr>
+                    </table>
+                </article>
+
+                <!--                    <div id="option-container">-->
+<!--                        <div class="option-group">-->
+<!--                            <div>-->
+<!--                                <label>옵션 그룹명</label>-->
+<!--                                <input type="text" name="optionGroupName[]" placeholder="옵션 그룹명을 입력하세요">-->
+<!--                            </div>-->
+<!--                            <div class="option-items">-->
+<!--                                <label>옵션 항목</label>-->
+<!--                                <div class="addOption">-->
+<!--                                    <input type="text" name="optionItems" placeholder="옵션 항목을 입력하세요">-->
+<!--                                </div>-->
+<!--                                <button type="button" onclick="addOptionItemField(this)">옵션 항목 추가</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <button type="button" onclick="addNewOptionGroup()">옵션 그룹 추가</button>-->
+<!--                    </div>-->
+
+                <!-- Product Information Disclosure -->
+                <article id="admin_company_info">
+                    <div class="top1">상품정보 제공고시</div>
+                    <div><span class="top2">[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록해야 되는 정보입니다.</span></div>
+                    <table class="admin_company_info_table">
+                        <colgroup>
+                            <col style="width: 150px">
+                            <col style="width: 750px">
+                        </colgroup>
+                        <tr>
+                            <td>상품상태</td>
+                            <td>
+                                <input type="text" placeholder="ex: 새상품" th:value="${product.productDetails.getCondition()}" name="condition">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>부가세 면세여부</td>
+                            <td>
+                                <input type="text" placeholder="ex: 과세상품"  th:value="${product.productDetails.getTax()}" name="tax">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>영수증 발행</td>
+                            <td>
+                                <input type="text" class="custom-width" name="receiptIssuance"  th:value="${product.productDetails.getReceiptIssuance()}" placeholder="ex: 발행가능">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>사업자구분</td>
+                            <td>
+                                <input type="text" class="custom-width" name="busniesstype"  th:value="${product.productDetails.getBusniesstype()}" placeholder="ex: 사업자 판매자">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>원산지</td>
+                            <td>
+                                <input type="text" placeholder="ex: 국내산"  th:value="${product.productDetails.getManufactureCountry()}" name="manufactureCountry">
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+
+
+
+                <div class="regbox">
+                    <button type="submit" class="regbutton">수정하기</button>
+                </div>
+            </form>
+        </section>
+<!--        <script th:src="@{/js/CategoryLoad.js}"></script>-->
+
+</th:block>
+</body>
+</html>

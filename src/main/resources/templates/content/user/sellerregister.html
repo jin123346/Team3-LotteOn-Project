@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/user/memberregister.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/validation.js}"></script>
+    <script th:src="@{/js/postcode.js}"></script>
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+        <nav class="registerTop">
+            <div>
+                <p>판매자 회원가입</p>
+            </div>
+        </nav>
+        <form action="/user/sellerregister" method="POST">
+            <table>
+                <tr>
+                    <th><label for="uid">아이디</label></th>
+                    <td>
+                        <input type="text" id="uid" name="uid" placeholder="영문, 숫자 4-12자 설정" required>
+                        <button type="button" id="btnCheckUid">ID 중복확인</button>
+                        <span class="validation-message" id="uidValidation" style="margin-left: 10px;"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="pass">비밀번호</label></th>
+                    <td>
+                        <input type="password" id="pass" name="pass" placeholder="영문, 숫자, 특수문자 8-12자 설정" required>
+                        <span class="validation-message" id="passValidation" style="color: red;"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="passwordConfirm">비밀번호확인</label></th>
+                    <td>
+                        <input type="password" id="passwordConfirm" name="passConfirm" placeholder="비밀번호 확인" required>
+                        <span class="validation-message" id="passConfirmValidation" style="color: red;"></span>
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <th><label for="company">회사명</label></th>
+                    <td><input type="text" id="company" name="company" placeholder="회사명입력 예 ) (주) 다판다" required></td>
+                </tr>
+                <tr>
+                    <th><label for="representative">대표</label></th>
+                    <td><input type="text" id="representative" name="ceo" placeholder="이름입력" required></td>
+                </tr>
+                <tr>
+                    <th><label for="bno">사업자등록번호</label></th>
+                    <td><input type="text" id="bno" name="bno" placeholder="사업자등록번호입력" required></td>
+                </tr>
+                <tr>
+                    <th><label for="mo">통신판매업번호</label></th>
+                    <td><input type="text" id="mo" name="mo" placeholder="통신판매업번호입력" required></td>
+                </tr>
+                <tr>
+                    <th><label for="phone">전화번호</label></th>
+                    <td><input type="tel" id="phone" name="hp" placeholder="전화번호입력" required></td>
+                </tr>
+                <tr>
+                    <th><label for="fax">팩스</label></th>
+                    <td><input type="text" id="fax" name="fax" placeholder="팩스번호입력" required></td>
+                </tr>
+                <tr>
+                    <th><label for="zipcode">주소</label></th>
+                    <td>
+                        <input type="text" id="zipcode" name="postcode" placeholder="우편번호 입력" required>
+                        <button type="button" id="btnPostCode">우편번호 검색</button>
+                        <input type="text" id="address1" name="addr1" placeholder="기본주소 입력" required>
+                        <input type="text" id="address2" name="addr2" placeholder="상세주소 입력">
+                    </td>
+                </tr>
+            </table>
+            <div class="btn-container">
+                <button type="submit" class="btn">회원가입</button>
+            </div>
+        </form>
+    </main>
+    <script>
+        // DOMContentLoaded를 사용하여 DOM이 완전히 로드된 후에 함수 설정
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('btnPostCode').onclick = function () {
+                postcode(); // postcode 함수 호출
+            };
+        });
+    </script>
+</th:block>

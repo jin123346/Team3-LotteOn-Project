@@ -1,0 +1,39 @@
+
+<div class="info">
+  <p class="info-title">나의 쇼핑정보</p>
+  <div class="summary-table">
+    <div class="summary-item">
+      <span>주문</span><br>
+      <span class="summary-value">2</span>
+    </div>
+    <div class="summary-item">
+      <span>쿠폰</span><br>
+      <span class="summary-value" th:text="${IssuedList.size()}"></span>
+      <span class="summary-value">1</span>
+    </div>
+    <div class="summary-item">
+      <span>포인트</span><br>
+      <span class="summary-value">1,000</span>
+    </div>
+    <div class="summary-item">
+      <span>문의</span><br>
+      <span class="summary-value">1</span>
+    </div>
+  </div>
+</div>
+
+
+<div id="container">
+  <aside>
+    <ul>
+
+      <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+      <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+      <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+      <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+<!--      <li><a th:href="@{/mypage/qnadetails(uid=${#authentication.getName()})}">나의리뷰</a></li>-->
+      <li><a th:href="@{/mypage/qnadetails/{uid}(uid=${#authentication.getName()})}">나의리뷰</a></li>
+      <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+      <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+    </ul>
+  </aside>

@@ -1,0 +1,90 @@
+.admin_menu > li:nth-child(3) .admin_sub_menu > li:nth-child(1) > a {
+     text-decoration: underline;
+}
+
+
+.admin_banner {
+    width: 900px;
+    background-color: #bdbdbd;
+    height: 50px;
+
+    margin: 20px auto;
+}
+.banner_menu {
+    display: flex;
+    justify-content: left;
+}
+.banner_menu li {
+    width: 90px;
+    display: flex;
+    height: 50px;
+    margin: 0 auto;
+    color: rgb(24, 24, 24);
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner_menu li:hover {
+    color: #ddd;
+}
+
+#admin_banner_main div {font-weight: bold; margin: 20px auto; width: 900px;}
+.admin_banner_table {width: 900px; border-collapse: collapse; border-top: 1px solid black;}
+.admin_banner_table td, th {border-bottom: 1px solid rgb(196, 196, 196); height: 80px; text-align: center;}
+.admin_banner_table th {height: 50px;}
+.admin_banner_table td img{
+    width: 100%;
+    height: 100%
+}
+
+
+button{cursor: pointer;}
+.list_button {width: 900px; height: 250px; margin: 20px auto; display: flex; }
+.list_button button:nth-of-type(1) {width: 80px; height: 35px; margin-top: 150px; background: #bfbfbf; color: white;  border: none;}
+
+
+
+#shopsearch {
+    width: 95px;
+    height: 33px;
+}
+#search{
+    width: 145px;
+    height: 33px;
+}
+#serachbtn{
+    width: 62px;
+    height: 33px;
+    color: #FFFFFF;
+    background: #BFBFBF;
+    border: none;
+}
+input[type="text"]{
+    padding: 10px;
+}
+
+.member_status_normal{
+    color: #00b050;
+}
+.member_status_stop{
+    color: #ff0000;
+}
+
+.activeMember {
+    color: green;  /* 정상: 초록 */
+}
+
+.suspended {
+    color: orange;  /* 중지: 주황 */
+}
+
+.dormant {
+    color: gray;  /* 휴면: 회색 */
+}
+
+.withdrawn {
+    color: red;  /* 탈퇴: 빨강 */
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin QnA Page</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminqnalist.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+<div id="admin_service">
+    <section>
+        <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+        <section id="admin_navi">
+            <p>문의하기</p>
+            <p>
+                <a href="#">HOME</a>
+                <span>></span>
+                <a href="#">고객센터</a>
+                <span>></span>
+                <a href="#">문의하기</a>
+            </p>
+        </section>
+
+        <article id="admin_qna_list">
+            <div>
+                <div>
+                    <select id="selectOption1" class="qnaselect">
+                        <option value="" disabled selected>1차 선택</option>
+                        <th:block th:each="board : ${boardCate}">
+                            <option th:value="${board.boardCateId}" th:text="${board.name}"></option>
+                        </th:block>
+                    </select>
+                    <select id="selectOption2" class="qnaselect">
+                        <option value="2차 선택" disabled selected>2차 선택</option>
+                    </select>
+                </div>
+                <table class="admin_qna_list_table">
+                    <colgroup>
+                        <col style="width: 7.5%">
+                        <col style="width: 7.5%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 30%">
+                        <col style="width: 10%">
+                        <col style="width: 15%">
+                        <col style="width: 10%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" class="checkbox"></th>
+                        <th>번호</th>
+                        <th>1차유형</th>
+                        <th>2차유형</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:if="${qnaPageResponseDTO.getQnadtoList() ==null}">
+                        qna가 없습니다.
+                    </th:block>
+                    <th:block th:unless="${qnaPageResponseDTO.getQnadtoList() ==null}">
+                        <tr th:each="qna, i:${qnaPageResponseDTO.getQnadtoList()}">
+                        <td><input type="checkbox" class="checkboxes" th:value = "${qna.qnaNo}"></td>
+                        <td>[[${qnaPageResponseDTO.startNo - i.index}]]</td>
+                        <td th:text="${qna.getCategory().getParent().getName()}" class="qnatype1">가입문의</td>
+                        <td th:text="${qna.getCategory().getName()}" class="qnatype2">가입</td>
+                        <td>
+                            <a th:href="@{/admin/qna/reply(no=${qna.qnaNo})}" th:text="${qna.qnatitle}"></a>
+                        </td>
+                        <td th:text="${qna.qnawriter}">300</td>
+                        <td>[[${#strings.substring(qna.date,0,10)}]]</td>
+                        <td>
+                           <span class="qna-status" th:text="${qna.qna_status.name() == 'review' ? '검토중' : '답변완료'}"></span>
+                        </td>
+                    </tr>
+                <tbody>
+                </table>
+        </article>
+        <div class="list_button">
+            <button id="qna_delete_btn">선택삭제</button>
+        </div>
+        <div class="qnapage">
+            <th:block th:if="${qnaPageResponseDTO.prev}">
+                <a th:if="${qnaPageResponseDTO.getParentId() == null && qnaPageResponseDTO.getChildId() == null}" th:href="@{/admin/qna/list(pg=${(qnaPageResponseDTO.start)-1})}" class="qnaprev">이전</a>
+                <a th:if="${qnaPageResponseDTO.getParentId() != null}" th:href="@{/admin/qna/list(pg=${qnaPageResponseDTO.start - 1}, parentId=${qnaPageResponseDTO.getParentId()})}" th:class="qnaprevs">이전</a>
+                <a th:if="${qnaPageResponseDTO.getChildId() != null}" th:href="@{/admin/qna/list(pg=${qnaPageResponseDTO.start - 1}, parentId=${qnaPageResponseDTO.getChildId()})}" th:class="qnaprevs">이전</a>
+
+            </th:block>
+
+            <th:block th:each="num:${#numbers.sequence(qnaPageResponseDTO.start,qnaPageResponseDTO.end)}">
+                <a th:if="${qnaPageResponseDTO.getParentId() == null && qnaPageResponseDTO.getChildId() == null}" th:href="@{/admin/qna/list(pg=${num})}" th:class="${num == qnaPageResponseDTO.pg} ? 'qnacurrent' : 'qnanum'">[[${num}]]</a>
+                <a th:if="${qnaPageResponseDTO.getParentId() != null}" th:href="@{/admin/qna/list(pg=${num}, parentId=${qnaPageResponseDTO.getParentId()})}" th:class="${num == qnaPageResponseDTO.pg} ? 'qnacurrent' : 'qnanum'">[[${num}]]</a>
+                <a th:if="${qnaPageResponseDTO.getChildId() != null}" th:href="@{/admin/qna/list(pg=${num}, childId=${qnaPageResponseDTO.getChildId()})}" th:class="${num == qnaPageResponseDTO.pg} ? 'qnacurrent' : 'qnanum'">[[${num}]]</a>
+            </th:block>
+
+            <th:block th:if="${qnaPageResponseDTO.next}">
+                <a th:if="${qnaPageResponseDTO.getParentId() == null && qnaPageResponseDTO.getChildId() == null}" th:href="@{/admin/qna/list(pg=${(qnaPageResponseDTO.end)+1})}" class="qnanext">다음</a>
+                <a th:if="${qnaPageResponseDTO.getParentId() != null}" th:href="@{/admin/qna/list(pg=${(qnaPageResponseDTO.end)+1}, parentId=${qnaPageResponseDTO.getParentId()})}" class="qnanext">다음</a>
+                <a th:if="${qnaPageResponseDTO.getChildId() != null}" th:href="@{/admin/qna/list(pg=${(qnaPageResponseDTO.end)+1}, childId=${qnaPageResponseDTO.getChildId()})}" class="qnanext">다음</a>
+            </th:block>
+        </div>
+    </section>
+    <!--선택삭제 스크립트-->
+    <script>
+        //제목줄 체크박스
+        const checkAll = document.querySelector('.checkbox');
+        //제목줄 제외 체크박스
+
+        //1. 제목줄 체크박스 클릭시
+        checkAll.addEventListener('click', function(){
+            const isChecked = checkAll.checked; // 제목줄 체크, 체크여부 변수
+            const checkBoxes = document.querySelectorAll('.checkboxes'); //제목줄 제외 체크박스
+
+            // 전체선택
+            if(isChecked){
+                for(const checkBox of checkBoxes){
+                    checkBox.checked = true;
+
+                }
+                // 전체해제
+            }else {
+                for(const checkBox of checkBoxes){
+                    checkBox.checked = false;
+
+                }
+            }
+        })
+
+        //2. 선택항목 체크박스 클릭시 제목줄 체크박스 업데이트
+        const checkBoxes = document.querySelectorAll('.checkboxes');
+
+        checkBoxes.forEach(checkBox => {
+            checkBox.addEventListener('click' , function (){
+                const checkCount = document.querySelectorAll('.checkboxes:checked').length;
+                if(checkCount === checkBoxes.length){
+                    checkAll.checked = true;
+                }else {
+                    checkAll.checked = false;
+                }
+            })
+        })
+        const btn_check_delete = document.getElementById('qna_delete_btn');
+        btn_check_delete.addEventListener('click', function (e) {
+            e.preventDefault();
+            const checks = document.querySelectorAll('.checkboxes:checked');
+
+            if (checks.length === 0) {
+                alert('삭제할 항목을 선택하세요');
+                return;
+            }
+            const data = Array.from(checks).map(checkbox => checkbox.value);
+            fetch('/admin/qna/delete/check', {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+                .then(resp => {
+                    if (resp.ok == false) {
+                        throw new Error("실패")
+                    }
+                    alert('성공');
+                    checks.forEach(checkbox => {
+                        const tr = checkbox.closest('tr');
+                        if (tr) {
+                            tr.remove();
+                            location.reload(); // 새로 추가.. reload말고 다른방법 생각해보기..
+                        }
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert('실패')
+
+
+                })
+        })
+
+    </script>
+    <script>
+        const selectOption1 = document.getElementById('selectOption1');
+        const selectOption2 = document.getElementById('selectOption2');
+
+
+        selectOption1.addEventListener('change',function() {
+            const parentId = this.value;
+            console.log("부모부모부모:" + parentId);
+
+            selectOption2.innerHTML = '<option value="2차 선택" disabled selected>2차 선택</option>';
+
+            fetch(`/api/faq/subcate/${parentId}`)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data);
+                    data.forEach(boardsubCate => {
+                        const option = document.createElement('option');
+                        option.value = boardsubCate.boardCateId;
+                        option.text = boardsubCate.name;
+                        selectOption2.appendChild(option)
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            
+        //부모 카테고리로 요청
+        fetch(`/api/qna/list/page?parentId=${parentId}`)
+            .then(resp => resp.json())
+            .then(qnaPageResponseDTO => {
+                console.log("야오야오야옹야옹야오양옹야옹야옹ㅇ:", qnaPageResponseDTO);
+                console.log("흐어어엉 : " + qnaPageResponseDTO.parentId);
+
+                // 목록 갱신
+                const qnaListElement = document.querySelector('.admin_qna_list_table tbody');
+                qnaListElement.innerHTML = ''; // 기존 목록 초기화
+
+                // 목록 업데이트
+                qnaPageResponseDTO.qnadtoList.forEach(qna => {
+                    const row = `
+                              <tr>
+                                    <td><input type="checkbox" class="checkboxes" value="${qna.qnatitle}"></td>
+                                    <td>${qnaPageResponseDTO.startNo--}</td>
+                                    <td>${qna.category.parent.name}</td>
+                                    <td>${qna.category.name}</td>
+                                    <td>
+                                        <a href="/admin/qna/reply?no=${qna.qnaNo}">${qna.qnatitle}</a>
+                                    </td>
+                                    <td>${qna.qnawriter}</td>
+                                    <td>${qna.date.substring(0, 10)}</td>
+                                    <td>
+                                       <span class="qna-status">${qna.qna_status === 'review' ? '검토중' : '답변완료'}</span>
+                                    </td>
+                                    <td>${qnaPageResponseDTO.parentId}</td>
+
+                              </tr>`;
+                    qnaListElement.innerHTML += row;
+                    console.log("아니니니니니니니니니ㅣㄴ니 : " + qna.status);
+                });
+
+                // 페이지네이션 요소 선택
+                const paginationElement = document.querySelector('.qnapage');
+                paginationElement.innerHTML = ''; // 기존 내용 초기화
+
+                // 이전 버튼
+                if (qnaPageResponseDTO.prev) {
+                    const prevLink = qnaPageResponseDTO.parentId == null
+                        ? `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.start - 1}" class="qnaprev">이전</a>`
+                        : `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.start - 1}&parentId=${qnaPageResponseDTO.parentId}" class="qnaprevs">이전</a>`;
+                    paginationElement.innerHTML += prevLink;
+                }
+
+                // 페이지 번호
+                for (let num = qnaPageResponseDTO.start; num <= qnaPageResponseDTO.end; num++) {
+                    const pageLink = qnaPageResponseDTO.parentId == null
+                        ? `<a href="/admin/qna/list?pg=${num}" class="${num === qnaPageResponseDTO.pg ? 'qnacurrents' : 'qnanums'}">${num}</a>`
+                        : `<a href="/admin/qna/list?pg=${num}&parentId=${qnaPageResponseDTO.parentId}" class="${num === qnaPageResponseDTO.pg && qnaPageResponseDTO.childId === qnaPageResponseDTO.childId ? 'qnacurrents' : 'qnanums'}">${num}</a>`;
+                    paginationElement.innerHTML += pageLink;
+                }
+
+                // 다음 버튼
+                if (qnaPageResponseDTO.next) {
+                    const nextLink = qnaPageResponseDTO.parentId == null
+                        ? `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.end + 1}" class="qnanext">다음</a>`
+                        : `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.end + 1}&parentId=${qnaPageResponseDTO.parentId}" class="qnanexts">다음</a>`;
+                    paginationElement.innerHTML += nextLink;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        })
+        //자식 카테고리로 요청
+        selectOption2.addEventListener('change', function (){
+            const parentId = selectOption1.value;
+            const childId = this.value;
+            console.log("자식자식자식 : " + childId);
+            fetch(`/api/qna/list/page?parentId=${parentId}&childId=${childId}`)
+                .then(resp => resp.json())
+                .then(qnaPageResponseDTO => {
+                    console.log("바우오웅와우옹우ㅏ와우오아웅:", qnaPageResponseDTO);
+                    // 목록 갱신
+                    const qnaListElement = document.querySelector('.admin_qna_list_table tbody');
+                    qnaListElement.innerHTML = ''; // 기존 목록 초기화
+
+                    // 목록 업데이트
+                    qnaPageResponseDTO.qnadtoList.forEach(qna => {
+                        const row = `
+                              <tr>
+                                    <td><input type="checkbox" class="checkboxes" value="${qna.qnaNo}"></td>
+                                    <td>${qnaPageResponseDTO.startNo--}</td>
+                                    <td>${qna.category.parent.name}</td>
+                                    <td>${qna.category.name}</td>
+                                    <td>
+                                        <a href="/admin/qna/reply?no=${qna.qnaNo}">${qna.qnatitle}</a>
+                                    </td>
+                                    <td>${qna.qnawriter}</td>
+                                    <td>${qna.date.substring(0, 10)}</td>
+                                    <td>
+                                       <span class="qna-status">${qna.qna_status === 'review' ? '검토중' : '답변완료'}</span>
+                                    </td>
+                              </tr>`;
+                        qnaListElement.innerHTML += row;
+                    });
+
+                    // 페이지네이션 요소 선택
+                    const paginationElement = document.querySelector('.qnapage');
+                    paginationElement.innerHTML = ''; // 기존 내용 초기화
+
+                    // 이전 버튼
+                    if (qnaPageResponseDTO.prev) {
+                        const prevLink = qnaPageResponseDTO.childId == null
+                            ? `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.start - 1}" class="qnaprev">이전</a>`
+                            : `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.start - 1}&childId=${qnaPageResponseDTO.childId}}" class="qnaprevs">이전</a>`;
+                        paginationElement.innerHTML += prevLink;
+                    }
+
+                    // 페이지 번호
+                    for (let num = qnaPageResponseDTO.start; num <= qnaPageResponseDTO.end; num++) {
+                        const pageLink = qnaPageResponseDTO.childId == null
+                            ? `<a href="/admin/qna/list?pg=${num}" class="${num === qnaPageResponseDTO.pg ? 'qnacurrents' : 'qnanums'}">${num}</a>`
+                            : `<a href="/admin/qna/list?pg=${num}&childId=${qnaPageResponseDTO.childId}" class="${num === qnaPageResponseDTO.pg && qnaPageResponseDTO.childId === qnaPageResponseDTO.childId ? 'qnacurrents' : 'qnanums'}">${num}</a>`;
+                        paginationElement.innerHTML += pageLink;
+                    }
+
+                    // 다음 버튼
+                    if (qnaPageResponseDTO.next) {
+                        const nextLink = qnaPageResponseDTO.childId == null
+                            ? `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.end + 1}" class="qnanext">다음</a>`
+                            : `<a href="/admin/qna/list?pg=${qnaPageResponseDTO.end + 1}&childId=${qnaPageResponseDTO.childId}}" class="qnanexts">다음</a>`;
+                        paginationElement.innerHTML += nextLink;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        })
+    </script>
+</th:block>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/faqList.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/faqAside}" th:with="boardCate=${boardCate}"></th:block>
+
+
+    <div id="service">
+        <div class="title">
+            <h2 id="titlename"></h2>
+            <p id="titlecontent"></p>
+        </div>
+        <div id="faq_container" class="faq_container"></div>
+    </div>
+    </div>
+    <script>
+        let currentParentId = null;
+
+        document.querySelectorAll('.selectOptions').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const parentId = this.getAttribute('data-id');
+                const title = this.textContent;
+
+                if (currentParentId === parentId) {
+                    return; // 동일한 카테고리를 클릭했을 때 내용을 유지합니다.
+                }
+
+                currentParentId = parentId;
+                document.getElementById('titlename').textContent = title;
+                loadFAQs(parentId);
+
+                document.getElementById('titlecontent').textContent = title + ` 관련 자주묻는 질문입니다`;
+                document.querySelectorAll('.selectOptions').forEach(l => l.classList.remove('active'));
+
+                this.classList.add('active');
+            });
+        });
+
+        function loadFAQs(parentId) {
+            const faqcontainer = document.getElementById('faq_container');
+            faqcontainer.innerHTML = ''; // 기존 내용을 초기화
+
+                // 서브 카테고리 로드
+                fetch(`/api/faq/subcate/${parentId}`)
+                    .then(resp => resp.json())
+                    .then(boardsubCate => {
+                        // 모든 서브 카테고리의 FAQ를 동시에 로드
+                        const faqPromises = boardsubCate.map(subCate => {
+                            const childId = subCate.boardCateId;
+                            return fetch(`/api/faq/list/page?parentId=${parentId}&childId=${childId}`)
+                                .then(resp => resp.json());
+                        });
+
+                    // 모든 FAQ가 로드된 후 한 번에 처리
+                    Promise.all(faqPromises)
+                        .then(faqResponses => {
+                            faqResponses.forEach(faqPageResponseDTO => {
+                                renderFAQCategory(faqPageResponseDTO); // 각 카테고리의 FAQ를 동시에 렌더링
+                            });
+
+                        })
+                        .catch(err => {
+                            console.error('FAQ 로딩 에러:', err);
+                        });
+                })
+                .catch(err => {
+                    console.error('서브 카테고리 로딩 에러:', err);
+                });
+        }
+
+        function renderFAQCategory(faqPageResponseDTO) {
+            const faqContainer = document.getElementById('faq_container');
+
+            // **FAQ 카테고리 제목(h2)을 faq_container에 추가**
+            let preName = "";
+            faqPageResponseDTO.faqdtoList.forEach(faq => {
+                if (faq.category.name !== preName) {
+                    const categoryTitle = document.createElement('h2');
+                    categoryTitle.textContent = faq.category.name;
+                    faqContainer.appendChild(categoryTitle); // **h2가 faq_container 안에 추가됨**
+                    preName = faq.category.name;
+                }
+            });
+
+            // **FAQ 리스트를 생성하고, faq_container에 추가**
+            const faqList = document.createElement('ul');
+            faqList.classList.add('faq_List');
+            faqPageResponseDTO.faqdtoList.forEach((faq, index) => {
+                const faqItem = document.createElement('li');
+                faqItem.classList.add('faq_li');
+                faqItem.innerHTML = `
+            <a href="/cs/faq/view/${faq.faqNo}">
+                <span>Q .</span>
+                <span>${faq.faqtitle}</span>
+            </a>
+            `;
+                if (index >= 3) faqItem.classList.add('hidden'); // 처음 3개 이후는 숨김
+                faqList.appendChild(faqItem);
+            });
+
+            // **FAQ 리스트 길이가 길면 "더보기" 항목 추가**
+            if (faqPageResponseDTO.faqdtoList.length > 3) {
+                const showMoreItem = document.createElement('li');
+                showMoreItem.classList.add('show-more');
+                showMoreItem.innerHTML = `
+            <div>
+                <a href="#" class="showMore">더보기</a>
+            </div>
+            `;
+                showMoreItem.querySelector('.showMore').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleShowMore(faqList, showMoreItem);
+                });
+                faqList.appendChild(showMoreItem);
+            }
+
+            // **완성된 FAQ 리스트를 faq_container에 추가**
+            faqContainer.appendChild(faqList);
+        }
+
+        function toggleShowMore(faqList, showMoreItem) {
+            const hiddenItems = faqList.querySelectorAll('.hidden');
+            const isHidden = hiddenItems.length > 0;
+
+            // "더보기" 시 10개까지 표시하고, "간단히 보기" 시 3개만 표시
+            faqList.querySelectorAll('.faq_li').forEach((item, index) => {
+                if (isHidden && index < 10) item.classList.remove('hidden'); // 10개까지 표시
+                else if (!isHidden && index >= 3) item.classList.add('hidden'); // 3개로 축소
+            });
+
+            showMoreItem.querySelector('.showMore').textContent = isHidden ? '간단히 보기' : '더보기';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const initialId = document.querySelector('.selectOptions').getAttribute('data-id');
+            const title = document.querySelector('.selectOptions').textContent;
+
+
+            loadFAQs(initialId); // 페이지 로딩 시 FAQ를 처음에 불러옴
+            document.getElementById('titlename').textContent = title;
+            document.getElementById('titlecontent').textContent = title + ` 관련 자주묻는 질문입니다`;
+
+        });
+    </script>
+
+</th:block>

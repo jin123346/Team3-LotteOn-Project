@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    font: normal 12px '고딕';
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #111;
+}
+
+#wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+/* 나의 쇼핑정보 영역 */
+.info {
+    margin: 30px 0;
+    width: 100%;
+    min-width: 1136px;
+    max-width: 1200px;
+    background: var(--m-colors-gray150, #f5f5f5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 25px 10px 25px 30px;
+    height: 100%;
+}
+
+
+/* 제목 스타일 */
+.info-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-left: 30px;
+    text-align: left;
+}
+
+
+.summary-table {
+    position: relative;
+    display: flex;
+    left: 60%;
+    justify-content: space-around; /* 항목 간격 조정 */
+    width: 300px; /* 전체 폭 사용 */
+    padding: 10px 0; /* 위아래 여백 */
+
+}
+
+.summary-item {
+    width: 80px;
+    text-align: center; /* 항목 중앙 정렬 */
+    border-right: 1px solid black;
+}
+.summary-item:last-child {
+    border-right: none; /* 마지막 항목의 오른쪽 검은 줄 제거 */
+}
+
+.summary-value {
+    font-size: 16px; /* 값의 크기 조정 */
+    font-weight: bold; /* 값 두껍게 */
+}
+
+#container{
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+aside {
+    float: left;
+    width: 200px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    /*border-right: 1px solid #ccc;*/
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: #fff;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    color: #000;
+}
+
+aside > ul {
+    padding: 0; /* ul의 기본 패딩 제거 */
+    margin: 0; /* ul의 기본 마진 제거 */
+}
+
+aside > ul > li {
+    font-size: 16px;
+    margin: 15px 0; /* 위아래 간격 조정 */
+}
+
+aside > ul > li:nth-child(5) {
+    text-decoration: underline;
+}
+
+.center {
+    flex-grow: 1;
+    width: 994px;
+    height: auto;
+
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.ad {
+    width: 900px;
+    height: 86px;
+    margin: 20px auto;
+    box-sizing: border-box;
+
+}
+
+.ad img {
+    width: 900px; /* 고정 너비 */
+    height: 86px; /* 고정 높이 */
+    display: block; /* 이미지가 블록 요소로 처리되어 아래 여백이 생기지 않음 */
+}
+
+.details {
+    width: 880px;
+    height: 20px;
+    margin: 0 48px;
+}
+
+.center p{
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: -.029em;
+    margin-top: 20px;
+}
+
+.center a {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+table {
+    width: 900px;
+    height: 133px;
+    margin: 30px 48px;
+    border-top: 2px solid black;
+    border-bottom: 1px solid #b4b0b0;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: gray;
+    height: 42.5px;
+}
+
+.inquiry-table th:nth-child(1) {
+    width: 8.97%
+}
+
+.inquiry-table th:nth-child(2) {
+    width: 12.82%
+}
+
+.inquiry-table th:nth-child(3) {
+    width: 12.82%
+}
+
+.inquiry-table th:nth-child(4) {
+    width: 38.46%
+}
+
+.inquiry-table th:nth-child(5) {
+    width: 15.38%
+}
+
+.inquiry-table th:nth-child(6) {
+    width: 11.54%
+}
+
+
+.font {
+    color: white;
+}
+
+
+.tr1 {
+    width: auto;
+    height: 170px;
+
+}
+
+
+td {
+    height: 89px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.tr3 {
+    border-bottom: 1px solid #b4b0b0;
+}
+
+/* 상태에 따른 색상 지정 */
+.status-complete {
+    color: lightgreen;
+}
+
+.status-pending {
+    color: lightgray;
+}
+
+.pagination {
+    text-align: center;
+    font-family: Roboto, NotoSansKR, Malgun Gothic, AppleSDGothicNeo, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 30px 0;
+}
+
+.pagination a, .pagination button, .pagination span {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: #999;
+    line-height: 26px;
+    margin: 2px 2px;
+    text-indent: -1px;
+}
+
+.pagination a.active, .pagination button.active, .pagination span.active , .qnacurrent{
+    margin: 0 4px;
+    background-color: #343b4d;
+    border: 1px solid #343b4d;
+    color: #fff;
+}
+
+.pagination a:hover, .pagination button:hover {
+    color: #333;
+}
+
+.pagination .prev, .pagination .next {
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+}
+
+.pagination .prev.off, .pagination .next.off {
+    pointer-events: none;
+    background-size: contain;
+}
+
+.pagination .skip {
+    margin: 0 7px 0 4px;
+    width: auto;
+    letter-spacing: 1px;
+}

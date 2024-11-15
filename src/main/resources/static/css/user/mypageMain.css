@@ -1,0 +1,955 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    font: normal 12px '고딕';
+}
+
+ul,ol{list-style: none;}
+a{text-decoration: none; color: #111;}
+
+#wrapper{
+    width: 100%;
+    height: 100%;
+}
+main {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: 1px auto;
+}
+
+
+/* 나의 쇼핑정보 영역 */
+.info {
+    margin: 30px 0;
+    width: 100%;
+    min-width: 1136px;
+    max-width: 1200px;
+    background: var(--m-colors-gray150, #f5f5f5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 25px 10px 25px 30px;
+    height: 100%;
+}
+
+
+/* 제목 스타일 */
+.info-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-left: 30px;
+    text-align: left;
+}
+
+
+.summary-table {
+    position: relative;
+    display: flex;
+    left: 60%;
+    justify-content: space-around; /* 항목 간격 조정 */
+    width: 300px; /* 전체 폭 사용 */
+    padding: 10px 0; /* 위아래 여백 */
+
+}
+
+.summary-item {
+    width: 80px;
+    text-align: center; /* 항목 중앙 정렬 */
+    border-right: 1px solid black;
+}
+.summary-item:last-child {
+    border-right: none; /* 마지막 항목의 오른쪽 검은 줄 제거 */
+}
+
+.summary-value {
+    font-size: 16px; /* 값의 크기 조정 */
+    font-weight: bold; /* 값 두껍게 */
+}
+#container{
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+    width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/*#container > div:first-of-type{*/
+/*    border-left: 1px solid #ddd;*/
+/*}*/
+
+aside {
+    float: left;
+    width: 200px;
+    height: 917px;
+    display: flex;
+    justify-content: center;
+    border-right: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background: #fff;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    color: #000;
+}
+
+aside > ul {
+    padding: 0; /* ul의 기본 패딩 제거 */
+    margin: 0; /* ul의 기본 마진 제거 */
+}
+
+aside > ul > li {
+    font-size: 16px;
+    margin: 15px 0; /* 위아래 간격 조정 */
+}
+.center {
+    flex-grow: 1;
+    width: 990px;
+    height: auto;
+
+}
+.centerWrapper table {
+    width: 91%;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.ad{
+    width: 900px;
+    height: 86px;
+    margin: 20px auto;
+    box-sizing: border-box;
+
+}
+.ad img{
+    width: 900px; /* 고정 너비 */
+    height: 86px; /* 고정 높이 */
+    display: block; /* 이미지가 블록 요소로 처리되어 아래 여백이 생기지 않음 */
+}
+.details{
+    height: 20px;
+    margin: 0 46px;
+    margin-bottom: 10px;
+
+}
+.center p{
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+}
+.center a{
+    font-size: 12px;
+    font-weight: 400;
+    float: right;
+}
+
+table {
+
+    box-sizing: border-box;
+    width: 90%;
+    height: auto;
+    margin: 0 46px;
+    border-top: 2px solid black;
+    border-bottom: 1px solid #b4b0b0;
+    border-collapse: collapse;
+}
+th {
+    background-color: #f8f7f7;
+    color: rgb(44, 44, 44);
+    height: 42.5px;
+}
+
+th:nth-child(1) {width: 15%;}  /* 140px / 930px */
+th:nth-child(2) {width: 54%;}  /* 500px / 930px */
+th:nth-child(3) {width: 16%;}  /* 145px / 930px */
+th:nth-child(4) {width: 15%;}  /* 115px / 930px */
+
+
+.points-table th:nth-child(1) {width: 17%;}  /* 150px / 900px */
+.points-table th:nth-child(2) {width: 17%;}  /* 150px / 900px */
+.points-table th:nth-child(3) {width: 17%;}  /* 150px / 900px */
+.points-table th:nth-child(4) {width: 17%;}  /* 150px / 900px */
+.points-table th:nth-child(5) {width: 17%;}  /* 150px / 900px */
+.points-table th:nth-child(6) {width: 17%;}  /* 150px / 900px */
+
+
+.Review-table th:nth-child(1) {width: 10%;}   /* 80px / 850px */
+.Review-table th:nth-child(2) {width: 60%;}  /* 210px / 850px */
+.Review-table th:nth-child(4) {width: 15%;}  /* 130px / 850px */
+.Review-table th:nth-child(5) {width: 15%;}  /* 130px / 850px */
+
+.inquiry-table th:nth-child(1) {width: 9%;}  /* 70px / 760px */
+.inquiry-table th:nth-child(2) {width: 13%;} /* 100px / 760px */
+.inquiry-table th:nth-child(3) {width: 13%;} /* 100px / 760px */
+.inquiry-table th:nth-child(4) {width: 39%;} /* 300px / 760px */
+.inquiry-table th:nth-child(5) {width: 16%;} /* 120px / 760px */
+.inquiry-table th:nth-child(6) {width: 10%;} /* 90px / 760px */
+
+
+
+.font{
+    color: white;
+}
+
+
+.tr1{
+    width: auto;
+    height: 170px;
+
+}
+tr{
+    border-bottom: 1px solid #ddd;
+}
+
+
+td {
+    height: 89px;
+    font-weight: bold;
+    text-align: center;
+
+
+}
+
+.product-container {
+    display: flex; /* 가로 방향으로 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.eximg .eximg1-1{
+    width: 120px;
+    height: 120px;
+    float: left;
+    margin-left: 50px   ;
+}
+.eximg2 {
+    width: 100px; /* 이미지 박스 너비 */
+    height: 100px; /* 이미지 박스 높이 */
+    display: flex; /* flex 사용 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-right: 10px; /* 상품 정보와의 간격 */
+    background-color: #f0f0f0; /* 선택 사항: 배경색 */
+}
+
+.eximg2 img {
+    max-width: 100%; /* 이미지가 박스를 넘지 않게 설정 */
+    max-height: 100%; /* 이미지가 박스를 넘지 않게 설정 */
+    object-fit: cover; /* 비율 유지하면서 잘라내기 */
+}
+.Pinf {
+    display: flex;               /* Flexbox 사용 */
+    flex-direction: column;      /* 세로 정렬 */
+    align-items: flex-start;     /* 왼쪽 정렬 */
+    justify-content: center;      /* 수직 중앙 정렬 (부모 요소의 높이에 따라 다름) */
+    height: auto;            /* 필요에 따라 높이 설정 */
+}
+.Pinf >p {
+    margin: 5px;
+}
+.productName span:nth-of-type(1) {
+    font-weight: bold;
+}
+.Pinf >a{
+    font-size: 12px;
+    font-weight: 700;
+    margin: 5px;
+    text-decoration: underline;
+}
+
+.Pinf2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+}
+
+.Pinf2 > p {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 5px 0;
+}
+.no-image-text {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-color: #f2f2f2;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column; /* 수직 정렬 */
+    margin-top: 10px;
+}
+
+.product-info > div {
+    margin-bottom: 10px; /* 각 항목 간의 여백 */
+}
+
+.product-info p {
+    margin-left: 5px;
+    margin-right: 8px; /* p 태그의 기본 마진 제거 */
+    font-weight: bold; /* 제목 강조 */
+}
+
+.product-info span {
+    display: block; /* span을 블록으로 만들어 줄바꿈되게 함 */
+    margin-top: 1px; /* 상단 여백 추가 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+.truncate {
+    display: inline-block;
+    max-width: 300px;    /* 최대 너비 설정 */
+    white-space: nowrap; /* 한 줄로 표시 */
+    overflow: hidden;    /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 넘칠 때 생략 부호(...) 표시 */
+}
+
+td button{
+    position: relative;
+    width: 100px;
+    height: 31px;
+    margin: 0 auto;
+    cursor: pointer;
+
+}
+
+.custom-button {
+    border: none;
+    background-color: rgb(150, 150, 150);
+    color: white;
+}
+
+.settings {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f5f7fb;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.setting-item {
+    position: relative;
+    width: auto;
+    text-align: left;
+    padding: 0 20px;
+}
+.setting-item2-1{
+    width: 250px;
+    height: 30px;
+}
+
+.setting-item2-2{
+    width: 235px;
+    height: 30px;
+}
+.setting-item2-3{
+    width: 350px;
+    height: 30px;
+}
+
+.setting-item2-1 p , .setting-item2-2 p , .setting-item2-3 p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.setting-item2-1-1 p, .setting-item2-2-2 p,  .setting-item2-3-3 p{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #808080;
+}
+
+
+.setting-item2-1 a{
+    position: relative;
+    right: 90px;
+    top: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.setting-item2-2 a{
+    position: relative;
+    right: 110px;
+    top: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.setting-item2-3 a{
+    position: relative;
+    right: 220px;
+    top: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.setting-item{
+    width: 33%;
+
+}
+
+.setting-item:not(:last-child) {
+    border-right: 2px solid #ccc; /* 수직선 추가 */
+}
+
+.setting-item p {
+    margin: 5px 0;
+}
+
+.setting-item2-1 a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.setting-item2-2 a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.setting-item2-3 a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.setting-item2-3-3 p:last-child{
+    position: relative;
+    top: 10px;
+    right: 115px;
+}
+
+
+
+/* modal */
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0%;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 9%;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.modal-content table{
+    border-top: none;
+    width: 95%;
+    max-width: 95%;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 1px 1px 1px 2px rgb(226, 226, 226); ;
+
+}
+.modal-content .header{
+    background-color: #e23;
+}
+.modal-content h3{
+    padding: 10px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.modal-content table tr:nth-child(1) th{
+    height: 30px;
+    color: gray;
+    background-color: #e0dfdf;
+    border-bottom: 1PX solid rgb(226, 226, 226);
+    text-align: center;
+    text-indent: 10px;
+}
+
+.modal-content table tr td{
+    text-indent: 10px;
+    text-align: center;
+    height: 120px;
+    align-items: center;
+}
+
+.modal-content table tr td img{
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border: 1px solid black;
+}
+
+.modal-content table tr td:nth-child(2){
+    /* display: flex;
+    flex-direction: row; */
+    text-align: left;
+    align-items: center;
+}
+.modal-content.order table tr td:nth-child(2){
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+}
+
+.modal-content table tr td:nth-child(2) div{
+    margin-left: 10px;
+}
+.modal-content table tr td:nth-child(2) div .price{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal-content table tr td:nth-child(3) div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal-content table tr td:nth-child(3) div:nth-child(3){
+    margin-top: 20px;
+}
+
+
+
+.close {
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+}
+
+.modal-content h4{
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.deleveryInfo{
+    border: 1px solid #f5f7fb;
+    margin-bottom: 20px;
+    width: 95%;
+    margin-left: 20px;
+    box-shadow: 1px 1px 1px 2px rgb(226, 226, 226); ;
+
+}
+
+.deleveryInfo div{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: left;
+    height: 40px;
+    align-items: center;
+    border-bottom: 1px solid rgb(241, 241, 241);
+}
+
+.deleveryInfo span{
+
+
+}
+.deleveryInfo div label{
+    width: 150px;
+    box-sizing: border-box;
+    background-color: rgb(226, 226, 226);;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 20px;
+}
+/* .deleveryInfo div label::after{
+    content: ":";
+    margin: 0 10px;
+} */
+
+
+
+
+
+
+.modal-content.seller table{
+    border-top: none;
+    width: 95%;
+    max-width: 95%;
+    margin: 0 auto;
+    margin-top: 20px;
+    box-shadow: 1px 1px 1px 2px rgb(226, 226, 226); ;
+    margin-bottom: 20px;
+}
+
+.modal-content.seller table tr th{
+    height: 40px;
+    color: gray;
+    background-color: #e0dfdf;
+    border-bottom: 1PX solid rgb(197, 193, 193);
+    text-align: center;
+    text-indent: 10px;
+}
+
+
+
+.modal-content.seller table tr td{
+    text-indent: 10px;
+    height: 40px;
+    text-align: center;
+    align-items: center;
+    font-weight: 400;
+    border-bottom: 1PX solid rgb(224, 224, 224);
+
+}
+
+.modal-content.seller p{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.qnabtn{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    height: 30px;
+}
+
+.qnabtn .qna-btn{
+    width: 100px;
+    height: 30px;
+    padding: 5px 7px;
+    border: 1px solid #f8f7f7;
+    background-color: #888;
+    color: #fff;
+}
+.qnabtn .qna-btn:hover{
+    background-color: #e23;
+}
+
+
+
+/* modal qna */
+.modal-content.qna table{
+    border-top: none;
+    width: 95%;
+    max-width: 95%;
+    margin: 0 auto;
+    margin-top: 20px;
+    box-shadow: 1px 1px 1px 2px rgb(226, 226, 226); ;
+    margin-bottom: 20px;
+}
+
+.modal-content.qna table tr th{
+    height: 40px;
+    color: #4b4b4b;
+    background-color: #e0dfdf;
+    border-bottom: 1PX solid rgb(197, 193, 193);
+    text-align: center;
+    text-indent: 10px;
+}
+
+
+
+.modal-content.qna table tr td{
+    text-indent: 10px;
+    height: 40px;
+    text-align: center;
+    align-items: center;
+    font-weight: 400;
+    border-bottom: 1PX solid rgb(224, 224, 224);
+    box-sizing: border-box;
+}
+
+.modal-content.qna p{
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+}
+
+
+.modal-content.qna table tr td{
+    text-indent: 0px;
+    text-align: left;
+}
+.modal-content.qna table tr td input{
+    margin-left: 20px;
+    height: 25px;
+}
+
+
+.modal-content.qna table tr:nth-child(2) input{
+    text-indent: 6px;
+    width: 200px;
+}
+.modal-content.qna table tr:nth-child(3) input{
+    text-indent: 6px;
+    width: 200px;
+}
+.modal-content.qna table tr:nth-child(2) td{
+    line-height: 25px;
+    text-indent: 6px;
+}
+.modal-content.qna table tr:nth-child(4) th{
+    height: 250px;
+    width: 100%;
+
+}
+.modal-content.qna table tr:nth-child(4) td{
+    height: 250px;
+}
+.modal-content.qna table tr td .content{
+    margin-left: 20px;
+    height: 210px;
+    width: 80%;
+}
+
+.modal-footer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-footer button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+
+}
+
+.modal-footer .btn-primary {
+    background-color: #e23;
+    color: #fff;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #ccc;
+    color: #000;
+}
+
+.modal-footer .btn-primary2 {
+    background-color: #e23;
+    color: #fff;
+}
+
+.modal-footer .btn-secondary2 {
+    background-color: #ccc;
+    color: #000;
+}
+
+
+
+
+.modal-content.receipt{
+    width: 500px;
+}
+
+.modal-content.return{
+    width: 500px;
+}
+
+.modal-content.exchange{
+    width: 500px;
+}
+.modal-content.qna th{
+    height: 30px;
+
+}
+
+.modal-content.receipt .modalbody{
+    padding: 50px;
+    height: 70px;
+}
+.modal-content.receipt .modalbody p{
+    line-height: 30px;
+    height: 30px;
+    font-size: 20px;
+
+}
+
+.modal-content.return .modalbody{
+    padding: 50px;
+    height: 70px;
+}
+.modal-content.return .modalbody p{
+    line-height: 30px;
+    height: 30px;
+    font-size: 20px;
+
+}
+
+.modal-content.exchange .modalbody{
+    padding: 50px;
+    height: 70px;
+}
+.modal-content.exchange .modalbody p{
+    line-height: 30px;
+    height: 30px;
+    font-size: 20px;
+
+}
+
+
+/* pReview */
+
+
+.modal-content.pReview table{
+    border-top: none;
+    width: 95%;
+    max-width: 95%;
+    margin: 0 auto;
+    margin-top: 20px;
+    box-shadow: 1px 1px 1px 2px rgb(226, 226, 226); ;
+    margin-bottom: 20px;
+}
+
+
+
+
+.modal-content.pReview table tr th{
+    height: 40px;
+    color: #4b4b4b;
+    background-color: #e0dfdf;
+    border-bottom: 1PX solid rgb(197, 193, 193);
+    text-align: center;
+    box-sizing: border-box;
+
+}
+
+
+
+.modal-content.pReview table tr td{
+    text-indent: 10px;
+    height: 40px;
+    text-align: center;
+    text-indent: 10px;
+    align-items: center;
+    font-weight: 400;
+    border-bottom: 1PX solid rgb(224, 224, 224);
+    box-sizing: border-box;
+}
+
+.modal-content.qna p{
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+}
+
+.modal-content.pReview table tr:nth-child(1) td{height: 40px;}
+.modal-content.pReview table tr:nth-child(1) th{
+    text-indent: 0px;
+}
+
+.modal-content.pReview table tr:nth-child(1) span{
+    margin-left: 15px;
+}
+.modal-content.pReview table tr td{
+    text-indent: 0px;
+    text-align: left;
+    height: auto;
+}
+.modal-content.pReview table tr td input{
+    height: 25px;
+}
+.modal-content.pReview table tr:nth-child(2) input{
+    text-indent: 0px;
+    width: 200px;
+}
+
+.modal-content.qnpReviewa table tr:nth-child(2) td{
+    line-height: 25px;
+    text-indent: 6px;
+}
+.modal-content.pReview table tr:nth-child(4) th{
+    height: 250px;
+    width: 100%;
+
+}
+.modal-content.pReview table tr:nth-child(4) td{
+    height: 250px;
+}
+.modal-content.pReview table tr td .contents{
+    margin-left: 10px;
+    height: 210px;
+    width: 96%;
+    resize: none;
+}
+
+/* 기본 별 색상 */
+.star-rating .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: gray;
+}
+
+/* 선택된 별 색상 */
+.star-rating .star.selected {
+    color: gold;
+}
+
+/* 기본 별 색상 */
+.star-rating .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: lightgray;
+}
+
+/* 선택된 별 색상 */
+.star-rating .star.selected {
+    color: gold;
+}
+
+/* 파일 input 스타일 */
+.file-input {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.star-rating {
+    font-size: 24px; /* 별 크기 조정 */
+    color: #ccc; /* 기본 색상 (선택되지 않은 별의 색상) */
+}
+
+.star {
+    color: lightgray; /* 선택된 별의 색상 */
+}
+
+.star-selected {
+    color: gold; /* 선택된 별의 색상 */
+}

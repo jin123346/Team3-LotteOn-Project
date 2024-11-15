@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Main</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminindex.css}">
+    <script   src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+            <div id="admin_service">
+                <section>
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                    <section id="admin_navi">
+                            <p>관리자 메인</p>
+                            <p><a href="#">HOME</a> > 관리자 메인</p>
+                    </section>
+                    <div class="graph">
+                        <h2>집계현황</h2>
+                        <canvas id="barChart" width="450" height="200"></canvas>
+                        <canvas id="pieChart" width="450" height="200"></canvas>
+                    </div>
+                    <article id="admin_status">
+                        <table class="a_status">
+                            <tr>
+                                <th colspan="10">운영현황</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>주문건수</p><br>
+                                    <p><a href="#">[[${salesCount}]]</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>주문금액</p><br>
+                                    <p><a href="#">[[${totalSalesAmount}]]</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>회원가입</p><br>
+                                    <p><a href="#">[[${totalUserCount}]]</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>방문자 수</p><br>
+                                    <p><a href="#">[[${visitorCount}]]</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>신규 게시물</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>어제</p>
+                                    <p>오늘</p>
+                                </td>
+                                <td>
+                                    <p>[[${yesterdaySalesCount}]]</p>
+                                    <p>[[${todaySalesCount}]]</p>
+                                </td>
+                                <td>
+                                    <p>어제</p>
+                                    <p>오늘</p>
+                                </td>
+                                <td>
+                                    <p>[[${yesterdayTotalSalesAmount}]]</p>
+                                    <p>[[${todayTotalSalesAmount}]]</p>
+                                </td>
+                                <td>
+                                    <p>어제</p>
+                                    <p>오늘</p>
+                                </td>
+                                <td>
+                                    <p>[[${yesterdayNewUserCount}]]</p>
+                                    <p>[[${todayNewUserCount}]]</p>
+                                </td>
+                                <td>
+                                    <p>어제</p>
+                                    <p>오늘</p>
+                                </td>
+                                <td>
+                                    <p>[[${yesterdayVisitorCount}]]</p>
+                                    <p>[[${todayVisitorCount}]]</p>
+                                </td>
+                                <td>
+                                    <p>어제</p>
+                                    <p>오늘</p>
+                                </td>
+                                <td>
+                                    <p>60</p>
+                                    <p>70</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </article>
+                    <article id="order_status">
+                        <table class="o_status">
+                            <tr>
+                                <th colspan="5">주문현황</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>입금대기</p><br>
+                                    <p><a href="#">[[${waitingCount}]]</a></p>
+                                </td>
+                                <td>
+                                    <p>배송준비</p><br>
+                                    <p><a href="#">[[${readyForShippingCount}]]</a></p>
+                                </td>
+                                <td>
+                                    <p>취소요청</p><br>
+                                    <p><a href="#">0</a></p>
+                                </td>
+                                <td>
+                                    <p>교환요청</p><br>
+                                    <p><a href="#">[[${exchangeForShippingCount}]]</a></p>
+                                </td>
+                                <td>
+                                    <p>반품요청</p><br>
+                                    <p><a href="#">[[${returnForShippingCount}]]</a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </article>
+
+                    <article id="admin_notice_admin_inquire">
+                            <table class="admin_notice">
+                                <colgroup>
+                                    <col style="width: 750px">
+                                    <col style="width: 150px">
+                                </colgroup>
+                                <tr>
+                                    <th>공지사항</th>
+                                    <th><a th:href="@{/admin/notice/list}">전체보기</a></th>
+                                </tr>
+                                <tr th:each="notice:${notices}">
+                                    <td><a th:href="@{/admin/notice/view(no=${notice.noticeNo})}">[ [[${notice.noticetype}]] ] [[${notice.noticetitle}]]</a></td>
+                                    <td>[[${#strings.substring(notice.date,0,10)}]]</td>
+                                </tr>
+
+                            </table>
+                            <table class="admin_inquire">
+                                <colgroup>
+                                    <col style="width: 600px">
+                                    <col style="width: 150px"> 
+                                    <col style="width: 150px"> 
+                                </colgroup>
+                                <tr>
+                                    <th>고객문의</th>
+                                    <th colspan="2"><a th:href="@{/admin/qna/list}">전체보기</a></th>
+                                </tr>
+                                <th:block th:if="${qnadto != null and !qnadto.isEmpty() and qnadto.get(0).getQnaNo() > 0}">
+                                <tr th:each="qna:${qnadto}">
+                                    <td><a th:href="@{/admin/qna/reply(no=${qna.qnaNo})}" th:text="${qna.getQnatitle()}"></a></td>
+                                    <td>[[${#strings.substring(qna.getQnawriter, 0, 2) + '**'}]]</td>
+                                    <td>[[${#strings.substring(qna.date,0,10)}]]</td>
+                                </tr>
+                                </th:block>
+                                <th:block th:unless="${qnadto != null and !qnadto.isEmpty() and qnadto.get(0).getQnaNo() > 0}">
+                                    <tr>
+                                       <td colspan="3">고객 문의가 없습니다.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">고객 문의가 없습니다.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">고객 문의가 없습니다.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">고객 문의가 없습니다.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">고객 문의가 없습니다.</td>
+                                    </tr>
+                                </th:block>
+
+                            </table>
+                    </article>  
+                </section>
+                <script th:src="@{/js/adminGraph.js}"></script>
+
+</th:block>

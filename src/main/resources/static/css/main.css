@@ -1,0 +1,658 @@
+
+.mainArea{
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+    height: auto;
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+.mainArea > .mainWrapper{
+    width: 100%;
+    max-width: 1180px; /* 최대 너비 설정 */
+    height: auto;
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+.mainArea > .mainWrapper > *{
+    display: inline-block;
+    vertical-align: top; /* Align elements to the top */
+}
+
+
+.mainArea .mainWrapper .section{
+    /* Subtract the aside's width and some padding/margin */
+
+    box-sizing: border-box; /* Ensure proper width calculation */
+
+    /* Ensure proper width calculation */
+}
+
+.mainArea .section .sectionWrapper{
+    border: 1px solid #eee;
+    margin-top: 10px;
+    width: 1180px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* sub main */
+.subTit{
+    font-size: 25px;
+    color: #000;
+    margin-bottom:  10px;
+    height: 25px;
+    line-height: 45px;
+}
+
+/* Slider container styles */
+.slider-container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    height: auto;
+}
+
+/* Slider wrapper for holding all slides */
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 1138px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-image: url(/images/sample/default.png);
+    object-fit: cover;
+
+}
+
+/* Slide styles */
+.slide {
+    flex: 0 0 100%; /* 각 슬라이드의 너비를 50%로 설정하여 두 개가 나란히 표시 */
+    box-sizing: border-box;
+}
+
+/* 이미지 스타일 */
+.slide img {
+    width: 100%; /* 슬라이드 너비에 맞춰 이미지가 늘어남 */
+    height: 500px; /* 세로 크기는 자동으로 조정하여 비율 유지 */
+    display: block; /* 이미지가 블록 요소로 처리되어 아래 여백이 생기지 않음 */
+}
+.headerslide{
+    width: 1200px;
+    height: 80px;
+    box-sizing: border-box;
+}
+
+.headerslide img{
+    width: 100%; /* 슬라이드 너비에 맞춰 이미지가 늘어남 */
+    height: 80px; /* 세로 크기는 자동으로 조정하여 비율 유지 */
+    display: block; /* 이미지가 블록 요소로 처리되어 아래 여백이 생기지 않음 */
+}
+
+.banner-image-wrapper {
+    width: 1138px;
+    height: 637px;
+    background-size: cover; /* 배경 이미지가 div를 꽉 채우도록 설정 */
+    background-position: center; /* 배경 이미지가 가운데로 정렬되도록 설정 */
+}
+/* Navigation buttons */
+.slider-navigation .prev, .slider-navigation .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    width: 50px;
+    height: 60px;
+}
+
+
+.slider-navigation .prev {
+    left: 10px;
+}
+
+.slider-navigation .next {
+    right: 10px;
+}
+
+/* Pagination dots */
+.slider-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.slider-pagination .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-pagination .dot.active {
+    background-color: #717171;
+}
+
+
+/* Hit products slider container */
+.hit-products-slider {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* Wrapper to contain all products */
+.hit-products-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Single product item */
+.hit-product-item {
+    min-width: 19%;
+    box-sizing: border-box;
+    padding: 10px;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+}
+.hit-product-item .hit-pimg{
+    width: 59%;
+    height: 250px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+
+
+.hit-product-item img {
+    width: 194px;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Product info styles */
+.product-info {
+    text-align: center;
+}
+
+.product-info .original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.product-info .discount-price {
+    color: red;
+    font-weight: bold;
+}
+
+.product-info .shipping-label {
+    /* background-color: #007bff; */
+    color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Navigation buttons */
+.prev-hit, .next-hit {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-hit {
+    left: 10px;
+}
+
+.next-hit {
+    right: 10px;
+}
+
+
+/* 공통 스타일 */
+.products-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product-item {
+    width: 24%;
+    box-sizing: border-box;
+    padding: 18px 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: left;
+    flex-direction: column;
+}
+
+.pimg  {
+    width: 230px;
+    height: 230px;
+    box-sizing: border-box;
+
+}
+
+.pimg > img {
+    width: 250px;
+    height: 230px;
+}
+
+.product-info {
+    margin-top: 10px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* .original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-top: 5px;
+} */
+
+.discount-price {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* .shipping-label {
+    background-color: #007bff;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 5px;
+} */
+
+/* 추천상품과 최신상품 섹션 타이틀 */
+.recommended-products h2, .latest-products h2,.hitProduct h2,  section > h2{
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.recommended-products, .latest-products {
+    margin-bottom: 40px;
+}
+@keyframes sparkle {
+    0% {
+        opacity: 1;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+        opacity: 0.5;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1);
+    }
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+}
+
+.shipping-label {
+    background-color: #e6e6fa;
+    color: #000;
+    border: 1px solid #7ea1ff;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: inline-block;
+    animation: sparkle 1.5s infinite ease-in-out; /* 반짝임 애니메이션 */
+}
+.shippingnolabel{
+    display: inline-block;
+    padding: 5px;
+    background-color: #FFFFFF;
+    color: #000;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    /* margin-top: 5px; */
+    font-size: 12px;
+    /* margin-left: 5px;*/
+}
+
+
+
+/*  */
+
+.product-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    /* border: 1px solid #ddd; */
+    background-color: #f9f9f9;
+
+}
+
+
+.product-container .product-details {
+    flex-grow: 1;
+
+}
+
+
+.product-container .product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.product-container .price-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+
+.product-container .original-price {
+    text-decoration: line-through;
+    color: #666;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+.discount {
+    color: red;
+}
+
+.final-price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #000;
+}
+
+.shipping-label {
+    display: inline-block;
+    padding: 5px;
+    background-color: #e6e6fa;
+    color: #000;
+    border: 1px solid #7ea1ff;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.product-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cart-icon, .heart-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+
+}
+
+.cart-icon:hover, .heart-icon:hover {
+    opacity: 0.8;
+}
+
+
+
+/* 히트상품 */
+.hit-product-item .product-container {
+    display: flex;
+    padding: 10px;
+    /* border: 1px solid #ddd; */
+    background-color: #f9f9f9;
+    margin: auto;
+    box-sizing: border-box;
+    height: 135px;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid #ddd; */
+    /* background-color: #f9f9f9; */
+    width: 100%;
+}
+
+
+.hit-product-item .product-container .product-details {
+    flex-grow: 1;
+    width: 80%;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+
+
+.hit-product-item .product-container .product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.hit-product-item .product-container .price-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+
+.hit-product-item .product-container .original-price {
+    text-decoration: line-through;
+    color: #666;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+.hit-product-item .discount {
+    color: red;
+}
+
+.hit-product-item .final-price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #000;
+}
+
+.hit-product-item .shipping-label {
+    display: inline-block;
+    padding: 5px;
+    background-color: #e6e6fa;
+    color: #000;
+    border: 1px solid #7ea1ff;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.hit-product-item .product-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hit-product-item .cart-icon, .heart-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+
+}
+
+.hit-product-item .cart-icon:hover, .heart-icon:hover {
+    opacity: 0.8;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.container .main_img {
+    width: 1140px;
+    height: 289.13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.main_img img {
+    width: 1200px;
+    height: 300px;
+}
+
+.products {
+    border: 2px solid #F2F2F2;
+    height: 350px;
+}
+
+.title1 {
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: underline;
+    margin: 20px 40px;
+}
+
+.imgs {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.imgs img {
+    width: 250px;
+    height: 151px;
+}
+
+.imgs .img1 {
+    background-color: #F2F2F2;
+    color: black;
+    font-size: 15px;
+    padding: 20px 0 20px 0;
+
+}
+
+.img1 p {
+    padding-left: 10px;
+
+}
+
+.product-item{
+    display: flex;
+    margin-top: 10px;
+}
+
+.product-price {
+    width: 150px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: left
+}
+
+.product-name{
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.final-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.sale-price{
+    display: flex;
+    gap: 5px;
+}
+
+.original-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.discount {
+    font-size: 14px;
+    color: red;
+}
+
+.btns{
+    display: flex;
+}
+
+.btn1{
+    width: 80px; /* 버튼이 가로로 배치되므로 폭 조절 */
+    height: 40px;
+    display: flex;
+    align-items: center; /* 버튼을 세로 중앙 정렬 */
+}
+
+.btn1 img {
+    width: 50px;  /* 이미지의 너비 설정 */
+    height: 35px; /* 이미지의 높이 설정 */
+    object-fit: contain; /* 이미지를 왜곡하지 않고 조절 */
+}
+
+.btn2{
+    width: auto; /* 버튼이 가로로 배치되므로 폭 조절 */
+    height: auto;
+    display: flex;
+    align-items: center; /* 버튼을 세로 중앙 정렬 */
+}
+
+.btn2 .free-delivery {
+    font-size: 18px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    /* background-color: #f0c14b;  */
+    color: red; /* 버튼 안의 텍스트 색을 검은색으로 설정 */
+    cursor: pointer; /* 마우스를 올렸을 때 포인터로 변경 */
+}

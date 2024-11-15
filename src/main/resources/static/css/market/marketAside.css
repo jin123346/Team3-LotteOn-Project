@@ -1,0 +1,578 @@
+#mainArea .aside.market{
+    height: auto;
+    width: 200px;
+    box-sizing: border-box;
+    margin-top: 10px ;
+    flex: 0 0 200px;
+    margin-right: 10px;
+    flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+  }
+
+
+  /*asdie  */
+
+/* 기본 스타일
+.aside.market {
+    height: auto;
+    width: 300px;
+    box-sizing: border-box;
+    margin-top: 10px;
+} */
+
+/* 카테고리 항목 */
+.aside.market .cate_aside {
+    align-self: center;
+    width: 100%;
+    /* overflow-y: hidden; */
+}
+
+.aside.market .cate_aside ul li {
+    line-height: 30px;
+    text-align: left;
+    text-indent: 10px;
+    margin: 10px;
+    height: auto;
+}
+
+.aside.market .cate_aside li a {
+    line-height: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: #333;
+    background-color: #fff; /* 기본 배경색 */
+    cursor: pointer;
+}
+.aside.market .cate_aside ul li .lnb-item a{
+    font-weight: 400;
+}
+
+.aside.market .cate_aside li > a > img {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.aside.market .cate_aside li ul {
+    height: auto;
+}
+
+.aside.market .cate_aside li ul li {
+    height: auto;
+    margin-top: 5px;
+    line-height: 20px;
+}
+
+/* 서브메뉴 스타일 */
+.aside.market .cate_aside .lnb-item .lnb-sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    /*margin-left: 20px;*/
+    margin-bottom: 15px;
+    transition: all 0.03s ease;
+}
+
+.aside.market .cate_aside .lnb-item.open .lnb-sub-menu {
+    max-height: 500px;
+    opacity: 1;
+    transition: all 0.1s ease;
+}
+
+.aside.market .cate_aside .lnb-item .lnb-sub-menu li {
+    height: 10px;
+}
+
+/*.aside.market .cate_aside .lnb-item.open .lnb-sub-menu a:nth-child(1) {*/
+/*    font-weight: 700;*/
+/*}*/
+
+.aside.market .cate_aside .lnb-item.open .lnb-sub-menu li {
+    line-height: 15px;
+    height: 15px;
+    font-weight: 400;
+}
+
+/* 서브메뉴 링크 스타일 */
+.aside.market .cate_aside .lnb-item .lnb-sub-menu a {
+    font-size: 15px;
+    color: #666;
+    text-decoration: none;
+}
+
+.aside.market .cate_aside .lnb-item .lnb-sub-menu a:hover {
+    color: #ef2a23;
+    font-size: 17px;
+}
+
+.aside.market .cate_aside .lnb-item .lnb-sub-menu a.cateactive {
+    color: #ef2a23;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+/* 메인 카테고리 Hover 및 Active 스타일 */
+.aside.market .cate_aside .lnb-item > a:hover {
+    /* background-color: #efefef; */
+    color: #ef2a23;
+    opacity: 80%;
+    transition: all 0.3s ease;
+}
+
+
+/* .aside.market .cate_aside ul li{
+    width: 280px;
+    height: auto;
+    line-height: 30px;
+    text-align: left;
+    text-indent: 10px;
+    margin-left: 10px;
+}
+.aside.market .cate_aside .lnb-item .sub-menu li{
+    height: 10px;
+    margin-left: 20px;
+
+}
+.aside.market .cate_aside{
+    align-self:center ;
+    overflow-y: hidden;
+}
+.aside.market .cate_aside li {
+    margin-bottom: 10px;
+    height: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.aside.market .cate_aside li a{
+    line-height: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.aside.market .cate_aside li ul{
+    height: auto;
+}
+.aside.market .cate_aside li ul li{
+    height: auto;
+    width: auto;
+    margin-top: 5px;
+    margin-left: 25px;
+    line-height: 20px;
+}
+
+
+.aside.market .cate_aside li > a > img {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+/* New Styles for Submenu Toggle */
+
+/* Initially hide all sub-menus */
+/* .aside.market .cate_aside .lnb-item .lnb-sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    opacity: 0;
+    transition: all 0.3s ease;
+} */
+
+/* .aside.market .cate_aside .lnb-item .hidden{
+    display: none;
+}
+
+.aside.market .cate_aside .lnb-item .lnb-sub-menu li {
+    height: 10px;
+}
+
+/* Show the submenu when the parent has an 'open' class
+.aside.market .cate_aside .lnb-item.open .lnb-sub-menu {
+    /* display: block;
+    height: auto;
+    margin-left: 10px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    max-height: 500px;
+    opacity: 1;
+    transition: all 0.3s ease;
+} */
+
+/* Add hover effects
+.aside.market .cate_aside .lnb-item > a:hover {
+    background-color: #efefef;
+    color: #ef2a23;
+    transition: all 0.3s ease;
+}
+
+/* .aside.market .cate_aside .lnb-item .toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.aside.market .cate_aside .lnb-item.open .toggle-icon {
+    transform: rotate(180deg); /* 클릭 시 아이콘이 180도 회전
+
+.aside.market .cate_aside .lnb-item.open .lnb-sub-menu a:nth-child(1){
+    font-weight: 700;
+}
+.aside.market .cate_aside .lnb-item.open .lnb-sub-menu li{
+    line-height: 15px;
+    height: 15px;
+    font-weight: 400;
+}
+/* Styling for the main lnb-item links
+.aside.market .cate_aside .lnb-item > a {
+    font-weight: 400;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+
+    background-color: #fff; /* 기본 배경색
+    transition: background-color 0.3s ease;  /* 배경색 전환 효과
+}
+
+/* Styling for sub-menu links
+.aside.market .cate_aside .lnb-item .lnb-sub-menu a {
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+
+
+
+}
+
+
+.aside.market .cate_aside .lnb-item a{
+
+    text-decoration: none;
+    transition: all 0.3s ease;  /* Smooth transition
+    cursor: pointer;
+}
+
+.aside.market .cate_aside .lnb-item .lnb-sub-menu a:hover {
+    color: #ef2a23;
+}
+
+/* Hover and active states for main categories
+.aside.market .cate_aside .lnb-item > a:hover {
+    background-color: #efefef;
+    color: #ef2a23;
+} */
+
+
+
+/* Best product container */
+.aside.market .bestProduct {
+    width: 200px;
+    height: auto;
+    border: 1px solid #f8f7f798;
+    background-color: #f8f7f798;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-items: stretch;
+    flex-grow: 1; /* 남은 공간을 차지하여 aside.market과 동일한 높이 설정 */
+}
+
+.aside.market .bestProduct span {
+    margin-top: 2px;
+    line-height: 12px;
+}
+
+.aside.market .bestProduct span > img:nth-child(1) {
+    width: 17px;
+    height: 17px;
+}
+
+/* First product */
+.aside.market .bestProduct .products.first {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #000;
+    width: 190px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.aside.market .bestProduct .products.first .productimg.first {
+    width: 180px;
+    height: 150px;
+    margin: 0 auto;
+    position: relative;
+}
+.aside.market .bestProduct .products.first .productimg.first>img{
+    object-fit: cover;
+    height: inherit;
+    width: 100%;
+}
+
+.productimg > img{
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*/*/
+
+
+
+/**/
+
+.aside.market .bestProduct .products.first .productimg.first p {
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration-line: underline;
+    color: #ef2a23;
+}
+
+.aside.market .bestProduct .products.first .product-name {
+    font-size: 15px;
+    height: 20px;
+    line-height: 20px;
+
+}
+
+.aside.market .bestProduct .products.first .productInfo{
+    width: 180px;
+    margin: 0 auto;
+
+}
+
+.aside.market .bestProduct .products.first .original-price {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 4px;
+    color: #666;
+    text-decoration: line-through;
+}
+
+.aside.market .bestProduct .products.first .discounted-price {
+    color: red;
+    font-size: 25px;
+    display: flex;
+    margin-top: 0px;
+}
+
+.aside.market .bestProduct .products.first .discounted-price p {
+    display: inline-block;
+}
+
+.aside.market .bestProduct .products.first .discount-rate {
+    font-size: 20px;
+}
+
+.aside.market .bestProduct .products.first .final-price {
+    font-size: 15px;
+    color: black;
+}
+
+.aside.market .bestProduct .products .final-price{
+    font-size: 13px;
+    color: black;
+}
+
+/* Other products (smaller items) */
+.aside.market .bestProduct .products {
+    display: flex;
+    width: 200px;
+    height: 100px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.aside.market .bestProduct .products .productimg {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.aside.market .bestProduct .products .productimg .product-quantity {
+    position: absolute;
+    top: -3px;
+    left: 1px;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration-line: underline;
+    color: #ef2a23;
+}
+
+.aside.market .bestProduct .products .productInfo {
+    width: 100px;
+    height: auto;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.aside.market .bestProduct .products .product-name {
+    font-size: 12px;
+    overflow: hidden;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.2rem;
+}
+
+.aside.market .original-price {
+    font-size: 11px;
+    margin-top: 5px;
+    color: #666;
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+.aside.market .bestProduct .products.discounted-price  *{
+    display: inline-flex;
+    flex-direction: row;
+}
+.aside.market .bestProduct .products  .discounted-price {
+    flex-direction: row;
+    color: red;
+    font-size: 7px;
+    display: flex;
+    margin-bottom: 0px;
+}
+.aside.market .bestProduct .products  .discounted-price p {
+    font-size: 15px;
+}
+
+.discount-rate {
+    margin-right: 3px;
+}
+
+.discount-arrow {
+    font-size: 7px;
+}
+
+
+
+.aside.market .bestProduct .products.first .discounted-price p{
+    display: inline-block;
+}
+
+.aside.market .bestProduct .products.first .discount-rate {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.aside.market .bestProduct .products.first  .final-price {
+    font-size: 20px;
+    color: black;
+    height: 20px;
+    line-height: 20px;
+}
+
+
+
+/* hover */
+.cate_aside ul > li:hover{
+    /* color:#ef2a23; */
+    font-weight: 900;
+
+  }
+  .cate_aside ul > .active a{
+      font-size: 15px;
+      font-weight: 900;
+  }
+  .aside.market .cate_aside .lnb-item.open .lnb-sub-menu .active > a{
+      color:#ef2a23;
+      font-size: 17px;
+      font-weight: 700;
+  }
+
+  .aside.market .cate_aside .lnb-item.open .lnb-sub-menu .active > a:hover{
+    opacity: 20%;
+  }
+
+/* 추가 */
+/* 추가 */
+.cate_aside {
+    width: 250px; /* 사이드 메뉴 너비 */
+    background-color: #ffffff; /* 배경색 */
+    border-radius: 10px;
+}
+
+.cate_aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cate_aside .lnb1 {
+    margin-bottom: 25px; /* 1차 분류 항목과의 간격 */
+}
+
+.cate_aside ul:first-child {
+    margin-top: 10px;
+}
+
+.cate_aside .lnb1 > a {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    padding: 11px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s ease;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.cate_aside .lnb-item {
+    margin-left: 20px;
+}
+
+.cate_aside .lnb-item > a {
+    font-size: 16px;
+    color: #7f8c8d;
+    /*padding: 10px;*/
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.cate_aside .lnb-sub-menu li {
+    margin-bottom: 8px;
+}
+
+.cate_aside .lnb-sub-menu li > a {
+    font-size: 14px;
+    color: #95a5a6;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    display: block;
+    transition: background-color 0.3s, transform 0.3s ease;
+}
+
+
+.cate_aside .cateactive {
+    font-weight: 700;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+}

@@ -1,0 +1,54 @@
+
+<div id="aside">
+    <h1>문의하기</h1>
+    <div class="aside_list">
+        <ul>
+            <li th:each="board : ${boardCate}">
+                <a href="#" class="selectOption" th:data-id="${board.boardCateId}" th:text="${board.name}"></a>
+            </li>
+            <li class="myqnaList">
+                <th:block th:if="${#authentication.name != 'anonymousUser'}">
+                    <input type="hidden" name="uid" id="uid" th:value="${#authentication.getName()}">
+                </th:block>
+                <a id="listLink" th:text="'1:1문의내역'"></a><br>
+                <p>나의 문의 내역을<br>보고싶다면?</p>
+            </li>
+            <li class="myqna">
+                <a id="qnaLink" onclick="loginredirect('/cs/qna/write')">1:1 문의하기></a><br>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        function loginredirect(url) {
+            const uidElement = document.getElementById("uid");
+            const uid = uidElement ? uidElement.value : null;
+
+            // 사용자 uid를 포함하여 페이지로 리다이렉션
+            window.location.href = url;
+
+            if (!uid) {
+                alert('로그인 후 이용해 주세요');
+                window.location.href = `/user/login?redirect=${encodeURIComponent('/cs/qna/list?cate=8')}`;
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        // 1:1 문의하기 로그인 처리
+        document.getElementById('qnaLink').addEventListener('click', function (event) {
+            event.preventDefault();
+            loginredirect('/cs/qna/write');
+        });
+
+        // 1:1 문의내역 로그인 처리
+        // document.getElementById('listLink').addEventListener('click', function (event) {
+        //     event.preventDefault();
+        //     loginredirect('/cs/qna/list');
+        // });
+
+        window.loginredirect = loginredirect;
+    });
+</script>

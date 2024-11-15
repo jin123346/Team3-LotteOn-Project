@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/company.css}">
+    <link rel="shortcut icon" th:href="@{/uploads/ConfigImg/favicon.ico}" type="image/x-icon">
+
+</head>
+<body>
+<div class="wrapper">
+    <div id="layout">
+        <div id="skipNav">
+            <a href="#content">본문바로가기</a>
+        </div>
+
+        <th:block th:replace="~{include/company_header}"></th:block>
+        <th:block  layout:fragment="content"></th:block>
+
+
+
+
+
+        <th:block th:replace="~{include/company_footer}"></th:block>
+
+
+
+
+    </div><!--layout end-->
+</div> <!--wrapper end-->
+
+</body>
+<script th:src="@{/js/company.js}"></script>
+
+</html>

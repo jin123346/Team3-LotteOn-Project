@@ -1,0 +1,479 @@
+
+
+/*!* 옵션 그룹 및 옵션 항목 스타일 *!*/
+/*#option-container {*/
+/*    width: 900px;*/
+/*    margin: 20px auto;*/
+/*    background-color: #f9f9f9;*/
+/*    border: 1px solid #e0e0e0;*/
+/*    border-radius: 8px;*/
+/*    padding: 10px;*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.addOption >div{*/
+/*    display: flex;*/
+/*}*/
+
+/*.option-group {*/
+/*    margin-bottom: 15px;*/
+/*    border-bottom: 0.5px solid #cccccc;*/
+/*}*/
+
+
+/*.option-group label {*/
+/*    display: block;*/
+/*    margin-bottom: 5px;*/
+/*    color: #333;*/
+/*}*/
+/*.option-group > div{*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: flex-start;*/
+/*    flex-direction: row;*/
+/*    width: 100%;*/
+/*    margin-bottom: 5px;*/
+/*}*/
+/*.option-group > div:nth-child(1){*/
+/*    border-bottom: 0.5px solid #dddddd;*/
+/*    margin-bottom: 5px;*/
+/*    box-sizing: border-box;*/
+/*    padding: 5px 0;*/
+
+/*}*/
+
+
+/*.option-group > div > label{*/
+/*    margin-right: 10px;*/
+/*    width: 150px;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*.option-group input[type="text"],*/
+/*.option-group input[type="number"] {*/
+/*    width: 250px;*/
+/*    height: 30px;*/
+/*    !* margin: 5px 0; *!*/
+/*    padding: 5px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*#optionBtnArea{*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.codeArea{*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    margin-top: 10px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+/*.codeArea.hidden{*/
+/*    display: none;*/
+/*}*/
+
+/*.option-items {*/
+/*    margin-top: 10px;*/
+/*    display: flex;*/
+/*}*/
+
+/*.option-items button{*/
+/*    margin-left: 20px;*/
+/*}*/
+
+/*.option-items .option-item {*/
+/*    margin-top: 5px;*/
+/*}*/
+
+/*button[type="button"] {*/
+/*    background-color: #5c9ded;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    padding: 3px 4px;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*    font-size: 12px;;*/
+/*}*/
+
+/*button[type="button"]:hover {*/
+/*    background-color: #4a8cd3;*/
+/*}*/
+
+/*!* 옵션 조합 테이블 스타일 *!*/
+/*#option-stock-container {*/
+/*    width: 900px;*/
+/*    margin: 30px auto 0;*/
+/*    background-color: #f7f9fc;*/
+/*    border: 1px solid #e0e0e0;*/
+/*    border-radius: 8px;*/
+/*    padding: 20px;*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.option-stock-table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*    margin-top: 15px;*/
+/*}*/
+
+/*.option-stock-table thead {*/
+/*    background-color: #e8f4fc;*/
+/*}*/
+
+/*.option-stock-table th,*/
+/*.option-stock-table td {*/
+/*    padding: 10px;*/
+/*    border: 1px solid #ddd;*/
+/*    text-align: left;*/
+/*}*/
+
+/*.option-stock-table th {*/
+/*    font-weight: bold;*/
+/*    color: #333;*/
+/*}*/
+
+/*.option-stock-table td input[type="number"] {*/
+/*    width: 100px;*/
+/*    height: 30px;*/
+/*    padding: 5px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*!* 스타일 조정 *!*/
+/*.option-stock-container button {*/
+/*    display: block;*/
+/*    margin: 0 auto 15px;*/
+/*    padding: 10px 20px;*/
+/*    font-size: 14px;*/
+/*    border-radius: 4px;*/
+/*    background-color: #5c9ded;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.option-stock-container button:hover {*/
+/*    background-color: #4a8cd3;*/
+/*}*/
+
+
+
+/**/
+
+.admin_menu > li:nth-child(4) .admin_sub_menu > li:nth-child(2) > a {
+    text-decoration: underline;
+}
+
+
+
+
+#admin_service {
+   width: 1000px; /* 기본 너비 */
+   transition: width 0.3s; /* 부드러운 전환 효과 */
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+#admin_service.expanded {
+   width: 1200px; /* aside가 숨겨질 때의 너비 */
+}
+
+#admin_gate {
+   width: 100%; /* 기본적으로 100%로 설정 */
+   transition: width 0.3s ease; /* 너비에 대한 부드러운 전환 효과 */
+}
+
+#admin_service.expanded #admin_gate {
+   width: calc(1200px - 200px); /* aside가 숨겨질 때 gate의 너비 조정 */
+}
+
+#admin_aside.hidden {
+   width: 0;
+   padding: 0;
+   overflow: hidden;
+}
+
+       #admin_version div:nth-of-type(1) {width: 900px; margin: 0 auto; padding: 3px;}
+       #admin_version div:nth-of-type(2) {width: 900px; margin: 0 auto; padding: 3px;}
+       #admin_version div:nth-of-type(2) p {width: 900px; margin: 3px auto 0; padding: 3px;}
+       .admin_version_table {width: 900px; margin: 3px auto 40px; padding: 3px;}
+
+       #admin_site > div {width: 900px; margin: 3px auto;  padding: 3px;}
+       .admin_site_table {width: 900px; margin: 0 auto; padding: 3px;}
+       #admin_site > div:nth-of-type(3) {margin-bottom: 40px; padding: 3px;}
+
+        #option-container> div {width: 900px; margin: 3px auto;  padding: 3px;}
+        /*.option_table {width: 900px; margin: 0 auto; padding: 3px;}*/
+        #option-container> div:nth-of-type(3) {margin-bottom: 40px; padding: 3px;}
+        #combination-container> div {width: 900px; margin: 3px auto;  padding: 3px;}
+        /*.option_table {width: 900px; margin: 0 auto; padding: 3px;}*/
+        #combination-container> div:nth-of-type(3) {margin-bottom: 40px; padding: 3px;}
+
+       #admin_logo div {width: 900px; margin: 3px auto;  padding: 3px;}
+       .admin_logo_table {width: 900px; margin: 0 auto;  padding: 3px;}
+       #admin_logo div:nth-of-type(3) {margin-bottom: 40px; padding: 3px;}
+
+       #admin_company_info div {width: 900px; margin: 3px auto;  padding: 3px;}
+       .admin_company_info_table {width: 900px; margin: 0 auto;  padding: 3px;}
+       #admin_company_info div:nth-of-type(3) {margin-bottom: 40px; padding: 3px;}
+
+       #admin_cs_info div {width: 900px; margin: 3px auto;  padding: 3px;}
+       .admin_cs_info_table {width: 900px; margin: 0 auto;  padding: 3px;}
+       #admin_cs_info div:nth-of-type(3) {margin-bottom: 40px; padding: 3px;}
+
+       #copy_light div {width: 900px; margin: 3px auto;  padding: 3px;}
+       .copy_light_table {width: 900px; margin: 0 auto; padding: 3px;}
+       #copy_light div:nth-child(3)  {margin-bottom: 40px; padding: 3px;}
+
+       input[type="text"] ,input[type="number"]{width: 236px; height: 30px; border: 0.3px solid #424242; /* 경계선 색상 */ padding: 3px; margin: 2px;}
+       input[type="file"] { width: 236px; height: 30px;  padding: 3px; margin: 2px; }
+       input.custom-width {width: 300px; /* 원하는 너비로 조정 */}
+
+       
+       .top1 {font-weight: bold; font-size: 14px;}
+       .top2 {width: auto; padding: 3px; background: linear-gradient(to top, #cdd8e6 50%, transparent 50%);}
+
+
+
+        article#admin_option {
+            width: 900px;
+            margin: 3px auto;
+            padding: 1px;
+            position: relative;
+        }
+
+#admin_option div#option-container {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    background-image: linear-gradient(to right, rgb(226, 232, 238) 150px, #ffffff 150px);
+    margin-top: 6px;
+
+}
+
+
+#admin_option .option-group > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start
+}
+#admin_option .option-group label{
+    width: 150px;
+    text-indent: 6px;
+    height: 34px;
+    box-sizing: border-box;
+}
+
+#admin_option button{
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #8eb4e3;
+    border-radius: 5px;
+    margin: 5px;
+    color: #FFFFFF;
+
+}
+
+#admin_option .groupAdd{
+    margin-top: 0px;
+}
+
+#admin_option div#optionBtnArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+#admin_option #option-container> div:nth-of-type(3) {
+    margin-bottom: 0px;
+}
+
+#admin_option #stock-input-area thead{
+    margin: 10px;
+    padding: 5px;
+    background-color: #8EB4E3;
+}
+
+       .admin_version_table,
+       .admin_site_table,
+       .admin_logo_table,
+       .admin_company_info_table,
+       .admin_cs_info_table,
+       .copy_light_table {
+           table-layout: fixed; 
+           border-collapse: collapse;
+           border-radius: 8px;
+           overflow: hidden; /* 모서리 둥글게 하기 */
+           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+       }
+       .admin_version_table td:nth-child(1),
+       .admin_site_table td:nth-child(1),
+       .admin_company_info_table td:nth-child(1){background: rgb(226,232,238);}
+
+       .admin_version_table td:nth-child(2),
+       .admin_site_table td:nth-child(2),
+       .admin_company_info_table td:nth-child(2){background: #fbfdff;}
+
+
+       .admin_version_table td,
+       .admin_site_table td,
+       .admin_logo_table td,
+       .admin_company_info_table td,
+       .admin_cs_info_table td,
+       .copy_light_table td {
+   /*border: 1px solid rgb(172, 172, 172); !* 셀 경계 색상 및 두께 설정 *!*/
+   padding: 8px; /* 셀 안쪽 여백 설정 */
+   text-align: left; /* 텍스트 왼쪽 정렬 */
+   
+}
+               .admin_version_table tr,
+               .admin_site_table tr,
+               .admin_logo_table tr,
+               .admin_company_info_table tr,
+               .admin_cs_info_table tr,
+               .copy_light_table tr{border: 1px solid rgb(255, 255, 255); /* 셀 경계 색상 및 두께 설정 */
+                   padding: 8px; /* 셀 안쪽 여백 설정 */
+                   text-align: left; /* 텍스트 왼쪽 정렬 */
+                   }
+
+                   #admin_version > div:nth-of-type(2),
+                   #admin_site > div,
+                   #admin_logo > div,
+                   #admin_company_info > div,
+                   #admin_cs_info > div,
+                   #copy_light > div { border-radius: 8px;overflow: hidden; /* 모서리 둥글게 하기 */}
+
+                   .basic_modi {text-align: right;}
+
+                   #classification{
+                       width: 140px;
+                       height: 30px;
+                   }
+
+                   #combination-container .admin_site_table td:nth-child(1){
+                       background-color: #FFFFFF;
+                   }
+#combination-container table th{
+    text-align: left;
+    text-indent: 15px;
+    background-color: rgb(226,232,238);
+    padding: 5px 10px;
+
+}
+
+#combination-container table input{
+    width: 120px;
+}
+.productImg >div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+#combination-container .top1,
+#option-container .top1{
+    width: 900px;
+    margin: 3px auto;
+    padding: 3px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+#combination-container .top1 span,
+#option-container .top1 span{
+    margin-right: 10px;
+    font-size: 15px;
+}
+#combination-container .top1 #newCombination,
+#option-container .top1  #GroupModify{
+    width: 80px;
+    height: 35px;
+    margin-top: 5px;
+    background: #8eb4e3;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+.option-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+
+#option-container input[type="hidden"] {
+    border: 1px solid #FFFFFF;
+    /* 다른 스타일을 추가할 수 있지만, 요소는 여전히 표시되지 않습니다 */
+}
+
+.readonly-style input[type="text"] {
+    background-color: #f0f0f0;
+    color: #999;
+    border: 0.3px solid #FFFFFF;
+}
+
+
+
+.etcexplanation{width: 900px; height: 70px; overflow: hidden; margin: 0 auto; background: #ffffcc;}
+       .etcexplanation p{font-size: 14px; font-weight: 400; line-height: 17px; margin: 30px 30px;}
+       .regbox{width: 900px; margin: 0 auto; margin-bottom: 80px; padding: 3px; text-align: right; }
+       .regbutton{width: 80px; height: 35px; margin-top: 5px; background: #8eb4e3; color: white; border: none; cursor: pointer; }
+
+
+       .optionTag{
+           position: relative;
+       }
+       .optionTag #optionList > div{
+           display: flex;
+           flex-direction: row;
+           align-items: center;
+
+       }
+
+        .optionTag #optionList >div > div{
+        }
+        .optionTag #optionList .optionItem> input{
+            height: 30px;
+            margin: 0px;
+        }
+
+        .optionTag #optionList .optionItem:not(:nth-child(1)) > input{
+            height: 30px;
+            margin-left: 0px;
+            margin-right: 4px;
+            margin-top: 2px;
+        }
+
+        .optionTag #optionList .optionItem > input:nth-child(1){
+            width: 100px;
+        }
+
+        .optionTag > #addOptionBtn{
+            position: absolute;
+            height: 30px;
+            box-sizing: border-box;
+            padding: 5px;
+            top: 9px;
+            right: 20px;
+        }
+
+
+        img{
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }

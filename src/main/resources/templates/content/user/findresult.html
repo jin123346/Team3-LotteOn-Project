@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/common.css">
+  <link rel="stylesheet" th:href="@{/css/user/findidresult.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+  <main>
+    <section class="find-section cf">
+      <div>
+        <form>
+          <h4>아이디 찾기 결과</h4>
+          <table class="idresult">
+            <tr>
+              <th>이름</th>
+              <td th:text="${member.name}">이름</td> <!-- 세션에서 가져온 이름 -->
+            </tr>
+            <tr>
+              <th>아이디</th>
+              <td th:text="${member.user.uid}">아이디</td> <!-- 세션에서 가져온 아이디 -->
+            </tr>
+            <tr>
+              <th>이메일</th>
+              <td th:text="${member.email}">이메일</td> <!-- 세션에서 가져온 이메일 -->
+            </tr>
+            <tr>
+              <th>가입일</th>
+              <td th:text="${member.regDate}">가입일</td> <!-- 세션에서 가져온 가입일 -->
+            </tr>
+          </table>
+          <h5>고객님의 정보와 일치하는 아이디입니다.</h5>
+
+          <div class="btn-group">
+            <button type="button" class="btn" id="blogin">로그인</button> <!-- 로그인 버튼 -->
+            <button type="button" class="btn" id="find-pass">비밀번호 찾기</button> <!-- 비밀번호 찾기 버튼 -->
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 서버에서 나머지 정보도 같이 받아온 경우, 위와 같이 처리 가능
+
+
+    document.getElementById("blogin").addEventListener("click", function () {
+      window.location.href = "/user/login";  // 로그인 페이지로 리다이렉트
+    });
+
+    document.getElementById("find-pass").addEventListener("click", function () {
+      window.location.href = "/user/findpass";  // 비번찾기 페이지로 리다이렉트
+    });
+  </script>
+</th:block>
+</body>

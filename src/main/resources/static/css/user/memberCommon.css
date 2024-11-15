@@ -1,0 +1,95 @@
+
+@font-face {
+    font-family: 'AppleSDGothicNeoM';
+    src: url('/font/Apple/AppleSDGothicNeoM.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'AppleSDGothicNeoB';
+    src: url('/font/Apple/AppleSDGothicNeoB.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'AppleSDGothicNeoM', sans-serif;
+}
+
+body {
+    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.header {
+    box-sizing: border-box;
+    width: 1200px;
+    margin: 40px auto;
+}
+
+.headLogo {
+    display: flex;
+    align-items: center;
+
+}
+
+.headerHr{
+    border-color: #ef2a23;
+}
+
+.headLogo img {
+    width: 250px;
+}
+
+.headLink {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.headLink a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-family: "AppleSDGothicNeo", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.span {
+    margin-top: 30px;
+}
+
+.span > p {
+    color: #000;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.5em;
+}
+
+.headLink a:hover {
+    color: red;
+}
+
+
+#footer {
+    background-color: #f9f9f9;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    height: 50px; /* 명시적으로 footer 높이를 설정 */
+}
+.footerWrapper{
+    width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admin Main</title>
+
+</head>
+<style>
+        *{margin: 0; padding:0; font-family: '고딕', sans-serif; box-sizing: border-box; font-size: 12px;}
+        html{color:#111; position:relative;}
+        html, body{height:100%;}
+        ol,ul {list-style: none}
+        a {text-decoration: none; color: inherit;}
+        .hidden {display: none;}
+
+        #wrapper {width: 100%; height: auto;}
+        
+
+
+        /*관리자 헤더*/
+        #admin_header {width: 100%; height: 100px; margin: 0 auto; background: linear-gradient(to bottom, rgb(53, 53, 53) 73%, rgba(102, 102, 102, 0.527) 27%); border-bottom: 0.1px solid #ffe8e8;}
+
+        #admin_top {width: 1200px; margin: 0 auto; display: flex; height: 100px;}
+        /*로고 + 홈, 로그인, 로그아웃*/
+        .top_log {display: block;  width: 150px; height: 30px; margin: 20px;}
+        .admin_gate {margin-left: auto; padding-top: 70px; margin-top: 10px;}
+
+        .admin_gate > a {padding: 3px; color: white;}
+        .admin_gate > a:nth-of-type(3) {margin-right: 45px;}
+
+        /*메인*/
+        #admin_main {
+            width: 1200px;
+            height: auto;
+            position: relative;
+            margin: 0 auto;
+        }
+        /*메인 컨테이너*/
+        #admin_container {
+            display: flex;
+            width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;        
+        }
+        /*관리자 어사이드*/
+        #admin_aside {
+            width: 200px;
+            border-right: 1px solid rgb(199, 199, 199);
+            box-sizing: border-box;
+            background-color: #f9f9f9; /* 배경색 추가 */
+            padding: 10px; /* 내부 여백 추가 */
+        }
+
+        /* 어사이드 - 관리자 메인 */
+        .aside_first {
+            border-top: 2px solid rgb(167, 167, 167);
+            margin: 55px 0 10px 20px;
+        }
+
+        .aside_first > h2 {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-size: 15px;
+            color: #333; /* 글자색 조정 */
+            text-align: center; /* 중앙 정렬 */
+        }
+
+        /* 어사이드 - 메뉴 */
+        .aside_second {
+            border-top: 1px solid rgb(196, 196, 196);
+            border-bottom: 1px solid rgb(196, 196, 196);
+            margin: 40px 0 10px 20px;
+        }
+
+        .admin_menu {
+            margin-top: 10px;  /* 위쪽 간격 줄이기 */
+            margin-bottom: 10px; /* 아래쪽 간격 줄이기 */
+        }
+
+        .admin_menu > li {
+            cursor: pointer;
+            padding: 10px; /* 항목 여백 추가 */
+            border-radius: 5px; /* 항목 둥글게 */
+            transition: background 0.3s; /* 배경 변화 효과 */
+        }
+
+        .admin_menu > li:hover {
+            background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+        }
+
+        /* 서브 메뉴 */
+        .admin_sub_menu {
+            visibility: hidden;
+            padding: 5px;
+            padding-left: 20px;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+            overflow: hidden;
+            /* background-color: #f0f0f0; 서브 메뉴 배경색 */
+            border-radius: 5px; /* 둥글게 */
+        }
+
+        .admin_sub_menu.open {
+            max-height: 196px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .admin_sub_menu > li {
+            margin: 5px;
+            padding: 5px 10px; /* 서브 메뉴 항목 여백 추가 */
+            border-radius: 3px; /* 서브 메뉴 항목 둥글게 */
+            transition: background 0.3s; /* 서브 메뉴 항목 배경 변화 효과 */
+        }
+
+        /* 메인 서비스 */
+        #admin_service {
+            flex-grow: 1;
+            min-width: 0;
+            width: 1000px; 
+        }
+
+        /* 내비게이션 */
+        #admin_navi {
+            width: 900px;
+            height: auto;
+            border-bottom: 2px solid rgba(158, 158, 158, 0.5);
+            display: flex;
+            margin: 30px auto;
+        }
+
+        #admin_navi p:nth-of-type(1):before {
+            content: ""; 
+            display: inline-block; 
+            width: 5px; 
+            height: 13px; 
+            background-color: #181818; 
+            margin-right: 5px; 
+        }
+
+        #admin_navi p {
+            font-size: 15px; 
+            font-weight: bold; 
+            margin-top: 5px; 
+        }
+
+        #admin_navi p:nth-of-type(2) {
+            margin-left: auto;
+        }
+
+        /* 테이블 헤더 왼쪽 정렬 */
+        .a_status tr th, 
+        .o_status tr th, 
+        .admin_notice tr th, 
+        .admin_inquire tr th {
+            text-align: left;
+        }
+
+        /* 운영상황 */
+        .a_status {
+            width: 900px;
+            border-collapse: collapse;
+            table-layout: fixed; 
+            margin: 0px auto;
+            border-radius: 8px;
+            overflow: hidden; /* 모서리 둥글게 하기 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+
+        }
+
+        .a_status tr:nth-of-type(2) {
+            background: rgba(194, 184, 184, 0.1); 
+        }
+
+        .a_status th, 
+        .a_status td {
+            border: 1px solid rgba(175, 166, 166, 0.5);
+            padding: 10px;
+            text-align: center; 
+        }
+
+        .a_status th {
+            background-color: rgba(66, 61, 61, 0.1); /* 헤더 배경 색 */
+            font-weight: bold; 
+        }
+
+        .a_status tr:hover {
+            background-color: rgba(240, 240, 240, 0.5); /* 마우스 오버 시 효과 */
+        }
+
+        .a_status tr:nth-of-type(2) p:nth-of-type(2) {
+            color: red;
+        }
+
+        .a_status tr:nth-of-type(2) {
+            font-weight: bold;
+        }
+
+        /* 주문상황 */
+        .o_status {
+            width: 900px;
+            border-collapse: collapse; 
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden; /* 모서리 둥글게 하기 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /*그림자 효과*/
+        }
+
+        .o_status tr:nth-of-type(2) {
+            background: rgba(201, 191, 191, 0.1);
+        }
+
+        .o_status th, 
+        .o_status td {
+            border: 1px solid rgba(172, 172, 172, 0.5);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .o_status th {
+            background-color: rgba(66, 61, 61, 0.1); /* 헤더 배경 색 */
+        }
+
+        .o_status tr:hover {
+            background-color: rgba(240, 240, 240, 0.5); /* 마우스 오버 시 효과 */
+        }
+
+        .o_status tr:nth-of-type(2) p:nth-of-type(2) {
+            color: red;
+        }
+
+        .o_status tr:nth-of-type(2) {
+            font-weight: bold;
+        }
+
+        /* 공지사항, 고객문의 */
+        #admin_notice_admin_inquire {
+            width: 900px;
+            margin: 20px auto; 
+            display: flex; 
+            justify-content: space-between; 
+        }
+
+        .admin_notice, 
+        .admin_inquire {
+            width: 420px; 
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden; /* 모서리 둥글게 하기 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+        }
+
+        .admin_notice td, 
+        .admin_inquire td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50px;
+        }
+
+        .admin_notice th, 
+        .admin_notice td, 
+        .admin_inquire th, 
+        .admin_inquire td {
+            border-bottom: 1px dotted rgba(172, 172, 172, 0.5); 
+            padding: 10px;
+        }
+
+        .admin_notice th:nth-of-type(1), 
+        .admin_notice th:nth-of-type(2) {
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5); 
+            background-color: rgba(66, 61, 61, 0.1); /* 헤더 배경 색 */
+        }
+
+        /* 공지사항, 고객문의 전체보기 오른쪽 정렬 */
+        .admin_notice tr th:nth-of-type(2), 
+        .admin_inquire tr th:nth-of-type(2) {
+            text-align: right; 
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5); 
+            padding: 10px;
+        }
+        .admin_inquire tr th {background-color: rgb(66, 61, 61, 0.1);}
+        .admin_inquire tr th:nth-of-type(1) {
+            text-align: left; 
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5); 
+            padding: 10px;
+        }
+
+        /* 아이디 날짜 가운데 정렬 */
+        .admin_notice td:nth-of-type(2), 
+        .admin_inquire td:nth-of-type(2), 
+        .admin_inquire td:nth-of-type(3) {
+            text-align: center;
+        }
+
+
+        /*footer*/
+        #admin_footer {width: 100%; height: auto; margin: 0 auto; background: #333333d2 ;}
+
+</style>
+<body>
+    <div id="wrapper">
+        <header id="admin_header">
+            <div id="admin_top">
+                <img class="top_log" src="../images/sample/lotte로고(white).png" alt="로고사진">
+                <div class="admin_gate">
+                    <a href="#">홈</a>
+                    <a href="#">로그아웃</a>
+                    <a href="#">고객센터</a>
+                </div>
+            </div>
+        </header>
+        <main id="admin_main">
+            <div id="admin_container">
+                <div id="admin_aside">
+                    <div id="admin_aside_list">
+                        <div class="aside_first">
+                            <h2>관리자 메인</h2>
+                        </div>
+                        <div class="aside_second">
+                            <ul class="admin_menu">
+                                <li><a href="#">환경설정</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">상점관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">회원관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">상품관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">주문관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">고객센터</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <div id="admin_service">
+                <section id="admin_navi">
+                        <p>관리자 메인</p>
+                        <p><a href="#">HOME</a> > 관리자 메인</p>
+                </section>
+                <article id="admin_status">
+                    <table class="a_status">
+                        <tr>
+                            <th colspan="10">운영현황</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>주문건수</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td colspan="2">
+                                <p>주문금액</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td colspan="2">
+                                <p>회원가입</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td colspan="2">
+                                <p>방문자 수</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td colspan="2">
+                                <p>신규 게시물</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>pc</p>
+                                <p>mobile</p>
+                            </td>
+                            <td>
+                                <p>60</p>
+                                <p>70</p>
+                            </td>
+                            <td>
+                                <p>pc</p>
+                                <p>mobile</p>
+                            </td>
+                            <td>
+                                <p>60</p>
+                                <p>70</p>
+                            </td>
+                            <td>
+                                <p>pc</p>
+                                <p>mobile</p>
+                            </td>
+                            <td>
+                                <p>60</p>
+                                <p>70</p>
+                            </td>
+                            <td>
+                                <p>pc</p>
+                                <p>mobile</p>
+                            </td>
+                            <td>
+                                <p>60</p>
+                                <p>70</p>
+                            </td>
+                            <td>
+                                <p>pc</p>
+                                <p>mobile</p>
+                            </td>
+                            <td>
+                                <p>60</p>
+                                <p>70</p>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+                <article id="order_status">
+                    <table class="o_status">
+                        <tr>
+                            <th colspan="5">주문현황</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>입금대기</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td>
+                                <p>배송준비</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td>
+                                <p>취소요청</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td>
+                                <p>교환요청</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                            <td>
+                                <p>반품요청</p><br>
+                                <p><a href="#">300</a></p>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+                <article id="admin_notice_admin_inquire">
+                        <table class="admin_notice">
+                            <colgroup>
+                                <col style="width: 750px">
+                                <col style="width: 150px">
+                            </colgroup>
+                            <tr>
+                                <th>공지사항</th>
+                                <th><a href="#">전체보기</a></th>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                <td>22.10.31</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                <td>22.10.31</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                <td>22.10.31</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                <td>22.10.31</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                <td>22.10.31</td>
+                            </tr>
+                        </table>
+                        <table class="admin_inquire">
+                            <colgroup>
+                                <col style="width: 600px">
+                                <col style="width: 150px"> 
+                                <col style="width: 150px"> 
+                            </colgroup>
+                            <tr>
+                                <th>고객문의</th>
+                                <th colspan="2"><a href="#">전체보기</a></th>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                <td>wlgus59**</td>
+                                <td>20.12.11</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                <td>wlgus59**</td>
+                                <td>20.12.11</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                <td>wlgus59**</td>
+                                <td>20.12.11</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                <td>wlgus59**</td>
+                                <td>20.12.11</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                <td>wlgus59**</td>
+                                <td>20.12.11</td>
+                            </tr>
+                        </table>
+                </article>
+            </div>
+        </div>
+        </main>
+        <footer id="admin_footer">
+            <div>머시기저시기</div>
+            <div>Copyright 3조</div>
+        </footer>
+    </div>
+</body>
+<script>
+    document.querySelectorAll('.admin_menu > li').forEach(menu => {
+        const submenu = menu.querySelector('.admin_sub_menu');
+        
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            
+            if(submenu) {
+                submenu.classList.toggle('open');
+
+            }
+        });
+
+        // 서브 메뉴 항목 클릭 이벤트
+        if(submenu){
+            submenu.querySelectorAll('li').forEach(subLi => {
+                subLi.addEventListener('click', function(e){
+                    e.stopPropagation();       
+                })
+            })
+        }
+
+
+    })
+
+
+</script>
+</html>

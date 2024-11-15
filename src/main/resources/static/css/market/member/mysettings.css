@@ -1,0 +1,207 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: normal 12px '고딕';
+}
+
+ul,ol{list-style: none;}
+a{text-decoration: none; color: #111;}
+
+#wrapper{
+    width: 100%;
+    height: 100%;
+}
+main {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+.info{
+    width: 1200px;
+    height: 75px;
+    background-color: antiquewhite;
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+
+}
+.info-title {
+    position: relative;
+    width: 101x;
+    height: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    left: 100px;
+}
+
+.summary-table {
+    position: relative;
+    display: flex;
+    left: 750px;
+    justify-content: space-around; /* 항목 간격 조정 */
+    width: 300px; /* 전체 폭 사용 */
+    padding: 10px 0; /* 위아래 여백 */
+
+}
+
+.summary-item {
+    width: 80px;
+    text-align: center; /* 항목 중앙 정렬 */
+    border-right: 1px solid black;
+}
+.summary-item:last-child {
+    border-right: none; /* 마지막 항목의 오른쪽 검은 줄 제거 */
+}
+
+.summary-value {
+    font-size: 16px; /* 값의 크기 조정 */
+    font-weight: bold; /* 값 두껍게 */
+}
+#container{
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+aside {
+    float: left;
+    width: 200px;
+    height: auto;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    border-right:1px solid #ccc;
+}
+
+aside > ul {
+    padding: 0; /* ul의 기본 패딩 제거 */
+    margin: 0; /* ul의 기본 마진 제거 */
+}
+
+aside > ul > li {
+    font-size: 16px;
+    margin: 15px 0; /* 위아래 간격 조정 */
+}
+aside > ul > li:nth-child(6) {
+    text-decoration: underline;
+}
+.center {
+    flex-grow: 1;
+    width: 994px;
+    height: auto;
+
+}
+
+.ad{
+    width: 900px;
+    height: 86px;
+    margin: 10px auto;
+    border: 1px solid red;
+    background-color: beige;
+    display: flex;
+    justify-content: center; /* 수평 정렬: flex-start, flex-end, center */
+    align-items: center; /* 수직 정렬: flex-start, flex-end, center */
+    font-size: large;
+
+}
+.details{
+    width: 880px;
+    height: 20px;
+    margin: 0 48px;
+
+}
+.center p{
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+}
+.center a{
+    font-size: 12px;
+    font-weight: 400;
+    float: right;
+}
+table{
+    width: 800px;
+    height: auto;
+    margin: 0 48px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    border-collapse: collapse;
+}
+th {
+    position: relative;
+    width: 153px;
+    height: 60px;
+    background-color: #f2f2f2;
+
+}
+.address{
+    height: 150px;
+}
+
+
+label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+}
+
+
+#uid, #change-password-btn, #name, #birth, #email-id, #email-domain, #phone-part1,#phone-part2,#phone-part3,#zipcode, #btnZip, #address1 ,#address2, #cancel{
+
+    position: relative;
+    margin: 0 5px;
+}
+
+#change-password-btn{
+    width: 119px;
+    height: 30px;
+}
+#edit-email-btn , #save-email-btn, #edit-phone-btn, #save-phone-btn, .btnZip, #cancel{
+    width: 85px;
+    height: 30px;
+}
+#email-id{
+    width: 120px;
+}
+#email-domain{
+    width: 96px;
+}
+#cancel{
+    background: #C00000;
+    color: #ffffff;
+    border: none;
+
+}
+input , select{
+    height: 30px;
+    box-sizing: border-box;
+}
+#address1, #address2{
+    width: 350px;
+}
+#phone-part1,#phone-part2,#phone-part3{
+    width: 50px;
+    height: 30px;
+}
+button{
+    cursor: pointer;
+}
+.modifydiv{
+    width: 800px;
+    height: 200px;
+    margin: 0 48px;
+}
+#modify{
+    width: 210px;
+    height: 40px;
+    margin: 90px 300px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    background-color: #4f81bd;
+    border: none;
+    color: white;
+}
+

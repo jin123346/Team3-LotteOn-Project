@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin QnA Page</title>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+            <div id="admin_service">    
+                <section>
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+                    <section id="admin_navi">
+                        <p>관리자 메인</p>
+                        <p><a href="#">HOME</a> > 관리자 메인</p>
+                    </section>
+
+                <div id="service">
+                    <div class="title">
+                        <h2>회원</h2>
+                        <p>회원 관련 문의 내용입니다.</p>
+                    </div>
+                    <form class="qnawirte">
+                        <table>
+                            <colgroup>
+                                <col style="width: 150px">
+                                <col style="width: 750px">
+                            </colgroup>
+                            <tr class="type">
+                                <td>문의유형</td>
+                                <td>
+                                    <select class="first_choice">
+                                        <option value="1">가입</option>
+                                        <option value="2">취소/반품/교환</option>
+                                        <option value="3">주문/결제</option>
+                                        <option value="4">쿠폰/이벤트</option>
+                                    </select>
+                                    <select class="second_choice">
+                                        <option value="1">가입</option>
+                                        <option value="2">취소/반품/교환</option>
+                                        <option value="3">주문/결제</option>
+                                        <option value="4">쿠폰/이벤트</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="title">
+                                <td>제목</td>
+                                <td>
+                                    <input type="text" class="texts" placeholder="제목을 입력하세요">
+                                </td>
+                            </tr>
+                            <tr class="content">
+                                <td>내용</td>
+                                <td>
+                                    <textarea class="contents" placeholder="내용을 입력하세요" ></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <div class="btn">
+                        <button class="cansel">취소하기</button>
+                        <button class="insert">등록하기</button>
+                    </div>
+                </div>
+
+
+                </section>
+</th:block>
+
+<script>
+    document.querySelectorAll('.admin_menu > li').forEach(menu => {
+        const submenu = menu.querySelector('.admin_sub_menu');
+        
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            
+            if(submenu) {
+                submenu.classList.toggle('open');
+
+            }
+        });
+
+        // 서브 메뉴 항목 클릭 이벤트
+        if(submenu){
+            submenu.querySelectorAll('li').forEach(subLi => {
+                subLi.addEventListener('click', function(e){
+                    e.stopPropagation();       
+                })
+            })
+        }
+
+
+    })
+
+
+</script>
+<script>
+document.getElementById('toggle-aside').addEventListener('click', function(e) {
+    e.preventDefault(); // 기본 링크 동작 방지
+    
+    const aside = document.getElementById('admin_aside');
+    const main = document.getElementById('admin_service');
+    const gate = document.getElementById('admin_gate'); // admin_gate 추가
+    
+    // aside가 숨겨져 있는지 여부에 따라 클래스 조정
+    if (aside.classList.contains('hidden')) {
+        aside.classList.remove('hidden'); // aside 보이기
+        main.classList.remove('expanded'); // main 원래 너비로
+        gate.classList.remove('expanded'); // gate도 원래 너비로
+    } else {
+        aside.classList.add('hidden'); // aside 숨기기
+        main.classList.add('expanded'); // main 너비 늘리기
+        gate.classList.add('expanded'); // gate도 너비 늘리기
+    }
+});
+</script>
+</html>

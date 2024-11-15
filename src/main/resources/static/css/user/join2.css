@@ -1,0 +1,98 @@
+#signup-section {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    gap: 20px;
+}
+
+.signup-card {
+    width: 320px;
+    height: 180px;
+    padding: 30px;
+    margin: 0 10px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signup-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#general-signup {
+    background-color: #ff4c4c;
+    color: white;
+}
+
+#seller-signup {
+    background-color: #4c8cff;
+    color: white;
+}
+
+.welcome-section {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 32px;
+}
+
+.welcome-section p {
+    font-size: 24px;
+    color: #333;
+    font-weight: 400;
+}
+
+.welcome-section span {
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.welcome-section strong {
+    font-size: 32px;
+    color: #ff4c4c;
+    font-weight: bold;
+}
+
+.signup-card h2 {
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.buttonJoin {
+    width: 60%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    color: #333;
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+#seller-signup a{
+    color: #333;
+}
+
+#general-signup a{
+    color: #333;
+
+}
+/*.buttonJoin:hover ,a:hover  {*/
+/*    background-color: #f0f0f0;*/
+/*    color: #333;*/
+/*}*/

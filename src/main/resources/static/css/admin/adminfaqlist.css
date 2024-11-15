@@ -1,0 +1,90 @@
+.admin_menu > li:nth-child(2) .admin_sub_menu > li:nth-child(1) > a {
+    text-decoration: underline;
+}
+
+
+
+
+
+.admin_order {
+   width: 900px;
+   background-color: #bdbdbd;
+   height: 50px;
+   margin: 20px auto;
+}
+.banner_menu {
+   display: flex;
+   justify-content: left;
+}
+.banner_menu li {
+   width: 90px;
+   display: flex;
+   height: 50px;
+   margin: 0 auto;
+   color: rgb(24, 24, 24);
+   font-weight: bold;
+   cursor: pointer;
+   transition: color 0.3s;
+   align-items: center;
+   justify-content: center;
+}
+
+.banner_menu li:hover {
+   color: #ddd;
+}
+
+#admin_faq_list div { margin: 10px auto; width: 900px;}
+.admin_faq_list_table {
+   table-layout: fixed;
+   width: 900px; border-collapse: collapse; 
+   border-radius: 8px;
+   overflow: hidden; /* 모서리 둥글게 하기 */
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);}
+.admin_faq_list_table tr {border-top: 1px solid rgba(172, 172, 172, 0.5);}
+.admin_faq_list_table td, th {height: 80px; text-align: center;}
+.admin_faq_list_table th {height: 50px; background-color:rgb(226,232,238);}
+.admin_faq_list_table td:nth-of-type(10) button {border: none; padding :5px 3px 5px 3px; background-color: #8EB4E3; color: white;}
+.admin_faq_list_table td:nth-of-type(8) {color: #00B050;}
+.admin_faq_list_table td:nth-of-type(5) {  
+   width: 30%;  
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;}
+.admin_faq_list_table td:nth-of-type(8) a {color: #00B050; display: inline-block; padding: 3px;}
+.admin_faq_list_table td {background-color: #fbfdff;}
+
+button{cursor: pointer; color: white; border-radius: 4px;}
+.list_button {width: 900px; margin: 20px auto; display: flex; justify-content: space-between;}
+.list_button button:nth-of-type(1) {width: 80px; height: 35px; margin: 20px 0; background-color: rgb(200, 200, 200); border: none;}
+.list_button button:nth-of-type(2){margin: 20px 0; width: 80px; height: 35px; background: #8EB4E3; color: white;  border: none;}
+
+
+.faqselect {
+   width: 95px;
+   height: 33px;
+   border: 1px solid rgba(172, 172, 172, 0.5);
+   border-radius: 4px;
+}
+#search{
+   width: 145px;
+   height: 33px;
+   border: 1px solid rgba(172, 172, 172, 0.5);
+   border-radius: 4px;
+}
+#serachbtn{
+   width: 62px;
+   height: 33px;
+   color: #FFFFFF;
+   background: #BFBFBF;
+   border: none;
+   border-radius: 4px;
+}
+.faqpage {width: 500px; height: 30px; margin: 20px auto; text-align: center}
+.faqnum , .faqcurrent,.faqprev,.faqnext {padding: 10px; border: none; border-radius: 8px; background: #afc8e6; color:white}
+.faqprev,.faqnext {background: #8EB4E3;}
+.faqcurrent {background: #6681a3}
+
+
+.faqnums , .faqcurrents,.faqprevs,.faqnexts {padding: 10px; border: none; border-radius: 8px; background: #afc8e6; color:white; margin-left: 5px}
+.faqprevs,.faqnexts {background: #8EB4E3;}
+.faqcurrents {background: #6681a3}

@@ -1,0 +1,64 @@
+/* 자주 묻는 질문 테이블 */
+.view-div {
+    width: 95%;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid #efefef;
+}
+
+/* 질문 제목 스타일 */
+.view-title {
+    width: 100%;
+    background-color: #f0f0f0;
+    font-size: 18px;
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    color: #333;
+    border-radius: 8px;
+}
+
+/* 본문 텍스트 스타일 */
+.contex {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+.contex p {
+    margin: 0;
+    padding-left: 15px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* 테이블 내 텍스트 스타일 */
+.view-div td {
+    border-collapse: collapse;
+}
+
+/* 목록 버튼 스타일 */
+.faq-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.faq-pagination a {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.faq-pagination a:hover {
+    background-color: #f0f0f0;
+}

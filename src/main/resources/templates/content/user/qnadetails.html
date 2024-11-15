@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/user/qnadetails.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+        <div class="info">
+            <p class="info-title">나의 쇼핑정보</p>
+            <div class="summary-table">
+                <div class="summary-item">
+                    <span>주문</span><br>
+                    <span class="summary-value" th:text="${orderCount}">2</span>
+                </div>
+                <div class="summary-item">
+                    <span>쿠폰</span><br>
+                    <span class="summary-value" th:text="${IssuedList.size()}"></span>
+                </div>
+                <div class="summary-item">
+                    <span>포인트</span><br>
+                    <span class="summary-value" th:text="${totalPoints}">1,000</span> <!-- 최종 포인트 값 출력 -->
+                </div>
+                <div class="summary-item">
+                    <span>문의</span><br>
+                    <span class="summary-value">1</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="container">
+            <aside>
+                <ul>
+                    <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+                    <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+                    <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+                    <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+                    <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+                    <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+                </ul>
+            </aside>
+
+            <div class="center">
+                <div class="slider-wrapper">
+                    <div class="ad" th:each="banner : ${banners}" th:if="${banner.ban_location} == '마이페이지 배너'">
+                        <a th:href="${banner.ban_link}" target="_blank">
+                            <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="details">
+                        <p>문의하기</p>
+                        <a class="inquiry"
+                           style="color: rgb(17, 86, 165); font-weight: bold; cursor: pointer; float: right"
+                           th:href='@{/cs/qna/write}'>문의글 작성 ></a>
+                    </div>
+
+                    <table class="inquiry-table">
+                        <input type="hidden" name="uid" id="uid" th:value="${#authentication.getName()}">
+
+                        <thead>
+                        <tr class="font">
+                            <th>번호</th>
+                            <th>문의채널</th>
+                            <th>문의유형</th>
+                            <th>제목</th>
+                            <th>작성일</th>
+                            <th>상태</th>
+                        </tr>
+                        </thead>
+
+                        <tbody th:if="${qnaPage.qnadtoList.size() > 0  && !qnaPage.qnadtoList.isEmpty()}">
+                        <tr class="tr3" th:each="qna : ${qnaPage.qnadtoList}">
+                            <td>
+                                <span th:text="${qna.qnaNo}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${qna.category.parent.name}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${qna.category.name}"></span>
+                            </td>
+                            <td class="titles">
+                                <a th:href="@{/cs/qna/detail(id=${qna.qnaNo})}">
+                                    <span th:text="${qna.qnatitle}"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <span th:text="${#strings.substring(qna.date, 0, 10)}"></span>
+                            </td>
+                            <td class="status-pending">
+                                <span th:text="${qna.qna_status != null ? (qna.qna_status.name() == 'review' ? '검토중' : '답변완료') : '상태 없음'}"></span>
+
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody th:unless="${qnaPage.qnadtoList.size() > 0  && !qnaPage.qnadtoList.isEmpty()}">
+                        <tr>
+                            <td colspan="6" style="text-align: center;">
+                                <div class="qna_Lists" style="display: flex; flex-direction: column; align-items: center; padding: 80px; justify-content: center; font-size: 15px;">
+                                    <img src="/images/common/icon_no_result.svg"><br>
+                                    <span>문의내용이 없습니다.</span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- 페이지네이션 -->
+                    <div class="pagination">
+                        <div class="qna-pagination">
+                            <!-- 이전 페이지 링크: 첫 페이지에서는 비활성화 및 숨김 -->
+                            <span th:if="${qnaPage.prev}">
+                                <a th:href="@{/mypage/qnadetails(page=${qnaPage.start - 1})}" class="prev">이전</a>
+                            </span>
+<!--                            <span th:if="${qnaPage.prev && qnaPage.total > 1}" class="disabled"-->
+<!--                                  style="display:none;">이전</span>-->
+
+                            <span th:each="pageNum : ${#numbers.sequence(qnaPage.start, qnaPage.end)}">
+                                <!-- 페이지 링크 생성 -->
+                                <a th:href="@{/mypage/qnadetails(PageNumber=${pageNum})}"
+                                   th:data-page="${pageNum}"
+                                   th:classappend="${pageNum == qnaPage.pg} ? 'qnacurrent' : 'qnanum'">
+                                    <span th:text="${pageNum}"></span>  <!-- 페이지 번호 -->
+                                </a>
+                            </span>
+
+                            <!-- 다음 페이지 링크: 마지막 페이지에서는 비활성화 및 숨김 -->
+                            <span th:if="${qnaPage.next}">
+                                <a th:href="@{/mypage/qnadetails(page=${qnaPage.end + 1})}" class="next">다음</a>
+                            </span>
+<!--                            <span :if="${qnaPage.next && qnaPage.total > 1}" class="disabled"-->
+<!--                                  style="display:none;">다음</span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</th:block>

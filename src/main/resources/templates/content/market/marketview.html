@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/marketLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/market/marketview.css}">
+    <link rel="stylesheet" th:href="@{/css/market/marketAside.css}">
+    <link rel="stylesheet" th:href="@{/css/market/marketReviewModal.css}">
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/marketAside}"></th:block>
+    <section class="section view">
+        <div class="sectionWrapper">
+            <div class="sub_tit">
+                <h3 id="h3_list">상품보기</h3>
+                <div class="location">
+                    <span><a href="">홈&nbsp;</a></span>
+                    <span th:text="${categoryDTOs.get(2).getName()}">&nbsp;</span>
+                    <span th:text="${categoryDTOs.get(1).getName()}"></span>
+                    <span><strong>[[${categoryDTOs.get(0).getName()}]]&nbsp;</strong></span>
+                </div>
+            </div>
+            <!-- Product Information Section -->
+            <div class="product-info-container">
+                <!-- Product Image -->
+                <div class="product-image">
+                    <th:block th:if="${#authentication.getName() !='anonymousUser'}"><input type="hidden" id="uid"
+                                                                                            th:value="${#authentication.getName()}">
+                    </th:block>
+                    <img th:if="${products.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${products.file456}}" alt="">
+                    <img th:unless="${products.getSavedPath()==null}" th:src="@{'/uploads/'+${products.savedPath}+'/'+${products.file456}}" alt="">
+                    <input type="hidden" th:value="${products.file190}" id="file190">
+                    <input type="hidden" th:value="${products.getSavedPath()}" id="savedPath">
+                </div>
+
+                <!-- Product Details -->
+                <div class="product-details">
+                    <div class="seller-name">
+                        <span>[[${products.seller.company}]]</span>
+                        <p class="product-code" th:text="${products.productCode}"></p>
+                        <input type="hidden" name="productId" id="productId" th:value="${products.productId}">
+                        <input type="hidden" name="productId" id="point" th:value="${products.point}">
+                    </div>
+                    <div class="product-name">
+                        <!-- active시 빨간색 바뀜 -->
+                        <input type="hidden" th:value="${products.productName}" id="productName">
+                        <input type="hidden" th:value="${products.discount}" id="discount">
+                        <h4 class="prodName">[[${products.productName}]]<a href=""><img class="heart active"
+                                                                                        src="/images/common/icon_heart_black.svg"
+                                                                                        alt="찜하트"></a></h4>
+                        <div class="rating-and-reivew">
+                            <span class="seller-rating"
+                                  th:data-rating="${#numbers.formatDecimal(averageRating, 0, 1)}"></span>
+                            <!-- 평균 평점 표시 -->
+                            <p th:text="${averageRating}" style="display: inline; margin-right: 6px;"></p>
+                            (<span th:text="${reviewCount}">0</span>) <!-- 총 리뷰 개수 표시 -->
+                            <span class="review" style="margin-left: 6px;"><a href="#reviewContent">상품평보기</a></span>
+                        </div>
+                    </div>
+
+                    <div class="pricing">
+                        <div>
+                            <span class="discount" th:if="${products.discount > 0}" th:value="${products.discount}">[[${products.discount}]]</span>
+                            <span class="final-price price" id="finalPrice"
+                                  th:value="${products.price*(100 - products.discount)/100}">[[${products.price*(100-products.discount)/100}]]</span>
+                            <span class="original-price price"
+                                  th:style="${products.discount == 0} ? 'display:none;' : ''" id="originalPrice"
+                                  th:text="${products.price}">[[${products.price}]]</span>
+                        </div>
+
+                    </div>
+                    <div class="delivery">
+                        <input type="hidden" th:value="${products.getShippingTerms()}" id="shippingTerms">
+                        <span class="shipping-fee" id="shippingFee" th:attr="data-shippingfee=${products.shippingFee}"
+                              th:text="${products.shippingFee}"></span>
+
+                        <p class="delivery-info">모레 (금) 7/8 도착예정</p>
+                    </div>
+                    <span>[[${products.getShippingTerms()}]]이상시 무료배송!</span>
+                    <span name="Domestic" class="deli active">본 상품은 국내배송만 가능합니다.</span>
+                    <span name="global" class="deli hidden">본 상품은 국내배송만 가능합니다.</span>
+                    <div class="credit">
+                        <span><img src="/images/common/icon_creditcard.png" alt="무이자할부">무이자할부</span>
+                        <span><img src="/images/common/icon_card_add.jfif" alt="카드추가혜택">카드추가혜택</span>
+                    </div>
+                    <div class="product_origin">
+                        <span>원산지 - 상세설명 참조</span>
+
+                    </div>
+
+
+                    <div class="purchase-options">
+                        <div th:if="${!products.optionGroups.isEmpty()}" id="optionGroupContainer">
+                            <!-- 옵션 그룹 반복 -->
+                            <th:block th:each="group, iter : ${products.optionGroups}">
+                                <select name="option" th:id="'option-'+${iter.index}" class="option-select" required
+                                        th:data-option="${iter.index}" th:data-groupname="${group.groupName}">
+                                    <option disabled selected>[[${group.groupName}]] 옵션을 선택하세요</option>
+
+                                    <!-- 옵션 항목 반복 -->
+                                    <!-- 각 OptionItem을 반복 -->
+                                    <th:block th:each="optionItem : ${group.getOptionItems()}">
+                                        <option th:value="${optionItem.optionName}"
+                                                th:data-additionalprice="${optionItem.additionalPrice}"
+                                                th:data-item-id="${optionItem.getItem_id()}">
+                                            [[${optionItem.optionName}]]
+                                            <th:block th:if="${optionItem.additionalPrice >0}"> (추가금액 :
+                                                [[${optionItem.additionalPrice}]])
+                                            </th:block>
+                                        </option>
+                                    </th:block>
+                                </select>
+                                <span th:class="'additionalPrice' + ${iter.index}"></span>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div id="stockStatus"></div>
+
+                    <!-- 수량 선택 및 선택된 옵션 표시 -->
+                    <div class="total" id="totalQuantity">
+                                        <span class="selectResult">
+
+
+                                        </span>
+                        <div class="quantity-control">
+                            <button type="button" id="decrease">-</button>
+                            <input type="number" id="quantity" value="1" min="1">
+                            <button type="button" id="increase">+</button>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="couponArea">
+                         <button id="couponBtn">할인 쿠폰을 받아보세요</button>
+                     </div>-->
+
+                    <div class="coupon-area">
+                        <button id="openDiscountModalBtn">할인 쿠폰을 받아보세요
+                            <img src="/images/common/icon-download-red.svg">
+                        </button>
+                    </div>
+
+                    <div id="discountModal" class="discount-modal-overlay">
+                        <div class="discount-modal-content">
+                            <span class="discount-modal-close">&times;</span>
+                            <h2>발급된 쿠폰</h2>
+                            <!-- 쿠폰 뿌리면 이쪽으로-->
+                            <div id="discountCouponItems">
+                                <!-- 쿠폰이 여기에 추가됩니다. -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bannerArea">
+                        <img src="" alt="">
+                    </div>
+
+                    <div class="expectedTotal">
+
+                        <div><label for="originalTotalPrice" class="originalTotalPrice">총 상품금액:</label><span
+                                id="originalTotalPrice" class="originalTotalPrice"></span></div>
+                        <div><label for="additionalPrice" class="additionalPrice">└ 추가 금액:</label><span
+                                id="additionalPrice" class="additionalPrice"></span></div>
+                        <div><label for="totalPrice" class="totalPrice">└ 할인 금액:</label><span id="totalPrice"
+                                                                                              class="total-price"></span>
+                        </div>
+                        <div><label for="totalShippingFee" class="totalShippingFee">└ 배송비 :</label><span
+                                class="totalShippingFee" id="totalShippingFee"></span></div>
+                        <div><label for="expectedPrice" class="expectedPrice">결제 예상금액 : </label><span
+                                class="expectedPrice" id="expectedPrice"> </span></div>
+                    </div>
+
+
+                    <div class="buttons">
+                        <button class="add-to-cart" id="add-to-cart">장바구니</button>
+                        <button class="buy-now" id="buy-now-btn">구매하기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Description Section -->
+            <div class="product-description">
+                <h3>
+                    <span class="active"><a href="#product_info">상품정보</a></span>
+                    <span class=""><a href="#public-info">정보공시</a></span>
+                    <span class=""><a href="#product_review">상품리뷰</a></span>
+                    <span class=""><a href="#product_qna">Q&A</a></span>
+                </h3>
+                <div class="description-image" id="product_info">
+                    <span>상품정보</span>
+                    <th:block th:each="file:${products.getFiledesc()}">
+                        <img th:if="${products.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${file}}" alt="">
+                        <img th:unless="${products.getSavedPath()==null}" th:src="@{'/uploads/'+${products.savedPath}+'/'+${file}}" alt="">
+                    </th:block>
+                </div>
+                <div class="product_guide" id="public-info">
+                    <span>상품정보 제공고시<p>[ 전자상거래에 관한 상품정보 제공에 관한 고시 ] 항목에 의거 등록된 정보입니다.</p></span>
+                    <table class="guide">
+                        <tr>
+                            <th>상품번호</th>
+                            <td>[[${products.productCode}]]</td>
+                        </tr>
+                        <tr>
+                            <th>상품상태</th>
+                            <td>[[${products.getProductDetails().condition}]]</td>
+                        </tr>
+                        <tr>
+                            <th>부가세면세여부</th>
+                            <td>[[${products.productDetails.tax}]]</td>
+                        </tr>
+                        <tr>
+                            <th>영수증발행</th>
+                            <td>[[${products.productDetails.receiptIssuance}]]</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>사업자구분</th>
+                            <td>[[${products.productDetails.busniesstype}]]</td>
+                        </tr>
+                        <tr>
+                            <th>브랜드</th>
+                            <td>[[${products.seller.company}]]</td>
+                        </tr>
+                        <tr>
+                            <th>원산지</th>
+                            <td>
+                                [[${products.productDetails.manufactureCountry==null?'상세정보참조':products.productDetails.manufactureCountry}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>제조사/수입국</th>
+                            <td>
+                                [[${products.productDetails.manufactureImporter==null?'상세정보참조':products.productDetails.manufactureImporter}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>취급시주의사항</th>
+                            <td>
+                                [[${products.productDetails.handlingPrecautions==null?'상세정보참조':products.productDetails.handlingPrecautions}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>제조연일</th>
+                            <td>
+                                [[${products.productDetails.qualityWarranty==null?'상세정보참조':products.productDetails.qualityWarranty}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>품질보증기준</th>
+                            <td>
+                                [[${products.productDetails.qualityWarranty==null?'상세정보참조':products.productDetails.qualityWarranty}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>A/S 책임자</th>
+                            <td>
+                                [[${products.productDetails.afterSalseManager==null?'상세정보참조':products.productDetails.afterSalseManager}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td>
+                                [[${products.productDetails.phoneNumber==null?'상세정보참조':products.productDetails.phoneNumber}]]
+                            </td>
+                        </tr>
+
+                    </table>
+                    <div class="gov_description">
+                        <p>
+                            소비자가 전자상거래등에 소비자 보호에 관한 법률 제 17조 제 1 항 또는 제 3 항에 따라 청약철회를 하고 동 법 제 18조 제 1
+                            항에 따라 청약철회한 물품을 판매자에게 반환하였음에도 불구하고 결제 대금의 환급이 3영업일을 넘게 지연된 경우, 소비자는 전자상거래
+                            등에서 소비자보호에 관한 법률 제 18조 제2 항 및 동 법 시행령 제 21 조 2에 따라 지연일수에 대하여 전자상거래법 시행령으로
+                            정하는 이율을 곱하여 산정한 지연이자("지연배상금")을 신청할 수 있습니다.
+                            아울러, 교환반품보증 및 결제 대금의 환급신층은 [나의쇼핑정보]에서 확인하실 수 있으며, 자세한 문의는 개별 판매자에게 연락하여 주시기
+                            바랍니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="product_review" id="product_review">
+                    <h4>상품리뷰</h4>
+
+                    <div class="reviewimgs">
+                        <div class="review-image-container">
+                            <div class="arrow left" id="leftArrow">&#9664;</div>
+                            <div class="review-image-wrapper">
+                                <div class="review-images">
+                                    <th:block th:each="file : ${reviewImgs}">
+                                        <!-- Check if the review image's product code matches the displayed product's code -->
+                                        <th:block th:if="${file.product.productId} == ${products.productId}">
+                                            <th:block th:each="image : ${file.getPReviewFiles()}">
+                                                <div class="reviewImg"
+                                                     th:data-writer-content="${file.writer}"
+                                                     th:data-rating-content="${file.rating}"
+                                                     th:data-prodName-content="${file.product.productName}"
+                                                     th:data-reviewImages-content="${file.PReviewFiles}"
+                                                     th:data-review-content="${file.content}">
+
+                                                    <img th:src="@{'/uploads/ReviewImg/' + ${image.sname}}"
+                                                         alt="review-image" class="review_img">
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                            <div class="arrow right" id="rightArrow">&#9654;</div>
+                        </div>
+                    </div>
+
+
+                    <div class="reviewList" id="reviewContent">
+                        <!-- 리뷰가 없는 경우 "리뷰가 없습니다." 메시지를 표시 -->
+                        <th:block th:if="${pageResponseReviewDTO.getDtoList().size() == 0}">
+                            <span class="no-reviews-message" style="display: flex; color: #333; margin-top:3px; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; margin-top: 30px;">
+                            아직 작성된 리뷰가 없어요.<br>
+                                <span style="font-weight: 600; font-size: 15px;">구매 후 리뷰를 작성해보세요!</span>
+                            </span>
+                        </th:block>
+
+                        <!-- 리뷰가 있는 경우에만 리스트와 더보기 버튼을 표시 -->
+                        <th:block th:if="${pageResponseReviewDTO.getDtoList().size() > 0}">
+                            <th:block th:each="review : ${pageResponseReviewDTO.getDtoList()}">
+                                <!-- Check if the review's product code matches the displayed product's code -->
+                                <article class="p-review" th:if="${review.product.productId} == ${products.productId}">
+                                    <div class="review-header">
+                                        <div class="review-rating">
+                                            <data class="rating-display" th:text="${review.rating}">평점</data>
+                                        </div>
+                                        <div class="reviewer-info">
+                                            <span class="reviewer-name"
+                                                  th:text="${review.maskedWriter}">seo******</span>
+                                            <span class="review-date">[[${#strings.substring(review.rdate, 0, 10)}]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-body">
+                                        <h5 th:text="${review.product.productName}">상품명</h5>
+                                        <div>
+                                            <div class="rimg" th:if="${!#lists.isEmpty(review.reviewFileDTOS)}">
+                                                <!-- 리뷰 이미지가 있을 경우에만 이미지 태그를 출력 -->
+                                                <img th:src="@{'/uploads/ReviewImg/' + ${review.reviewFileDTOS[0].sname}}"
+                                                     alt="review-image" class="review_img">
+                                            </div>
+                                            <div th:if="${#lists.isEmpty(review.savedReviewFiles)}"
+                                                 class="no-image-message">
+                                                <!-- 이미지가 없는 경우 보여줄 메시지 -->
+
+                                            </div>
+                                            <p class="review-text" th:text="${review.content}">리뷰 내용이 여기에 표시됩니다.</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </th:block>
+
+                            <!-- 리뷰 더보기 버튼: 리뷰가 있을 때만 표시 -->
+                            <div class="btnwrapper">
+                                <button id="moreReviewsBtn">더보기</button>
+                            </div>
+                        </th:block>
+                    </div>
+
+
+                    <div class="pagination" id="reviews-pagination">
+                        <th:block th:if="${pageResponseReviewDTO.prev}">
+                            <a th:href="@{/market/view/{categoryId}/{productId}(categoryId=${categoryId}, productId=${productId}, pg=${pageResponseReviewDTO.start - 1})}"
+                               class="prev">이전</a>
+                        </th:block>
+
+                        <th:block
+                                th:each="num : ${#numbers.sequence(pageResponseReviewDTO.start, pageResponseReviewDTO.end)}">
+                            <a th:href="@{/market/view/{categoryId}/{productId}(categoryId=${categoryId}, productId=${productId}, pg=${num})}"
+                               th:class="${num == pageResponseReviewDTO.pg} ? 'current' : 'num'"
+                               class="num">[[${num}]]</a>
+                        </th:block>
+
+                        <th:block th:if="${pageResponseReviewDTO.next}">
+                            <a th:href="@{/market/view/{categoryId}/{productId}(categoryId=${categoryId}, productId=${productId}, pg=${pageResponseReviewDTO.end + 1})}"
+                               class="next">다음</a>
+                        </th:block>
+                    </div>
+
+                </div><!--reviewList end-->
+
+            </div><!--product_review-->
+            <div class="product_qna" id="product_qna">
+                <h4>상품문의</h4>
+
+                <div class="services">
+                    <p class="notice">답변은 <strong>마이롯데 > 나의 문의내역</strong>에서 확인하실 수 있습니다.</p>
+                    <a href="javascript:void(0);" class="btnGoQuestion">문의하기</a>
+                </div>
+
+                <th:block th:if="${!qnaList.isEmpty() && qnaList.size() >0 }">
+                    <div class="qna_Lists">
+                        <article class="p-qna" th:each="qna : ${qnaList}">
+                            <div class="qna-header">
+                                <h5>
+                                    <p th:text="${qna.qnatitle}"></p>
+                                </h5>
+                                <div class="qna-info">
+                                    <span th:text="${#authentication.getName() == qna.qnawriter ? qna.qnawriter : #strings.substring(qna.qnawriter, 0, 3) + #strings.repeat('*', qna.qnawriter.length() - 3)}"></span>
+                                    <span th:text="${#strings.substring(qna.date, 0, 10)}"></span>
+                                </div>
+                            </div>
+                            <div class="qna-body">
+                                <a th:href="@{/mypage/qnadetails/{id}(id=${qna.qnaNo})}">
+                                    <p th:text="${#authentication.getName() == qna.qnawriter ? qna.qnacontent : '비밀글 입니다.'}"></p>
+                                </a>
+                                <img src="/images/common/icon_lock.svg">
+                            </div>
+                            <div class="qna-answer">
+                                <span class="badge orange">판매자답변</span>
+                                <p th:text="${#authentication.getName() == qna.qnawriter ? qna.qnareply : '비밀글 입니다.'}"></p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- 리뷰 더보기 버튼 -->
+                    <div class="btnwrapper">
+                        <button id="moreQnaBtn">더보기</button>
+                    </div>
+
+                    <!-- 페이지네이션 -->
+                    <!--                    <div class="pagination" id="qna-pagination">-->
+                    <!--                        <th:block th:if="${pageResponseQnaDTO.prev}">-->
+                    <!--                            &lt;!&ndash; 이전 페이지 링크 &ndash;&gt;-->
+                    <!--                            <span class="page-link prev" th:onclick="'goToPage(' + ${pageResponseQnaDTO.start - 1} + ')'" style="cursor:pointer;">이전</span>-->
+                    <!--                        </th:block>-->
+
+                    <!--                        <th:block th:each="num : ${#numbers.sequence(pageResponseQnaDTO.start, pageResponseQnaDTO.end)}">-->
+                    <!--                            &lt;!&ndash; 각 페이지 링크 &ndash;&gt;-->
+                    <!--                            <span th:class="${num == pageResponseQnaDTO.pg ? 'page-link active' : 'page-link'}"-->
+                    <!--                                  th:onclick="'goToPage(' + ${num} + ')'" style="cursor:pointer;"-->
+                    <!--                                  data-page="${num}">[[${num}]]</span>-->
+                    <!--                        </th:block>-->
+
+                    <!--                        <th:block th:if="${pageResponseQnaDTO.next}">-->
+                    <!--                            &lt;!&ndash; 다음 페이지 링크 &ndash;&gt;-->
+                    <!--                            <span class="page-link next" th:onclick="'goToPage(' + ${pageResponseQnaDTO.end + 1} + ')'" style="cursor:pointer;">다음</span>-->
+                    <!--                        </th:block>-->
+                    <!--                    </div>-->
+
+                </th:block>
+
+                <th:block th:unless="${!qnaList.isEmpty() && qnaList.size() >0 }">
+                    <div class="qna_Lists"
+                         style=" display: flex; flex-direction: column; align-items: center;  padding-top: 30px; justify-content: center; font-size: 15px;">
+                        <img src="/images/common/icon_no_result.svg"><br>
+                        <span>아직 Q&A가 없어요!</span>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        </div><!--sectionWrapper-->
+    </section>
+    <div id="pReviewModal" class="modal pReview">
+        <div class="modal-content pReview">
+            <div class="header">
+                <span class="close pReview">&times;</span>
+                <h3>리뷰</h3>
+            </div>
+            <table class="modalreview">
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 80%;">
+
+                </colgroup>
+                <tr>
+                    <th>작성자</th>
+                    <td>
+                        <span id="modalReviewWriter" class="ReviewWriter">작성자 출력</span>
+                        <input type="hidden" id="modalReviewWriter2" name="Writer" value="5">
+                    </td>
+                </tr>
+                <tr>
+                    <th>상품명</th>
+                    <td>
+                        <span id="modalProductName" class="productName">상품명 출력</span>
+                        <input type="hidden" id="modalWriter" name="Writer" value="5">
+                    </td>
+                </tr>
+                <tr>
+                    <th>만족도</th>
+                    <td>
+                        <div class="review-rating">
+                            <data class="rating-display2" id="rating-display">평점</data>
+                        </div>
+                        <input type="hidden" id="rating" name="rating" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <th>이미지</th>
+                    <td>
+                        <div class="review-images">
+                            <div class="reviewImgs">
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td><span class="verContent" id="verContent" style="line-height: 1.8;"></span></td>
+                </tr>
+            </table>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary">닫기</button>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        const optionCombinations = /*[[${products.getOptionCombinations()}]]*/ [];
+    </script>
+    <script th:src="@{/js/marketbuynow.js}"></script>
+    <script th:src="@{/js/marketReviewModal.js}"></script>
+    <script th:src="@{/js/marketQna.js}"></script>
+<!--    <script th:src="@{/js/marketAside.js}"></script>-->
+
+</th:block>

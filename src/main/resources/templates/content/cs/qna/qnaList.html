@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/qnaList.css}">
+    <script src="/js/cateQna.js"></script>
+</head>
+<body>
+
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/qnaAside}" th:with="boardCate=${boardCate}"></th:block>
+
+    <div id="service">
+        <div class="title">
+            <h2 id="titlename">전체</h2>
+            <p id="titlecontent">전체 관련문의입니다</p>
+        </div>
+
+        <!-- 전체문의내역 -->
+        <div class="first container">
+            <ul class="first_list" id="qnaList">
+                <li class="first_li" th:each="qna, i:${qnaPageResponseDTO.getQnadtoList()}">
+                    <a th:href="@{/cs/qna/detail(id=${qna.qnaNo})}">
+                        <span th:text="'[' + ${qna.category.getName} + ']'">Q .</span> <!-- 카테고리 이름을 가져옵니다. -->
+                        <span th:text="${qna.qnatitle}">질문 제목</span>
+                        <span class="review-status"
+                              th:text="${qna.qna_status.name() == 'review' ? '검토중' : '답변완료'}"></span>
+                        <span class="author-id" th:text="${qna.qnawriter}"></span>
+                        <span class="date" th:text="${#strings.substring(qna.date,0,10)}"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="qna-write-btn">
+                <a th:if="${#authentication.name != 'anonymousUser'}"
+                   href="/cs/qna/write" type="button" class="btn-Write">작성하기</a>
+            </div>
+        </div>
+
+        <!-- 페이지네이션 컨테이너 -->
+        <div class="pagination">
+            <th:block th:if="${qnaPageResponseDTO.prev}">
+                <a th:href="@{/cs/qna/list(pg=${qnaPageResponseDTO.start - 1})}" class="prev">이전</a>
+            </th:block>
+
+            <th:block th:each="num : ${#numbers.sequence(qnaPageResponseDTO.start, qnaPageResponseDTO.end)}">
+                <a th:href="@{/cs/qna/list(pg=${num})}"
+                   th:class="${num == qnaPageResponseDTO.pg} ? 'qnacurrent' : 'qnanum'">[[${num}]]</a>
+            </th:block>
+
+            <th:block th:if="${qnaPageResponseDTO.next}">
+                <a th:href="@{/cs/qna/list(pg=${qnaPageResponseDTO.end + 1})}" class="next">다음</a>
+            </th:block>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 페이지가 처음 로드될 때 첫 페이지 데이터를 가져옵니다.
+            loadPageOrPages(1, null, null, '전체'); // 첫 번째 페이지 로드 (parentId나 uid는 null)
+        });
+
+        document.querySelectorAll('.selectOption').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const parentId = this.getAttribute('data-id');
+                const title = this.textContent;
+
+                fetch(`/api/qna/list/page?parentId=${parentId}`)
+                    .then(resp => resp.json())
+                    .then(qnaPageResponseDTO => {
+                        const qnaList = document.getElementById('qnaList');
+                        qnaList.innerHTML = '';
+
+                        console.log("메이메잉ㅇ: " , qnaPageResponseDTO);
+
+                        document.getElementById('titlename').textContent = title;
+                        document.getElementById('titlecontent').textContent = title + ` 관련문의입니다`;
+
+                        document.querySelectorAll('.selectOption').forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+
+                        updateQnaList(qnaPageResponseDTO.qnadtoList);
+                        updatePagination(qnaPageResponseDTO, parentId, null, title); // 여기에서 parentId를 넘겨야 함
+                    })
+                    .catch(err => console.log(err));
+            });
+        });
+
+        document.getElementById('listLink').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const uid = document.getElementById('uid') ? document.getElementById('uid').value : null;
+            const title = this.textContent;
+
+            console.log("로긴:" + uid);
+
+            if(!uid){
+                alert('로그인 후 이용해주세요');
+                window.location.href = "/user/login";
+                return;
+            }
+
+            fetch(`/api/qna/list/page?qnawriter=${uid}`)
+                .then(resp => resp.json())
+                .then(qnaPageResponseDTO => {
+                    console.log("메메메메메ㅔㅁ:", qnaPageResponseDTO)
+                    const qnaList = document.getElementById('qnaList');
+                    qnaList.innerHTML = '';
+
+                    document.getElementById('titlename').textContent = title;
+                    document.getElementById('titlecontent').textContent = title + ` 입니다`;
+
+                    updateQnaList(qnaPageResponseDTO.qnadtoList);
+                    updatePagination(qnaPageResponseDTO, null, uid, title); // 여기에서 uid를 넘겨야 함
+                })
+                .catch(err => console.log(err));
+        });
+
+        function loadPageOrPages(page, parentId, uid, title) {
+            let url = '';
+            if (parentId !== null && parentId !== undefined) {
+                url = `/api/qna/list/page?pg=${page}&parentId=${parentId}`;
+            } else if (uid !== null && uid !== undefined) {
+                url = `/api/qna/list/page?pg=${page}&qnawriter=${uid}`;
+            } else {
+                url = `/api/qna/list/page?pg=${page}`;  // 기본적으로 첫 번째 페이지를 로드
+            }
+
+            fetch(url)
+                .then(resp => resp.json())
+                .then(qnaPageResponseDTO => {
+                    const qnaList = document.getElementById('qnaList');
+                    qnaList.innerHTML = '';
+
+                    document.getElementById('titlename').textContent = title;
+                    document.getElementById('titlecontent').textContent = title + ` 관련문의입니다`;
+
+                    updateQnaList(qnaPageResponseDTO.qnadtoList);
+                    updatePagination(qnaPageResponseDTO, parentId, uid, title);
+                })
+                .catch(err => console.log(err));
+        }
+
+        function updateQnaList(qnadtoList) {
+            const qnaList = document.getElementById('qnaList');
+
+            if(qnadtoList.length === 0){
+                const row = `
+            <li class="first_li">
+                    <span>[없음]</span>
+                    <span>등록된 글이 없습니다.</span>
+            </li>`;
+                qnaList.innerHTML += row;
+            }
+
+            else {
+                qnadtoList.forEach(qna => {
+                    const row = `
+            <li class="first_li">
+                <a href="/cs/qna/detail?id=${qna.qnaNo}">
+                    <span>[${qna.category.name}]</span>
+                    <span>${qna.qnatitle}</span>
+                    <span class="review-status">${qna.qna_status === 'review' ? '검토중' : '답변완료'}</span>
+                    <span class="author-id">${qna.qnawriter}</span>
+                    <span class="date">${qna.date.substring(0, 10)}</span>
+                </a>
+            </li>`;
+                    qnaList.innerHTML += row;
+                });
+
+            }
+
+        }
+
+        function updatePagination(qnaPageResponseDTO, parentId, uid, title) {
+            const paginationElement = document.querySelector('.pagination');
+            paginationElement.innerHTML = '';
+
+            if (qnaPageResponseDTO.prev) {
+                const prevLink = `<a href="#" data-page="${qnaPageResponseDTO.start - 1}" class="prev">이전</a>`;
+                paginationElement.innerHTML += prevLink;
+            }
+
+            for (let num = qnaPageResponseDTO.start; num <= qnaPageResponseDTO.end; num++) {
+                const pageLink = `<a href="#" data-page="${num}" class="${num === qnaPageResponseDTO.pg ? 'qnacurrent' : 'qnanum'}">${num}</a>`;
+                paginationElement.innerHTML += pageLink;
+            }
+
+            if (qnaPageResponseDTO.next) {
+                const nextLink = `<a href="#" data-page="${qnaPageResponseDTO.end + 1}" class="next">다음</a>`;
+                paginationElement.innerHTML += nextLink;
+            }
+
+            document.querySelectorAll('.pagination a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    if (parentId !== null && parentId !== undefined) {
+                        loadPageOrPages(page, parentId, null, title); // parentId가 있으면 넘기기
+                    } else if (uid !== null && uid !== undefined) {
+                        loadPageOrPages(page, null, uid, title); // uid가 있으면 넘기기
+                    } else {
+                        loadPageOrPages(page, null, null, title); // 일반적으로 첫 페이지 로드
+                    }
+                });
+            });
+        }
+    </script>
+</th:block>
+</body>
+</html>

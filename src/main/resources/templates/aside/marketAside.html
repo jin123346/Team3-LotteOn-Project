@@ -1,0 +1,62 @@
+<aside class="aside market">
+    <div class="cate_aside">
+        <ul>
+            <li class="lnb1" th:each="category : ${categories}">
+                <a th:href="@{'/market/main/' + ${category.id}}" th:text="${category.name}">1차분류</a>
+                <ul th:if="${category.children != null && !#lists.isEmpty(category.children)}">
+                    <li class="lnb-item" th:each="child : ${category.children}">
+                        <a th:text="${child.name}">2차분류</a>
+                        <ul class="lnb-sub-menu" th:if="${child.children != null && !#lists.isEmpty(child.children)}">
+                            <li th:each="subChild : ${child.children}">
+                                <a th:href="@{'/market/list/' + ${subChild.id}}"
+                                   th:classappend="${active == subChild.id} ? 'cateactive' : ''"
+                                   th:text="${subChild.name}">3차분류</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="bestProduct">
+        <span><img src="/images/common/aside_best_product_tagR.png" alt="태그">베스트 상품</span>
+
+        <div class="products first">
+            <div class="productimg first"><img src="" alt="">
+                <p>1</p></div>
+            <div class="productInfo">
+                <span class="product-name">상품명</span>
+                <span class="original-price">30,000원</span>
+                <span class="discounted-price"><p class="discount-rate">10%</p> <p>↓</p></span>
+                <span class="final-price">27,000원</span>
+            </div>
+        </div>
+        <div class="products">
+            <div class="productimg"><img src="" alt="">
+                <p class="product-quantity">2</p></div>
+            <div class="productInfo">
+                <span class="product-name">상품명</span>
+                <div class="price">
+                    <span class="original-price">30,000원</span>
+                    <span class="discounted-price"><p class="discount-rate">10%</p> <p>↓</p></span>
+                </div>
+
+                <span class="final-price">27,000원</span>
+            </div>
+        </div>
+        <div class="products">
+            <div class="productimg"><img src="" alt="">
+                <p class="product-quantity">3</p></div>
+            <div class="productInfo">
+                <span class="product-name">상품명</span>
+                <div class="price">
+                    <span class="original-price">30,000원</span>
+                    <span class="discounted-price"><p class="discount-rate">10%</p> <p>↓</p></span>
+                </div>
+
+                <span class="final-price">27,000원</span>
+            </div>
+        </div>
+    </div>
+
+</aside>

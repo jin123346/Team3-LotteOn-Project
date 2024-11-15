@@ -1,0 +1,187 @@
+/* 테이블 스타일 */
+table {
+    width: 95%;
+    height: auto;
+    margin: 40px;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 8px;
+}
+
+td {
+    padding: 15px;
+}
+
+/*각 tr 높이 넓이 설정*/
+.first_choice, .second_choice {
+    width: 45%;
+    height: 35px;
+    border: 1px solid #ddd;
+}
+
+select, input[type="text"] {
+    width: 90%;
+    height: 35px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+
+select:focus, input[type="text"]:focus {
+    border-color: #ff5e5e;
+    box-shadow: 0 0 5px rgba(255, 94, 94, 0.5);
+}
+
+/* 내용 입력 영역 */
+.texts {
+    width: 90%;
+    height: 20px;
+    padding: 2px 0;
+    text-indent: 6px;
+    font-size: 14px;
+}
+
+.contents {
+    width: 90%;
+    height: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    outline: none;
+    resize: none;
+    text-indent: 6px;
+}
+
+label {
+    font-size: 14px;
+}
+
+textarea:focus {
+    border-color: #ff5e5e;
+    box-shadow: 0 0 5px rgba(255, 94, 94, 0.5);
+}
+
+/* 버튼 스타일 */
+.button-section {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-bottom: 30px;
+}
+
+.button-section button:last-child {
+    margin-right: 0;
+}
+
+.cancel, .insert {
+    width: 82px;
+    height: 37px;
+    border: 1px solid #ef2a23;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 37px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel {
+    color: #ef2a23 !important;
+    background-color: #ffffff;
+}
+
+.insert {
+    color: #ffffff !important;
+    background-color: #ef2a23;
+}
+
+.cancel:hover, .insert:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 에디터 툴바 크기 수정 */
+.ql-toolbar.ql-snow {
+    width: 90%;
+    max-width: 1000px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top: 0.5px solid #ccc;
+    border-radius: 10px;
+}
+
+/* 버튼 스타일 */
+.button-section {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.button-section button:last-child {
+    margin-right: 0;
+}
+
+.cancel {
+    background-color: #bfbfbf;
+    width: 90px;
+    height: 40px;
+    border: 1px solid #ef2a23;
+    border-radius: 5px;
+    color: #ef2a23 !important;
+    background-color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    line-height: 40px;
+}
+
+
+.insert {
+    background-color: #ef2a23;
+    color: #ffffff !important;
+    width: 90px;
+    height: 40px;
+    border: 1px solid #ef2a23;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    line-height: 40px;
+}
+
+.cancel:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.insert:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 추가 */
+.myqna, .myqnaList{
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 7px;
+    margin: 20px 0;
+    padding-left: 10px !important;
+    margin-left: 7px !important;
+    width: 65% !important;
+    cursor: pointer;
+}
+
+.myqna a, .myqnaList a {
+    font-weight: bold;
+}
+
+.myqnaList p {
+    font-weight: 400;
+    padding-top: 5px;
+    color: rgb(117, 117, 117);
+}
+
+.myqna {
+    margin-bottom: 70%;
+}

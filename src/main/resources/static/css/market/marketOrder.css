@@ -1,0 +1,685 @@
+#mainArea > .mainWrapper{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+
+
+}
+
+/*#mainArea{    background-color: #f6f7f8;*/
+/*}*/
+#mainArea > .mainWrapper > .order{
+    width: 1200px;
+}
+
+#mainArea > .mainWrapper.order  .orderSection{
+    display: flex;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 40px;
+    width: 1200px;
+}
+
+#mainArea > .mainWrapper.order  .orderSection form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width:100%;
+
+}
+#mainArea .mainWrapper .section.order{
+    /* Subtract the aside's width and some padding/margin */
+    margin-top: 20px;
+    width: 1200px; /* Subtract the aside's width and some padding/margin */
+    box-sizing: border-box; /* Ensure proper width calculation */
+    /* Ensure proper width calculation */
+}
+
+
+#mainArea .section.order .sectionWrapper .sub_tit {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    border-bottom: 2px solid #dddddd;
+}
+
+#mainArea .section .sectionWrapper.order{
+    margin: 0 auto;
+    width: 98%;
+    border-bottom: none;
+
+}
+
+
+#product_order{
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #ffff;
+}
+#product_order table{
+    border-spacing: 0px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 4px;
+    box-shadow: 2px 1px 1px 1px #ddd;
+    border: 1px solid #ddd;
+}
+
+#product_order table tr:nth-child(1){
+    border-bottom: 1px soild #232323;
+    height: 50px;
+}
+
+
+/* #product_order .productOrder tr th:nth-child(1){width: 2%;}
+#product_order .productOrder tr th:nth-child(2){width: 50%;}
+#product_order .productOrder tr th:nth-child(3){width: 10%;}
+#product_order .productOrder tr th:nth-child(4){width: 10%;}
+#product_order .productOrder tr th:nth-child(5){width: 10%;}
+#product_order .productOrder tr th:nth-child(6){width: 8%;}
+#product_order .productOrder tr th:nth-child(7){width: 10%;}
+#product_order .productOrder tr th:nth-child(8){width: 10%;} */
+
+#product_order .productOrder tr{
+    text-align: center;
+    /* text-indent: 10px; */
+    border: 1px;
+    height: 100px;
+
+
+}
+
+#product_order .productOrder tr td{
+
+    margin-top: 10px;
+}
+#product_order .productOrder input[type=number]{
+    width: 30px;
+    height: 20px;
+    text-indent: 10px;
+    box-sizing: border-box;
+}
+#product_order .productOrder tr:first-child {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    /* background-color: #f5f5f5; */
+    border-bottom: 1px solid #000000;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+}
+
+#product_order .productOrder tr:last-child{
+    border-bottom: 1px solid #999;
+}
+
+#product_order .productOrder tr:nth-child(2){margin-top: 10px;}
+
+#product_order .productOrder tr td:nth-child(1){
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+#product_order .productOrder tr td:nth-child(1) div:nth-child(1){
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-left: 20px;
+}
+#product_order .productOrder tr td:nth-child(1) div:nth-child(2){
+    margin-left: 20px;
+}
+
+#product_order .productOrder tr td:nth-child(1) div:nth-child(2) >span{
+    text-align: left;
+    /* margin-left: 20px; */
+    line-height: 10px;
+    text-indent: 0px;
+}
+#product_order .productOrder tr td:nth-child(1) img{
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지 비율을 유지하며 꽉 차게 */
+}
+
+#product_order .productOrder tr > td > span{
+    text-align: center;
+    text-indent: 10px;
+    justify-content: center
+
+
+}
+
+
+
+#product_order .productOrder tr td:nth-child(2) div div{
+    display: block;
+}
+
+#product_order .productOrder tr td:nth-child(2) div span{
+    font-size: 13px;
+    font-weight: 700;
+}
+.qnt input{
+    border: none;
+}
+
+.finalOrder_window{
+    width: 300px; /* Subtract the aside's width and some padding/margin */
+    height: auto;
+    /* position: sti; */
+    border: 1px solid #cccccc;
+    margin-left: 10px;
+    box-sizing: border-box;
+    position: relative;
+    transition: top 0.3s ease;
+    border-radius: 4px;
+    background-color: #ffff;
+}
+
+
+.finalOrder_window.scroll{
+    position: sticky;
+    top: 0px;
+    margin-right: 0px;
+
+}
+
+.finalOrderAsideWrapper{
+    padding: 0 10px;
+}
+.finalOrder_window h3{
+    margin-top: 20px;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #494949;
+    margin-bottom: 20px;
+
+}
+
+
+.finalOrderAsideWrapper div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 30px;
+    padding: 0 10px;
+
+
+}
+.finalOrderAsideWrapper div label{
+    font-size: 15px;
+
+}
+.finalOrderAsideWrapper div span{
+    font-size: 15px;
+
+}
+
+
+.finalOrderAsideWrapper .orderBtn{
+    height: 40px;
+    background-color: #ffff;
+    border: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.orderBtn button{
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 40px;
+    border: 1px solid #ef2a23;
+    background-color: #ef2a23;
+    color: #ffff;
+    font-size: 18px;
+    width: 180px;
+    text-align: center;
+    align-items: center;
+}
+
+
+/* btn-group */
+.btn-group{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center baseline;
+    align-items: center;
+}
+
+.btn-group .returnCart{
+    width: 150px;
+    height: 30px;
+    border: 1px solid #999;
+    background-color: #ffff;
+    border-radius: 2px;
+
+}
+
+.btn-group .returnCart:hover{
+    background-color: #ef2a23;
+    border: 1px solid #ef2a23;
+
+    color: #ffff;
+}
+
+/* orderSection */
+.orderSection{
+    /* display: inline-block; */
+    position: relative;
+    display: flex;
+}
+
+.orderSection .infoWrap{
+    width: 880px;
+    padding-top: 0px;
+    box-sizing: border-box;
+    height: auto;
+    margin-bottom: 20px;
+
+
+}
+
+.orderSection .orderInfo{
+    width: 98%;
+    border: 1px solid #ddd;
+    margin-left: 12px;
+    border-radius: 4px;
+    background-color: #ffff;
+}
+
+.orderSection .orderInfo h4{
+    margin-left: 20px;
+    margin-right: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #999;
+}
+
+#product_order h4{
+
+    font-size: 18px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #999;
+}
+
+.orderSection .orderInfo div table{
+    width: 96%;
+
+    margin-left: 20px;
+    height: auto;
+    margin-top: 10px;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 15px;
+
+}
+
+.orderSection .orderInfo div table input{
+    border: none;
+    font-size: 15px;
+}
+
+.orderSection .orderInfo div table .address_change{
+    background-color: #ffff;
+    border: 1px solid #999;
+    width: 80px;
+    height: 28px;
+    margin-left: 20px;
+    padding: 2px;
+
+}
+
+.orderSection .orderInfo div table .address_change:hover{
+    background-color: #ef2a23;
+    border: 1px solid #ef2a23;
+    color: #ffff;
+
+}
+
+.orderSection .orderInfo div table th{
+    text-indent: 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+}
+
+.orderSection .orderInfo div table td{
+    text-indent: 20px;
+
+    height: 40px;
+}
+
+.orderSection .orderInfo div table .address_info td{
+    height: 65px;
+}
+
+.orderSection .orderInfo div table td span{
+    font-size: 15px;
+    line-height: 30px;
+    margin-bottom: 4px;
+}
+.orderSection .orderInfo .add_address{
+    width: 100px;
+    /* height: ; */
+}
+
+
+
+.orderSection .point_use{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.orderSection #pointuseBtn{
+    margin-left: 5px;
+    height: 22px;
+    padding: 2px;
+}
+
+
+
+
+
+/* 할인정보 */
+.discountWrapper{
+    margin-top: 20px;
+    margin-left: 30px;
+
+}
+.point_wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+}
+
+.point_wrap .point_info{
+    width: 300px;
+    /* margin-left: 20px; */
+}
+
+.point_wrap .point_info span{
+    font-size: 15px;
+}
+.point_wrap .point_info p{
+    color: #999;
+    margin-top: 10px;
+    line-height: 20px;
+}
+
+.point_wrap .point_use #used_point{
+    height: 20px;
+    text-align: end;
+    padding-right: 5px;
+
+}
+
+.point_wrap .point_use span{
+    margin-left: 10px;
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+}
+.point_wrap .point_use p{
+    margin-left: 5px;
+}
+/* coupon */
+
+.coupon_Info .coupon{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.coupon_Info .coupon span{
+    width: 300px;
+    font-size: 15px;
+}
+.coupon_Info .coupon select{
+    width: 300px;
+    height: 30px;
+}
+
+.totalSalePrice{
+    margin-top: 30px;
+    width: 350px;
+    margin-bottom: 40px;
+}
+.orderSection .orderInfo .discountWrapper .totalSalePrice div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 30px;
+    line-height: 30px;
+}
+.totalSalePrice div p{
+    font-size: 14px;
+    width: 300px;
+
+}
+.totalSalePrice div:last-child span{
+    color:red;
+
+}
+.totalSalePrice div span::before{
+    content: "-";
+    margin-right: 5px;
+}
+
+.totalSalePrice .totalDiscount{
+    border-top: 1px solid #dfdcdc;
+
+}
+
+
+
+
+
+
+
+
+
+
+/* 공통 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    position: relative;
+    height: auto;
+}
+
+.address-list button{
+    width:60px;
+    height: 25px;
+    line-height: 20px;
+    padding: 2px;
+    background-color: #ef2a23;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #eee;
+
+}
+
+.modal-content h2{
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* .modal button {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+} */
+
+.address-list .address-item {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+
+
+}
+
+.address-list .address-item .address-btn{
+    width: 60px;
+    justify-content: flex-end;
+
+}
+
+.button-type{
+    display: flex;
+    flex-direction: row;
+}
+
+.confirm-btn {
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%;
+    right: 0px;
+}
+
+
+.new-address-btn {
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%;
+    right: 0px;
+    margin-left: 10px;
+}
+
+.save-btn{
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%;
+    right: 0px;
+}
+
+.address-info p{
+    margin-left: 10px;
+}
+
+
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    align-items: center;
+    margin-left: 60px;
+    margin-top: 20px;
+    width: 300px;
+    margin-bottom: 40px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.kakao-icon img {
+    width: 30px;
+    height: 18px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.M_postcode:after{
+    content: "]";
+}
+.M_postcode:before{
+    content: "[";
+}
+
+.postArea{
+    display: flex;
+}
+
+.totalAddress {
+    margin-left: 20px;
+}
+
+.shipping_info{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    height: 30px;
+    margin-left: 20px;
+
+}
+.shipping_info p{
+    font-size: 15px;
+}
+
+
+.shipping_info > input {
+    margin-left: 20px;
+    height: 30px;
+    text-indent: 6px;
+    border: 1px solid;
+    border-color: #ccc;
+
+}
+

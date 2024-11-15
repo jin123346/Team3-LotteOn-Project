@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/marketLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/market/marketOrder.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/postcode_delivery.js}"></script>
+
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="section order">
+        <!-- 주문 정보를 표시할 요소들 -->
+
+        <div class="sectionWrapper order">
+            <div class="sub_tit">
+                <h3 id="h3_list">주문하기</h3>
+                <div class="location">
+                    <span><a href="">홈&nbsp;</a></span>
+                    <span>장바구니&nbsp;</span>
+                    <span><strong>주문하기&nbsp;</strong></span>
+                </div>
+            </div>
+
+            <!-- 장바구니 table -->
+            <form action="#" id="product_order">
+
+                <table class="productOrder">
+                    <colgroup style="width: 1100px; table-layout: fixed;">
+                        <col style="width: 45%;">
+                        <col style="width: 9%;">
+                        <col style="width: 10%;">
+                        <col style="width: 8%;">
+                        <col style="width: 8%;">
+                        <col style="width: 8%;">
+                        <col style="width: 22%;">
+                    </colgroup>
+                    <tr>
+                        <th>상품</th>
+                        <th>수량</th>
+                        <th>판매가</th>
+                        <th>할인</th>
+                        <th>포인트</th>
+                        <th>배송비</th>
+                        <th>총합</th>
+                    </tr>
+                    <!--                    &lt;!&ndash; 반복부분 &ndash;&gt;-->
+                    <!--                    <th:block th:if="${#lists.isEmpty(productDataArray)}">-->
+                    <!--                        <tr>-->
+                    <!--                            <td>-->
+                    <!--                                <div><img src="" alt=""></div>-->
+                    <!--                                <div>-->
+                    <!--                                    <span>상품명</span>-->
+                    <!--                                    <p class="product_option"> [ 옵션 : 크림 / 66 Size ]</p>-->
+                    <!--                                </div>-->
+                    <!--                            </td>-->
+                    <!--                            <td >-->
+                    <!--                                <div class="qnt">-->
+                    <!--                                    <input type="number" name="quantity" class="T_quantity" th:value="1" readonly>-->
+                    <!--                                </div>-->
+                    <!--                            </td>-->
+                    <!--                            <td><span  class="T_originalPrice price" data-original="30000">30000</span></td>-->
+                    <!--                            <td><span class="T_discount"></span>%</td>-->
+                    <!--                            <td><span class="T_point price" >300</span></td>-->
+                    <!--                            <td><span class="T_shippingFee price" data-ship="2000" th:text="2000">3000</span></td>-->
+                    <!--                            <td><span class="T_finalPrice price" >29500</span></td>-->
+                    <!--                        </tr>-->
+                    <!--                    </th:block>-->
+                </table>
+                <!-- <div class="btn-group">
+                    <button class="returnCart" >장바구니로 돌아가기</button>
+                </div> -->
+
+            </form>
+        </div><!--sectionWrapper-->
+    </section>
+
+    <section class="orderSection">
+        <form action="" style="display: flex; flex-direction: row; justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: nowrap;">
+            <!--결제정보-->
+            <div class="infoWrap">
+                <article class="orderInfo">
+                    <h4 calss="info_tit">배송정보</h4>
+                    <div class="Delivery_address">
+                        <table>
+                            <colgroup>
+                                <col style="width: 20%;">
+                                <col style="width: 80%;">
+                            </colgroup>
+                            <tr>
+                                <th>수령자</th>
+                                <td>
+                                    <input type="text" name="name" id="receiver" readonly
+                                           th:value="${memberDTO.getName()}"></td>
+                            </tr>
+                            <tr>
+                                <th>휴대폰</th>
+                                <td><input type="text" name="hp" id="hp" th:value="${memberDTO.getHp()}" readonly></td>
+                            </tr>
+                            <tr class="address_info">
+                                <th>배송지</th>
+                                <td>
+                                    <span class="postArea">
+                                    <p class="M_postcode" id="M_postcode"
+                                       th:attr="data-postcode=${memberDTO.getPostcode()}"
+                                       th:text="${memberDTO.getPostcode()}"></p><input type="button"
+                                                                                       class="address_change"
+                                                                                       value="주소지 변경">
+                                    </span>
+                                    <span th:text="${memberDTO.getAddr()+'  '+memberDTO.getAddr2()}"
+                                          class="totalAddress"
+                                          th:attr="data-addr=${memberDTO.getAddr()}, data-addr2=${memberDTO.getAddr2()}">
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="address_info">
+                                <th>배송 요청사항</th>
+                                <td>
+                                    <span class="shipping_info">
+                                        <select name="shippingInfo" id="shippingInfo">
+                                            <option value="0"></option>
+                                            <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
+                                            <option value="부재시 연락주세요">부재시 연락주세요</option>
+                                            <option value="배송전 연락주세요">배송전 연락주세요</option>
+                                            <option value="택배함에 넣어주세요">택배함에 넣어주세요</option>
+                                            <option value="부재시 문앞에 놔주세요">부재시 문앞에 놔주세요</option>
+                                            <option value="6">직접입력</option>
+                                        </select>
+                                        <div><input type="hidden" th:placeholder=" 직접입력" id="InfoInput"></div>
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+                    <h4 calss="info_tit">할인정보</h4>
+                    <div class="discountWrapper">
+                        <div class="point_wrap">
+                            <div class="point_info">
+                                <input type="hidden" id="memberUid" th:value="${memberDTO.getUid()}">
+                                <input type="hidden" id="memberGrade" th:value="${memberDTO.getGrade()}">
+                                <input type="hidden" id="memberName" th:value="${memberDTO.getName()}">
+                                <input type="hidden" id="memberHp" th:value="${memberDTO.getHp()}">
+                                <p th:text="${memberDTO.getPoint()}"></p>
+                                <input type="hidden" id="currentPoint"
+                                       th:value="${memberDTO.point != null ? memberDTO.point.intValue() : 0}">
+                                <span>현재 포인트 :
+                                <span class="price" id="currentIn"
+                                      th:text="${memberDTO.point != null ? memberDTO.point.intValue() : 0}"></span>
+                                <p>
+                                    포인트 : 5,000점이상이면
+                                    현금처럼 사용가능
+                                </p>
+
+                            </div>
+                            <div class="point_use">
+                                <input type="number" name="used_point" id="used_point" value="0">
+                                <input type="button" value="사용하기" id="pointuseBtn">
+                                <span>적용포인트 : <p class="usedPoint price" id="usedPointResult"></p></span>
+                            </div>
+                        </div>
+
+                        <div class="coupon_Info">
+                            <div class="coupon">
+                                <span>사용가능 쿠폰</span>
+                                <select name="coupons" id="couponSelect">
+                                    <option value="" style="color: #dddddd">사용하실 쿠폰을 선택하세요</option>
+                                    <!-- 쿠폰 목록을 동적으로 출력 -->
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="totalSalePrice">
+                            <div>
+                                <p>포인트 할인금액 : </p><span class="usedPointResult price">0</span>
+                            </div>
+                            <div>
+                                <p>쿠폰 할인금액 : </p><span class="usedCouponResult price">0</span>
+                            </div>
+                            <div class="totalDiscount">
+                                <p>총 할인금액 : </p><span class="DiscountResult price">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 calss="info_tit">결제방법</h4>
+
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="credit-card"> 신용카드
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="check-card"> 체크카드
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="bank-transfer"> 계좌이체
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="no-bankbook"> 무통장입금
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="mobile-payment"> 휴대폰결제
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="kakaopay"> 카카오페이
+                            <span class="kakao-icon">
+                                            <img src="https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/500_20210714141750154.png"
+                                                 alt="카카오페이">
+                                        </span>
+                        </label>
+                    </div>
+                </article>
+            </div>
+
+
+            <!-- aside -->
+            <aside class="finalOrder_window scroll">
+                <section class="finalOrderAsideWrapper">
+                    <h3>최종결제정보 </h3>
+                    <div class="orderQnt">
+                        <label for="">상품수</label>
+                        <span id="finalOrderQuantity">2</span>
+                    </div>
+                    <div class="orderOriginPrice">
+                        <label for="">상품금액</label>
+                        <span class="price" id="finalOrderProductPrice">0</span>
+                    </div>
+                    <div class="orderSalePrice">
+                        <label for="">└ 상품 할인금액</label>
+                        <span class="price" id="finalOrderDiscount">-0</span>
+                    </div>
+                    <div class="orderSalePrice">
+                        <label for="">└ 포인트 및 쿠폰할인</label>
+                        <span class="price" id="finalDiscountResult">-0</span>
+                    </div>
+                    <div class="delivery-fee">
+                        <label for="">배송비</label>
+                        <span class="price" id="finalOrderDeliveryFee">0</span>
+                    </div>
+                    <div class="orderTotalPrice">
+                        <label for="">전체 주문금액</label>
+                        <span class="price" id="finalOrderTotal">0</span>
+                    </div>
+                    <div class="orderPoint">
+                        <label for="">적립예정포인트</label>
+                        <span class="price" id="finalOrderPoint">270</span>
+                    </div>
+                    <div class="orderBtn">
+                        <button type="submit" class="order-Btn">결제하기</button>
+                    </div>
+                </section>
+            </aside>
+        </form>
+    </section>
+
+
+    <!-- 배송지 선택 모달 -->
+    <div id="addressSelectModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>배송지 선택</h2>
+            <div class="address-list">
+                <div class="address-item">
+                    <div class="address-info">
+                        <input type="radio" id="addr" name="address" checked>
+                        <label for="addr">하진희</label>
+                        <p>[47566]<br> 부산 연제구 온천천남로 110</p>
+                        <p>010-5595-8375</p>
+                    </div>
+
+                    <div class="address-btn">
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </div>
+
+                </div>
+                <div class="address-item">
+                    <div class="address-info">
+                        <input type="radio" id="address2" name="address">
+                        <label for="address2">하진희</label>
+                        <p>[47566] 부산 연제구 온천천남로 110</p>
+                        <p>010-5595-8375</p>
+                    </div>
+                    <div class="address-btn">
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="button-type">
+                <button class="confirm-btn" onclick="confirmAddressSelection()">확인</button>
+                <button class="new-address-btn">새 배송지 추가</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 배송지 등록 모달 -->
+    <div id="addressRegisterModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>배송지 등록</h2>
+            <form id="addressForm">
+                <input type="hidden" id="memberId" th:value="${memberDTO.getId()}">
+                <table>
+                    <tr>
+                        <th><label for="name">배송지 이름</label></th>
+                        <td><input type="text" id="name" placeholder="배송지 이름을 입력하세요"></td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="phoneNumber">휴대폰 번호</label></th>
+                        <td><input type="text" id="phoneNumber" placeholder="휴대폰 번호를 입력하세요"></td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="postalCode">주소</label></th>
+                        <td>
+                            <div class="address-input">
+                                <input type="text" id="postalCode" placeholder="우편번호">
+                                <button type="button" id="btnPostCode">우편번호 찾기</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" id="addressLine1" placeholder="기본주소"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" id="addressLine2" placeholder="상세주소"></td>
+                    </tr>
+
+                    <!--                    <tr>-->
+                    <!--                        <td><label for="entranceCode">(선택) 공동현관 출입번호</label></td>-->
+                    <!--                        <td><input type="text" id="entranceCode" placeholder="예: #1234"></td>-->
+                    <!--                    </tr>-->
+
+                    <tr>
+                        <td><label for="deliveryMessage">배송 메시지</label></td>
+                        <td><input type="text" id="deliveryMessage" placeholder="배송 메시지를 입력하세요"></td>
+                    </tr>
+
+                </table>
+
+                <div class=" checkbox-group">
+                    <label><input type="checkbox" checked> (필수) 개인정보 수집 및 이용 동의(수취인정보)</label><br>
+                    <label><input type="checkbox"> (선택) 개인정보 수집 및 이용 동의(공동현관 출입정보)</label><br>
+                </div>
+
+                <button type="submit" class="save-btn">저장</button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- 배송지 수정 모달 -->
+    <div id="addressUpdateModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>배송지 수정</h2>
+            <form id="addressForm2">
+
+                <table>
+                    <input type="hidden" id="deliveryIdInput" name="deliveryId" value="">  <!-- hidden 필드 추가 -->
+                    <tr>
+                        <th><label for="name">배송지 이름</label></th>
+                        <td><input type="text" id="name2" placeholder="배송지 이름을 입력하세요"></td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="phoneNumber">휴대폰 번호</label></th>
+                        <td><input type="text" id="phoneNumber2" placeholder="휴대폰 번호를 입력하세요"></td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="postalCode">주소</label></th>
+                        <td>
+                            <div class="address-input">
+                                <input type="text" id="postalCode2" placeholder="우편번호">
+                                <button type="button" id="btnPostCode2">우편번호 찾기</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" id="addressLine12" placeholder="기본주소"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" id="addressLine22" placeholder="상세주소"></td>
+                    </tr>
+
+                    <!--                    <tr>-->
+                    <!--                        <td><label for="entranceCode">(선택) 공동현관 출입번호</label></td>-->
+                    <!--                        <td><input type="text" id="entranceCode" placeholder="예: #1234"></td>-->
+                    <!--                    </tr>-->
+
+                    <tr>
+                        <td><label for="deliveryMessage">배송 메시지</label></td>
+                        <td><input type="text" id="deliveryMessage2" placeholder="배송 메시지를 입력하세요"></td>
+                    </tr>
+
+                </table>
+
+                <div class=" checkbox-group">
+                    <label><input type="checkbox" checked> (필수) 개인정보 수집 및 이용 동의(수취인정보)</label><br>
+                    <label><input type="checkbox"> (선택) 개인정보 수집 및 이용 동의(공동현관 출입정보)</label><br>
+                </div>
+
+                <button type="submit" class="save-btn">저장</button>
+
+            </form>
+        </div>
+    </div>
+
+
+    <script th:src="@{/js/marketOrder.js}"></script>
+    <script th:src="@{/js/deliveryService.js}"></script>
+
+
+</th:block>

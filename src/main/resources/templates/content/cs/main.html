@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/csMain.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main class="cs_main">
+        <div id="container">
+
+            <div id="service">
+                <h4 class="tit1">
+                    <span>롯데 ON</span> 이 도와드릴게요 !
+                </h4>
+
+                <div class="notice">
+                    <div>
+                        <h2>공지사항</h2>
+                        <span><a th:href="@{/cs/notice/list}" style="color: rgb(17, 86, 165); font-weight: bold;">전체보기</a></span>
+                    </div>
+                    <table class="notice_table">
+                        <colgroup>
+                            <col style="width: 700px">
+                            <col style="width: 200px">
+                        </colgroup>
+                        <!-- Notice 데이터 출력 -->
+                        <th:block th:if="${!top5Notices.isEmpty()}">
+                            <tr th:each="notice : ${top5Notices}">
+                                <td>
+                                    <a th:href="@{/cs/notice/view(no=${notice.noticeNo})}"
+                                       th:text="${notice.noticetitle}"></a>
+                                </td>
+                                <td th:text="${#strings.substring(notice.date, 0, 10)}"></td>
+                            </tr>
+                        </th:block>
+                    </table>
+                </div>
+                <div class="qna">
+                    <div>
+                        <h2>자주하는 질문</h2>
+                        <span><a th:href="@{/cs/faq/list}" style="color: rgb(17, 86, 165); font-weight: bold;">전체보기</a></span>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='1')}"><img src="../images/sample/icon01.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='1')}">회원</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='2')}"><img src="../images/sample/icon02.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='2')}">쿠폰/이벤트</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='3')}"><img src="../images/sample/icon03.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='3')}">주문/결제</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='4')}"><img src="../images/sample/icon04.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='4')}">배송</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='5')}"><img src="../images/sample/icon05.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='5')}">취소/반품/교환</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='6')}"><img src="../images/sample/icon06.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='6')}">여행/숙박/항공</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/cs/faq/list(cate='7')}"><img src="../images/sample/icon07.png"></a><br>
+                                <a th:href="@{/cs/faq/list(cate='7')}">안전거래</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="question">
+                    <div>
+                        <h2>문의하기</h2>
+                        <span><a th:href="@{/cs/qna/list}" style="color: rgb(17, 86, 165); font-weight: bold;">전체보기</a></span>
+                    </div>
+                    <div>
+                        <span th:if="${qnaPage.getContent().isEmpty()}">QnA 데이터가 없습니다.</span>
+                    </div>
+                    <table class="question_table">
+                        <colgroup>
+                            <col style="width: 500px">
+                            <col style="width: 200px">
+                            <col style="width: 200px">
+                        </colgroup>
+                        <!-- QnA 데이터 출력 -->
+                        <th:block th:if="${qnaPage != null && !qnaPage.content.isEmpty()}">
+                            <tr th:each="qna : ${qnaPage.content}"> <!-- content를 사용 -->
+                                <td>
+                                    <a th:href="@{/cs/qna/detail/{id}(id=${qna.qna_id})}"
+                                       th:text="${qna.qna_title}"></a>
+                                </td>
+                                <td th:text="${#strings.substring(qna.qna_writer, 0, 2) + '**'}"></td>
+                                <td th:text="${#strings.substring(qna.rdate, 0, 10)}"></td>
+                            </tr>
+                        </th:block>
+                    </table>
+                    <th:block th:if="${#authentication.name != 'anonymousUser'}" >
+                        <input type="hidden" name="uid" id="uid" th:value="${#authentication.getName()}">
+                    </th:block>
+                    <a class="inquiry"
+                       style="color: rgb(17, 86, 165); font-weight: bold; cursor: pointer" onclick="loginredirect('/cs/qna/write')">문의글 작성 ></a>
+                </div>
+                <div class="onecounsel">
+                    <h2>1:1 상담안내</h2>
+                    <div class="counsel-container">
+                        <div class="counsel1">
+                            <p><span style="font-size: large; font-weight: bold;">이용안내</span></p>
+                            <p>일반회원/비회원<br>
+                                <span style="font-size: large; font-weight: bold;">1566-0001</span>(평일 09:00~18:00)</p>
+                            <p>스마일클럽 전용<br>
+                                <span style="font-size: large; font-weight: bold;">1566-0002</span>(평일 09:00~18:00)</p>
+                        </div>
+                        <div class="counsel2">
+                            <p><span style="font-size: large; font-weight: bold;">판매 상담 이용 안내</span></p>
+                            <p>판매고객<br>
+                                <span style="font-size: large; font-weight: bold;">1566-5700</span>(평일 09:00~18:00)</p>
+                            <a href="#" style="font-size: large; font-weight: bold;">판매자 가입 서류 접수 안내 ></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function loginredirect(url) {
+                const uidElement = document.getElementById("uid");
+                const uid = uidElement ? uidElement.value : null;
+
+                if (!uid) {
+                    alert('로그인 후 이용해 주세요');
+                    window.location.href = `/user/login?redirect=${encodeURIComponent(window.location.href)}`;
+                } else {
+                    window.location.href = url;
+                }
+            }
+
+            // loginredirect 함수가 전역에서 접근 가능하도록 window 객체에 바인딩
+            window.loginredirect = loginredirect;
+        });
+    </script>
+</th:block>

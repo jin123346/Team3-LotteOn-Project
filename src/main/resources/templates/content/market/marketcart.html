@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/marketLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link  rel="stylesheet" th:href="@{/css/market/marketCart.css}">
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+<section class="section cart">
+    <div class="sectionWrapper">
+        <div class="sub_tit">
+            <h3 id="h3_list">장바구니</h3>
+            <div class="location">
+                <span><a href="">홈&nbsp;</a></span>
+                <span>나의쇼핑정보&nbsp;</span>
+                <span><strong>장바구니&nbsp;</strong></span>
+            </div>
+        </div>
+
+        <!-- 장바구니 table -->
+        <form action="#" id="product_cart">
+
+            <table class="productCart">
+                <colgroup>
+                    <col style="width: 2%;">
+                    <col style="width: 45%;">
+                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                    <col style="width: 8%;">
+                    <col style="width: 10%;">
+                    <col style="width: 10%;">
+                </colgroup>
+
+                <tr>
+                    <th><input type="checkbox" id="checkBoxAll" name="select" >
+                        <input type="hidden" name="skip" id="skip">
+                    </th>
+                    <th>상품</th>
+                    <th>수량</th>
+                    <th>판매가</th>
+                    <th>할인</th>
+                    <th>포인트</th>
+                    <th>배송비</th>
+                    <th>총합</th>
+                </tr>
+
+
+
+                <!-- 반복부분 -->
+                <th:block th:if="${cartItemDTOS != null and cartItemDTOS.size() > 0}" th:data-cart-id="${cartItemDTOS.get(0).getCartId()}">
+                     <th:block th:if="${#authentication.getName() !='anonymousUser'}"><input type="hidden" id="uid" th:value="${#authentication.getName()}"></th:block>
+                     <input type="hidden" th:value="${cartItemDTOS.get(0).getCartId()}" id="cartId">
+                        <tr th:each="itemDto : ${cartItemDTOS}"
+                            th:data-cartItemId="${itemDto.cartItemId}"
+                            th:data-product-id="${itemDto.getProductId()}"
+                            th:data-product-name="${itemDto.productName}"
+                            th:data-discount="${itemDto.getDiscount()}"
+                            th:data-original-price="${itemDto.productDTO.getPrice()}"
+                            th:data-final-price="${itemDto.finalPrice}"
+                            th:data-quantity="${itemDto.quantity}"
+                            th:data-file190="${itemDto.file190}"
+                            th:data-point="${itemDto.getPoints()}"
+                            th:data-shipping-fee="${itemDto.getDeliveryFee()}"
+                            th:data-shipping-terms="${itemDto.ShippingTerms}"
+                            style="border-bottom: 1px solid #dddddd">
+
+                        <td><input type="checkbox" name="select"></td>
+                        <td>
+                            <th:block th:if="${itemDto. combinationDTO !=null }">
+                                <input type="hidden" th:class="additionalPrice-Input" th:value="${itemDto.getAdditionalPrice()}">
+                                <input type="hidden" th:class="combinationString" th:value="${itemDto.combinationDTO.getCombination()}">
+                                <input type="hidden" th:class="combinationId" th:value="${itemDto.combinationDTO.getCombinationId()}">
+                            </th:block>
+                            <div>
+                                <input type="hidden" id="savedPath" th:value="${itemDto.getProductDTO().getSavedPath()}">
+                                <img th:if="${itemDto.productDTO.getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${itemDto.productDTO.getFile190()}}" alt="">
+                                <img th:unless="${itemDto.productDTO.getSavedPath()==null}" th:src="@{'/uploads/'+${itemDto.productDTO.getSavedPath()}+'/'+${itemDto.productDTO.getFile190()}}" alt="">
+                            </div>
+                            <div>
+                                <a th:href="@{'/market/view/'+${itemDto.productDTO.categoryId}+'/'+${itemDto.productDTO.productId}}">
+                                <span th:text="${itemDto.productDTO.productName}">상품명</span>
+                                <p class="product_option" th:if="${itemDto.combinationDTO != null}" th:text="${itemDto.combinationDTO.combination}">[ 옵션 ] [[${item.productOptionCombination.combination}]]</p>
+                            </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="qnt">
+                                <input type="number" name="quantity" class="quantity" th:value="${itemDto.quantity}" min="1" readonly>
+
+                                <div class="countModify">
+                                    <a class="countModifyBtn" href="#">수정하기</a>
+                                    <div class="number-controls" style="display: none;">
+                                        <button type="button" class="qnt-decrease">-</button>
+
+                                        <input type="number" class="quantity-input"  value="1">
+
+                                        <button type="button" class="qnt-increase">+</button>
+                                    </div>
+                                </div>
+                                <div class="edit-buttons" style="display: none;">
+                                    <button type="button" class="apply-btn">변경하기</button>
+                                    <button type="button" class="cancel-btn">취소</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="price"  th:text="${itemDto.productDTO.price+itemDto.additionalPrice}">판매가</td>
+                        <td class="price" th:text="${itemDto.discount}">할인</td>
+                        <td class="price" th:text="${itemDto.getPoints()}">포인트</td>
+                        <td class="price" th:text="${itemDto.getDeliveryFee()}">배송비</td>
+                        <td class="price" th:text="${itemDto.finalPrice}">총합</td>
+                    </tr>
+
+                </th:block>
+
+                <th:block th:unless="${cartItemDTOS != null and cartItemDTOS.size() > 0}" >
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 65px 0; font-size: 16px">장바구니가 비어있습니다.</td>
+                    </tr>
+                </th:block>
+
+
+            </table>
+            <div class="btn-group">
+                <button class="selected-delete" >선택삭제</button>
+                <div class="orderbtn">
+                    <button class="selected-order">선택주문</button>
+                    <button class="selected-all" id="selectAllButton">전체선택</button>
+                </div>
+
+            </div>
+
+        </form>
+    </div><!--sectionWrapper-->
+</section>
+
+<aside class="cartOrder_window">
+    <form class="cartOrderAsideWrapper">
+        <h3>전체합계 </h3>
+        <div class="orderQnt">
+            <label for="">상품수</label>
+            <span th:text="${cartSummary.finalTotalQuantity}" data-default-quantity="${cartSummary.finalTotalQuantity}"></span>
+        </div>
+        <div class="orderOriginPrice">
+            <label for="">상품금액</label>
+            <span th:text="${cartSummary.finalTotalPrice}" class="price" data-default-price="${cartSummary.finalTotalPrice}"></span>
+        </div>
+        <div class="orderSalePrice">
+            <label for="">할인금액</label>
+            <span th:text="${cartSummary.finalTotalDiscount}" class="price" data-default-discount="${cartSummary.finalTotalDiscount}"></span>
+        </div>
+        <div class="delivery-fee">
+            <label for="">배송비</label>
+            <span th:text="${cartSummary.finalTotalDeliveryFee}" class="price" data-default-delivery="${cartSummary.finalTotalDeliveryFee}"></span>
+        </div>
+        <div class="orderTotalPrice">
+            <label for="">전체 주문금액</label>
+            <span th:text="${cartSummary.finalTotalOrderPrice}" class="price" data-default-total="${cartSummary.finalTotalOrderPrice}"></span>
+        </div>
+        <div class="orderPoint">
+            <label for="">적립예정포인트</label>
+            <span th:text="${cartSummary.finalTotalPoints}" class="price" data-default-points="${cartSummary.finalTotalPoints}"></span>
+        </div>
+        <div class="orderBtn">
+            <button type="submit" class="order-Btn">주문하기</button>
+        </div>
+    </form>
+</aside>
+
+    <script  th:src="@{/js/marketcart.js}"></script>
+</th:block>

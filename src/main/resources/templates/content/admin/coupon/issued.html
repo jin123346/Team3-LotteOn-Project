@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/sellerLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Coupon</title>
+    <link rel="stylesheet"   th:href="@{/css/admin/adminCoupon.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+            <div id="admin_service">    
+                <section>
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                    <section id="admin_navi">
+                            <p>쿠폰발급현황</p>
+                            <p><a href="#">HOME > 쿠폰관리</a> > 쿠폰발급현황</p>
+                    </section>
+
+<!-- 작업 내용 추가 -->
+<div class="coupon-container">
+    <div class="coupon-header">
+        <select id="searchIssuedCategory">
+            <option value="" disabled selected>선택하세요</option> <!-- 기본 선택 안내 문구 -->
+            <option value="couponType">1.쿠폰종류</option>
+            <option value="sellerCompany">2.발급자</option>
+            <option value="sellerName">3.쿠폰명</option>
+        </select>
+        <input type="text" id="searchIssuedQuery" placeholder="검색어 입력" class="search-input">
+        <button id="searchBtnIssued" class="search-btn">검색</button>
+    </div>
+    <div class="div-table-overflow-x">
+    <table class="coupon-table" id="issuedTable">
+        <thead>
+            <tr>
+                <th style="text-align: center;">발급번호</th>
+                <th style="text-align: center;">쿠폰번호</th>
+                <th style="text-align: center;">쿠폰종류</th>
+                <th style="text-align: center;">쿠폰명</th>
+                <th style="text-align: center;">사용자</th>
+                <th style="text-align: center;">상태</th>
+                <th style="text-align: center;">사용일</th>
+                <th style="text-align: center;">관리</th>
+            </tr>
+        </thead>
+        <tbody id="issuedTbody">
+        <!-- 쿠폰 리스트 출력 -->
+        <tr th:each="Issued : ${IssuedList}">
+            <td>
+                <a href="#" class="issued-order-link"
+            th:text="${Issued.issuanceNumber}"
+            th:data-issued-couponId="${Issued.couponId}"
+            th:data-issued-id="${Issued.issuanceNumber}"
+            th:data-issued-couponType="${Issued.couponType}"
+            th:data-issued-usageStatus="${Issued.usageStatus}"
+            th:data-issued-memberName="${Issued.memberName}"
+            th:data-issued-couponName="${Issued.couponName}"
+            th:data-issued-restrictions="${Issued.restrictions}"
+            th:data-issued-benefit="${Issued.benefit}"
+            th:data-period="${Issued.startDate} + ' ~ ' + ${Issued.endDate}"
+            th:data-issued-issuer="${Issued.sellerCompany}"
+                ></a>
+            </td>
+            <td th:text="${Issued.couponId}"></td>
+            <td th:text="${Issued.couponType}"></td>
+            <td th:text="${Issued.couponName}"></td>
+            <td th:text="${Issued.memberName}"></td>
+            <td class="coupon-status" th:text="${Issued.status}"></td>
+            <td th:text="${Issued.usageDate != null ? Issued.usageDate : '미사용'}"></td>
+            <td>
+                <button class="issued-end-button" th:attr="data-id=${Issued.issuanceNumber}">종료</button>
+            </td>
+
+        </tr>
+        <tr th:if="${#lists.isEmpty(IssuedList)}">
+            <td colspan="8" style="text-align: center; vertical-align: middle; height: 200px;">
+                발급된 쿠폰이 없습니다.
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    </div>
+    <div class="pagination">
+        <!-- 이전 페이지 버튼 -->
+        <span class="page-btn" th:if="${currentPage > 1}" th:href="@{'/seller/coupon/issued?page=' + ${currentPage - 1}}">◀</span>
+
+        <!-- 페이지 번호 -->
+        <span class="page-btn" th:each="i : ${#numbers.sequence(1, totalPages)}"
+              th:href="@{'/seller/coupon/issued?page=' + ${i}}" th:text="${i}"
+              th:classappend="${i == currentPage ? 'active' : ''}"></span>
+
+        <!-- 다음 페이지 버튼 -->
+        <span class="page-btn" th:if="${currentPage < totalPages}" th:href="@{'/seller/coupon/issued?page=' + ${currentPage + 1}}">▶</span>
+    </div>
+
+
+</div>
+</section>
+<!--모달 추가-->
+                <!-- 쿠폰 정보 모달 -->
+                <div id="couponInfoModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>쿠폰 정보</h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 70%;">
+                                </colgroup>
+                                <tr>
+                                    <td>쿠폰번호</td>
+                                    <td><span id="modalCouponNumber"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>발급번호</td>
+                                    <td><span id="modalIssueNumber"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>쿠폰종류</td>
+                                    <td><span id="modalCouponType"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>발급처</td>
+                                    <td><span id="modalIssuer"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>사용여부</td>
+                                    <td><span id="modalUsageStatus"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>발급대상</td>
+                                    <td><span id="modalTarget"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>쿠폰명</td>
+                                    <td><span id="modalCouponName"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>혜택</td>
+                                    <td><span id="modalBenefit"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>사용기간</td>
+                                    <td><span id="modalPeriod"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>유의사항</td>
+                                    <td><span id="modalNotes"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-close-btn">닫기</button>
+                        </div>
+                    </div>
+                </div>
+
+    <script>
+        document.querySelectorAll('tr').forEach(row => {
+            const statusCell = row.querySelector('.status-ending');
+            if (statusCell) {
+                const button = row.querySelector('.end-button');
+                if (button) {
+                    button.style.backgroundColor = '#888'; // 회색 배경
+                    button.style.color = 'white'; // 흰색 글자
+                }
+            }
+        });
+    </script>
+    <script src="/js/adminCouponModal.js"></script>
+</th:block>

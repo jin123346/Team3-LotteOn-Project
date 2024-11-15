@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link  rel="stylesheet" th:href="@{/css/user/join2.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+
+     <!-- 롯데온 회원가입 추가 -->
+    <div class="welcome-section">
+        <p>대한민국 1등 온라인 인터넷 쇼핑</p><br>
+        <span><strong>롯데ON</strong>에 오신 것을 환영합니다.</span>
+    </div>
+
+    <div id="signup-section">
+        <div class="signup-card" id="general-signup">
+            <div class="cardTitle"><h2>일반 회원가입</h2></div>
+            <p>개인구매회원(외국인포함)</p>
+            <p>만 14세 이상 가능</p>
+            <a class="buttonJoin" th:href="@{/user/term(type='member')}">회원가입</a>
+        </div>
+
+        <div class="signup-card" id="seller-signup">
+            <h2>판매 회원가입</h2>
+            <p>사업자판매회원</p>
+            <p>사업자등록증을 보유한 회원</p>
+            <a class="buttonJoin" th:href="@{/user/term(type='seller')}">회원가입</a>
+        </div>
+    </div>
+
+</th:block>

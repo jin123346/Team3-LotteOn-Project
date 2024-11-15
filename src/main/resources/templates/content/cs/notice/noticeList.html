@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/noticeList.css}">
+    <script src="/js/cateNotice.js"></script> <!-- qna.js 파일을 추가 -->
+
+</head>
+<body>
+<th:block layout:fragment="content">
+        <th:block th:replace="~{aside/noticeAside}"></th:block>
+
+    <div id="service">
+        <div class="title">
+            <h2 th:text="${selectedCategory}"></h2>
+            <p th:text="|${selectedCategory} 관련 공지사항입니다.|"></p>
+        </div>
+        <div class="article-div">
+            <table class="article-list">
+                <colgroup>
+                    <col style="width: 8%;">
+                    <col style="width: 74%;">
+                    <col style="width: 20%;">
+                </colgroup>
+                <!-- 게시물 리스트 헤더 -->
+                <thead>
+                <tr>
+                    <th class="article-number">번호</th>
+                    <th class="article-content">제목</th>
+                    <th class="article-date">날짜</th>
+                </tr>
+                </thead>
+
+                <!-- 게시물 리스트 내용 -->
+                <tbody>
+                <tr th:each="notice : ${noticePage.content}">
+                    <td th:text="${notice.noticeNo}"></td>
+                    <td>
+                        <a th:href="@{/cs/notice/view(no=${notice.noticeNo})}" th:text="${notice.noticetitle}"></a>
+                    </td>
+                    <td th:text="${#strings.substring(notice.date,0,10)}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination">
+            <div class="notice-pagination">
+                <!-- 이전 페이지 링크: 첫 번째 페이지에서는 숨김 -->
+                <span th:if="${noticePage.totalPages > 1 && !noticePage.first}">
+                    <a th:href="@{/cs/notice/list(page=${noticePage.number - 1})}" class="prev">이전</a>
+                </span>
+
+                <!-- 페이지 번호 반복 -->
+                <span th:each="pageNum : ${#numbers.sequence(0, noticePage.totalPages - 1)}">
+                    <a th:href="@{/cs/notice/list(page=${pageNum})}"
+                       th:classappend="${noticePage.number == pageNum} ? 'active'"
+                       th:text="${pageNum + 1}"></a>
+                </span>
+
+                <!-- 다음 페이지 링크: 마지막 페이지에서는 숨김 -->
+                <span th:if="${noticePage.totalPages > 1 && !noticePage.last}">
+                    <a th:href="@{/cs/notice/list(page=${noticePage.number + 1})}" class="next">다음</a>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+</th:block>
+
+
+

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aside</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: '고딕', sans-serif;
+            font-size: 19px;
+            font-weight: 400;
+        }
+
+        #aside {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 수평 중앙 정렬 */
+            width: 200px;
+            height: 600px;
+            max-height: 600px;
+        }
+
+        .aside_list {
+            width: 100%; /* aside의 너비에 맞추기 */
+            text-align: left; /* 리스트 텍스트를 왼쪽으로 정렬 */
+        }
+
+        .asd {
+            margin: 20px 0; 
+            font-size: 25px;
+            text-align: center; 
+            font-weight: bold;
+        }
+
+        .aside_list > ul > li {
+            margin: 15px 0px 10px 0px;
+            margin-left:  55px; /* 리스트 아이템 간격 조정 */
+        }
+        .aside_list > ul > li > a {
+            font-size: 18px;
+        }
+        .aside_list .active{}
+    </style>
+</head>
+<body>
+    <div id="aside">
+        <h3 class="asd">공지사항</h3>
+        <div class="aside_list ">
+            <ul>
+                <li>
+                    <a class="active" href="#">회원</a>
+                </li>
+                <li>
+                    <a class="active" href="#">쿠폰 /이벤트</a>
+                </li>
+                <li>
+                    <a class="active" href="#">주문 /결제</a>
+                </li>
+                <li>
+                    <a class="active" href="#">배송</a>
+                </li>
+                <li>
+                    <a class="active" href="#">취소 /반품 /교환</a>
+                </li>
+                <li>
+                    <a class="active" href="#">여행 /숙박 /항공</a>
+                </li>
+                <li>
+                    <a class="active" href="#">안전거래</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

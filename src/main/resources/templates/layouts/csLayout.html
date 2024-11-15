@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/cs/csCommon.css}">
+    <link rel="shortcut icon" th:href="@{/uploads/ConfigImg/favicon.ico}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
+
+    <title>LotteOn::cs</title>
+</head>
+<body>
+<div id="wrapper">
+    <div id="layout">
+        <div id="skipNav">
+            <a href="#content">본문바로가기</a>
+        </div>
+        <th:block th:replace="~{include/header_mypage}"></th:block>
+        <th:block th:if="${cate == 'main'}">
+            <th:block layout:fragment="content"></th:block>
+        </th:block>
+        <th:block th:unless="${cate == 'main'}">
+
+
+            <main>
+                <div id="container">
+                    <th:block layout:fragment="content"></th:block>
+
+
+                </div>
+            </main>
+
+        </th:block>
+
+        <!--        <th:block th:replace="~{content/cs/noticeView}"></th:block>-->
+
+
+        <th:block th:replace="~{include/footer}"></th:block>
+
+    </div><!--layout end-->
+</div> <!--wrapper end-->
+<script th:src="@{/js/headerJs.js}"></script>
+<!--<script>-->
+<!--    // Quill 에디터 초기화-->
+<!--    var quill = new Quill('#editor', {-->
+<!--        theme: 'snow'-->
+<!--    });-->
+
+<!--    // 등록 버튼 클릭 시 내용 HTML로 출력 (예시)-->
+<!--    document.querySelector('.insert').addEventListener('click', function () {-->
+<!--        var editorContent = quill.root.innerHTML;  // Quill 에디터에서 HTML 가져오기-->
+<!--        console.log(editorContent);  // 여기서 HTML을 서버로 전송하거나 활용할 수 있음-->
+
+<!--    });-->
+
+<!--    document.addEventListener('DOMContentLoaded', function () {-->
+<!--        // 모든 a 태그 선택-->
+<!--        const asideLinks = document.querySelectorAll('#aside .aside_list ul li a');-->
+
+<!--        asideLinks.forEach(function (link) {-->
+<!--            link.addEventListener('click', function (e) {-->
+<!--                e.preventDefault(); // 링크 클릭 시 페이지 이동 방지-->
+
+<!--                // 모든 a 태그에서 active 클래스 제거-->
+<!--                asideLinks.forEach(function (otherLink) {-->
+<!--                    otherLink.classList.remove('active');-->
+<!--                });-->
+
+<!--                // 클릭된 a 태그에 active 클래스 추가-->
+<!--                this.classList.add('active');-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+
+<!--    // 체크박스 전체 선택 기능-->
+<!--    const selectAllCheckbox = document.getElementById('select-all');-->
+<!--    const checkboxes = document.querySelectorAll('.checkbox-item');-->
+
+<!--    selectAllCheckbox.addEventListener('change', function () {-->
+<!--        checkboxes.forEach(checkbox => {-->
+<!--            checkbox.checked = selectAllCheckbox.checked;-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>

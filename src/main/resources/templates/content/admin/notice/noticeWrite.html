@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Notice</title>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+          <div id="admin_service">    
+              <section>
+                  <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                  <section id="admin_navi">
+                          <p>관리자 메인</p>
+                          <p><a href="#">HOME</a> > 관리자 메인</p>
+                  </section>
+                  <div class="write-box">
+                    <div class="coment-box">
+                        <form class="write-coment">
+                            <div class="write-table">
+                                <div class="write-type">
+                                    <div>유형</div>
+                                    <div>
+                                        <td>
+                                            <select class="first_choice" name="noticetype">
+                                                <option value="" disabled selected>유형 선택</option>
+                                                <th:block th:each="type : ${noticeTypes}">
+                                                    <option th:value="${type.name()}" th:text="${type.name()}"></option>
+                                                </th:block>
+                                            </select>
+                                        </td>
+                                    </div>
+                                </div>
+                                <div class="write-title">
+                                    <div>제목</div>
+                                    <div>
+                                        <input type="text" placeholder="제목을 입력하세요" name="noticetitle">
+                                    </div>
+                                </div>
+                                <div class="write-input">
+                                    <div>내용</div>
+                                    <div>
+                                        <textarea class="faq-contents" oninput="autoResize(this)" name="noticecontent"></textarea>
+                                    </div>
+                                </div>
+                        </form>
+                        <div class="write-btn-controoler">
+                            <a class="write-btn-cancel" href="#">취소하기</a>
+                            <a class="write-btn-regip" href="#">등록하기</a>
+                        </div>
+                    </div>
+                </div>
+                </section>
+              <script>
+                  const formdata = document.getElementsByTagName('form')[0];
+                  const noticewritebtn = document.getElementsByClassName('write-btn-regip')[0];
+
+                  noticewritebtn.addEventListener('click', function (e){
+                      e.preventDefault();
+                      const data = new FormData(formdata);
+                      fetch('/admin/notice/write', {
+                          method : 'POST',
+                          body : data
+                      })
+                          .then(resp => resp.json())
+                          .then(data => {
+                              console.log(data);
+                              if(data){
+                                  alert('등록되었습니다.');
+                                  window.location.href='/admin/notice/list'
+                              }
+                          })
+                          .catch(err => {
+                              console.log(err);
+                          });
+                  })
+
+              </script>
+</th:block>

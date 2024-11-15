@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Member</title>
+    <link rel="stylesheet" th:href="@{/css/memberpoint.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <div class="admin_gate">
+                <div class="left-icons">
+                    <a href="#" id="toggle-aside"><img src="/images/sample/menu.png" alt=""></a>
+                </div>
+                <div class="right-icons">
+                    <a href="#"><img src="/images/sample/home.png" alt=""></a>
+                    <a href="#"><img src="/images/sample/login.png" alt=""></a>
+                    <a href="#"><img src="/images/sample/logout.png" alt=""></a>
+                    <span>홍길동님</span>
+                </div>
+            </div>
+            <section id="admin_navi">
+                <p>포인트관리</p>
+                <p><a href="#">HOME</a> > 회원관리 > 포인트목록</p>
+            </section>
+
+
+            <article id="admin_banner_main">
+
+                <div>
+                    <table class="admin_banner_table">
+                        <colgroup>
+                            <col style="width: 5%">
+                            <col style="width: 7%">
+                            <col style="width: 10%">
+                            <col style="width: 11%">
+                            <col style="width: 14%">
+                            <col style="width: 14%">
+                            <col style="width: 9%">
+                            <col style="width: 20%">
+                        </colgroup>
+                        <div>
+                            <select id="shopsearch">
+                                <option value="">아이디</option>
+                                <option value="">이름</option>
+                                <option value="">이메일</option>
+                                <option value="">휴대폰</option>
+                            </select>
+                            <input id="search" type="text" placeholder="검색어 입력">
+                            <button id="serachbtn" type="button">검색</button>
+                        </div>
+
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>번호</th>
+                            <th>아이디</th>
+                            <th>이름</th>
+                            <th>지급포인트</th>
+                            <th>잔여포인트</th>
+                            <th>지급내용</th>
+                            <th>지급날짜</th>
+                        </tr>
+
+                        <tr th:each="member, iterStat : ${members}">
+                            <td><input type="checkbox" /></td>
+                            <td th:text="${iterStat.index + 1}"></td> <!-- 번호 -->
+                            <td th:text="${member.user.uid}"></td> <!-- 아이디 -->
+                            <td th:text="${member.name}"></td> <!-- 이름 -->
+
+                            <!-- 가장 최근 포인트 정보 -->
+                            <td th:if="${member.points.size() > 0}" th:text="${member.points[0].amount}"></td> <!-- 지급 포인트 -->
+                            <td th:if="${member.points.size() > 0}" th:text="${member.points[0].remainingPoints}"></td> <!-- 잔여 포인트 -->
+                            <td th:if="${member.points.size() > 0}" th:text="${member.points[0].description}"></td> <!-- 지급 내용 -->
+                            <td th:if="${member.points.size() > 0}" th:text="${member.points[0].createdAt}"></td> <!-- 지급 날짜 -->
+                            <td th:if="${member.points.size() == 0}" th:text="'0'"></td> <!-- 포인트가 없을 경우 -->
+                        </tr>
+
+                    </table>
+                </div>
+            </article>
+            <div class="list_button">
+                <button>선택삭제</button>
+            </div>
+        </section>
+</th:block>
+
+
+<script>
+
+
+    // 전화번호 잘림 적용
+    const phoneElement = document.getElementById('phone');
+    const hiddenPhone = hidePhoneNumber(phoneElement.textContent);
+    phoneElement.textContent = hiddenPhone;
+</script>

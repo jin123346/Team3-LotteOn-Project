@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/marketLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/market/marketsearch.css}">
+    <link rel="stylesheet" th:href="@{/css/market/marketList.css}">
+    <link rel="stylesheet" th:href="@{/css/market/marketAside.css}">
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/marketAside}"></th:block>
+    <section class="section list">
+                    <div class="sectionWrapper">
+                        <div class="sub_tit">
+                            <h3 id="h3_list">상품검색결과</h3>
+                            <div class="location">
+                                <span><a href="">홈&nbsp;</a></span>
+                                <span>상품검색&nbsp;</span>
+                                <span><strong>검색결과&nbsp;</strong></span>
+                            </div>
+                        </div>
+                        <div class="search-Area">
+                            <div class="search-text">
+                                <span id="searchKeyword">[[${query}]]</span> 검색결과
+                                <p>(총 : <span id="totalResults" th:text="${products.productSummaryDTOs.size()}"></span>건)</p>
+                            </div>
+
+                            <div class="searchBar-Wrap">
+                                <div class="search-input">
+                                    <input type="text" id="searchSecKeyword" placeholder="검색어를 입력하세요">
+                                    <button onclick="performInitialSearch()">검색</button>
+                                </div>
+                                <div class="search-options">
+                                    <label><input type="checkbox" id="filterByName"> 상품명</label>
+                                    <label><input type="checkbox" id="filterByDescription"> 설명</label>
+                                    <label><input type="checkbox" id="filterByPrice"> 가격</label>
+                                </div>
+                                <div class="price-range">
+                                    <input type="number" id="minPrice" placeholder="최소 가격"> ~
+                                    <input type="number" id="maxPrice" placeholder="최대 가격">
+                                </div>
+                                <button onclick="applyFilters()">필터 적용</button>
+                            </div>
+                            <div class="search-options">
+                                <label>
+                                    <input type="radio" name="searchMode" value="exact" checked> 정확히 일치
+                                </label>
+                                <label>
+                                    <input type="radio" name="searchMode" value="all"> 모든 키워드 포함
+                                </label>
+                                <label>
+                                    <input type="radio" name="searchMode" value="any"> 하나 이상의 키워드 포함
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="sort-options">
+                            <ul>
+                                <li class="active" data-sort="popular"><a href="#">판매많은순</a></li>
+                                <li data-sort="lowPrice"><a href="#">낮은가격순</a></li>
+                                <li data-sort="highPrice"><a href="#">높은가격순</a></li>
+                                <li data-sort="rating"><a href="#">평점높은순</a></li>
+                                <li data-sort="reviewCount"><a href="#">후기많은순</a></li>
+                                <li data-sort="recent"><a href="#">최근등록순</a></li>
+                            </ul>
+                        </div>
+                        <div class="sub-category-options">
+                            <ul class="sub-category-list">
+                                <!-- 여기에 하위 카테고리 리스트가 동적으로 추가될 예정 -->
+                            </ul>
+                        </div>
+                        <section class="product-search-list" id="productList" th:if="${products.productSummaryDTOs.size()>0}">
+                            <!-- This is where the product items will be dynamically loaded -->
+                            <th:block th:each="product : ${products.productSummaryDTOs}">
+                                <a th:href="@{/market/view/{category}/{productId}(category=${product.getCategoryId()},productId=${product.productId})}">
+                                <div class="product-search-item">
+                                    <div class="product-image">
+                                        <th:block th:if="${product.savedPath==null}">
+                                            <div class="pimg"><img th:src="'/uploads/productImg/'+${product.file190}" th:alt="${product.productName}"></div>
+                                        </th:block>
+                                        <th:block th:unless="${product.savedPath==null}">
+                                            <div class="pimg"><img th:src="'/uploads/'+${product.savedPath}+'/'+${product.file190}" alt="상품1"></div>
+                                        </th:block>
+                                    </div>
+
+                                    <div class="product-details">
+                                        <h4 class="product-name" th:text="${product.productName}">Product Name</h4>
+                                        <p class="product-description" th:text="${product.productDesc}">Description</p>
+                                    </div>
+                                    <div class="price-seller-info">
+                                        <div class="product-price">
+                                            <span class="final-price">[[${product.finalPrice}]]원</span>
+                                            <section class="discountArea" th:if="${product.discount>0}">
+                                                <span class="original-price">[[${product.price}]]원</span>
+                                                <span class="discount">[[${product.discount}]]%↓</span>
+                                            </section>
+
+
+                                        </div>
+                                        <div class="shipping-info">
+                                            <span class="shipping-fee" th:text="${product.shippingFee}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="product-seller">
+                                        <span class="seller-name">[[${product.company}]]</span>
+                                        <span class="customer">
+                                        <div class="seller-rating" th:data-rating="${#numbers.formatDecimal(product.rating, 0, 1)}"></div>
+                                        <p th:text="${product.rating} + ' (' + ${product.reviewCount} + ')'"></p>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                </a>
+                            </th:block>
+
+                        </section>
+                        <section class="product-search-list" id="NonProductList" th:unless="${products.productSummaryDTOs.size()>0}">
+                            <span>검색결과가 없습니다.</span>
+                        </section>
+
+
+
+                    </div><!--sectionWrapper-->
+                </section>
+    <script th:src="@{/js/marketSearch.js}"></script>
+    <script th:src="@{/js/marketAside.js}"></script>
+
+</th:block>

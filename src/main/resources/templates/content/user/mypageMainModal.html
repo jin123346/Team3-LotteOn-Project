@@ -1,0 +1,259 @@
+<!-- Modal Structure -->
+<div id="orderModal" class="modal receipt">
+  <div class="modal-content order">
+    <div class="header">
+      <span class="close">&times;</span>
+      <h3>주문상세</h3>
+    </div>
+    <table>
+      <colgroup>
+        <col style="width: 15%;">
+        <col style="width: 50%;">
+        <col style="width: 20%;">
+        <col style="width: 15%;">
+      </colgroup>
+      <tr>
+        <th>주문날짜</th>
+        <th>상품정보</th>
+        <th>결제금액</th>
+        <th>상태</th>
+      </tr>
+      <tr id="orderDetailsRow">
+        <td><span id="orderDate"></span></td>
+        <td>
+          <img id="productImage" src="" alt="상품 이미지">
+          <div>
+            <p id="orderIdText"></p>
+            <p id="companyName"></p>
+            <p id="productName"></p>
+            <p id="quantityText"></p>
+            <p class="price" id="productPrice"></p>
+          </div>
+        </td>
+        <td>
+          <div><p>판매가</p> <span class="price" id="salePrice"></span></div>
+          <div><p>할인</p><span class="price minus" id="discountPrice"></span></div>
+          <div><p>결제금액</p><span class="price strong" id="totalPrice"></span></div>
+        </td>
+        <td>
+          <p id="orderStatus"></p>
+        </td>
+      </tr>
+    </table>
+    <h4>배송정보</h4>
+    <section class="deleveryInfo">
+      <div><label for="name">이름</label><span id="customerName"></span></div>
+      <div><label for="hp">연락처</label><span id="customerPhone"></span></div>
+      <div><label for="address">주소</label><span id="customerAddress"></span></div>
+      <div><label for="deleiverInfo">배송요청사항</label><span id="deliveryRequests"></span></div>
+    </section>
+  </div>
+</div>
+
+<div id="sellerModal" class="modal seller">
+  <div class="modal-content seller">
+    <div class="header">
+      <span class="close">&times;</span>
+      <h3>문의하기</h3>
+    </div>
+
+    <table>
+      <colgroup>
+        <col style="width: 20%;">
+        <col style="width: 80%;">
+
+      </colgroup>
+      <tr>
+        <th>상호</th>
+        <td data-field="company">(주) 상호명</td>
+      </tr>
+      <tr>
+        <th>대표자</th>
+        <td data-field="ceo">홍길동</td>
+      </tr>
+      <tr>
+        <th>전화번호</th>
+        <td data-field="phone">051-123-1000</td>
+      </tr>
+      <tr>
+        <th>FAX</th>
+        <td data-field="fax">051-123-1001</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td data-field="email">Company@abc.com</td>
+      </tr>
+      <tr>
+        <th>사업자번호</th>
+        <td data-field="bno">123-12-1234567</td>
+      </tr>
+      <tr>
+        <th>영업소재지</th>
+        <td data-field="address">[210**] 부산광역시 부산진구 대연동 123 10층 1004호</td>
+      </tr>
+    </table>
+    <p>위 정보는 전자상거래 법 제 20조 제 2 항 및 동법 시행령 제 25조 제 2항에 의거하여 소비자보호에 의거 공개합니다.</p>
+    <div class="qnabtn">
+      <a href="#" class="qna-btn">문의하기</a>
+    </div>
+  </div>
+</div>
+
+
+<div id="qnaModal" class="modal qna">
+  <div class="modal-content qna">
+    <div class="header">
+      <span class="close">&times;</span>
+      <h3>문의하기</h3>
+    </div>
+    <table>
+      <colgroup>
+        <col style="width: 20%;">
+        <col style="width: 80%;">
+
+      </colgroup>
+      <tr>
+        <th>문의유형</th>
+        <td><input type="radio" id="product" name="inquiry-type" value="상품">
+          <label for="product">상품</label>
+          <input type="radio" id="shipping" name="inquiry-type" value="배송">
+          <label for="shipping">배송</label>
+          <input type="radio" id="return" name="inquiry-type" value="반품/취소">
+          <label for="return">반품/취소</label>
+          <input type="radio" id="exchange" name="inquiry-type" value="교환">
+          <label for="exchange">교환</label>
+          <input type="radio" id="other" name="inquiry-type" value="기타">
+          <label for="other">기타</label>
+        </td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><input type="email" placeholder="chh**@gamil.com"></td>
+      </tr>
+      <tr>
+        <th>제목</th>
+        <td><input  type="text" id="title" name="title"></input></td>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <td><textarea id="content" name="content"  class="content"></textarea></td>
+      </tr>
+    </table>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-primary">등록하기</button>
+
+      <button type="button" class="btn-secondary">취소</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- 수취확인 모달 -->
+<div id="receiptModal" class="modal receipt">
+  <div class="modal-content receipt">
+    <div class="header">
+      <span class="close receipt">&times;</span>
+      <h3>수취 확인</h3>
+    </div>
+    <div class="modalbody">
+      <p>상품을 받으셨나요?</p>
+      <p>상품을 받으신 분만 수취확인을 해주세요.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-primary" id="confirmReceiptBtn">확인</button>
+      <button type="button" class="btn-secondary" id="cancelModalBtn">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- 반품 신청 모달 -->
+<div id="returnModal" class="modal return">
+  <div class="modal-content return">
+    <div class="header">
+      <span class="close return">&times;</span>
+      <h3>반품 신청</h3>
+    </div>
+    <div class="modalbody">
+      <p>반품하시겠습니까?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-primary2" id="confirmReturnBtn">확인</button>
+      <button type="button" class="btn-secondary2" id="ReturncancelModalBtn">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- 교환 신청 모달 -->
+<div id="exchangeModal" class="modal exchange">
+  <div class="modal-content exchange">
+    <div class="header">
+      <span class="close exchange">&times;</span>
+      <h3>교환 신청</h3>
+    </div>
+    <div class="modalbody">
+      <p>교환을 신청하시겠습니까?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-primary2" id="confirmExchangeBtn">확인</button>
+      <button type="button" class="btn-secondary2" id="ExchangecancelModalBtn">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- pReviewModal -->
+
+<div id="pReviewModal" class="modal pReview">
+  <div class="modal-content pReview">
+    <div class="header">
+      <span class="close pReview">&times;</span>
+      <h3>상품평작성하기</h3>
+    </div>
+    <table>
+      <colgroup>
+        <col style="width: 20%;">
+        <col style="width: 80%;">
+
+      </colgroup>
+      <tr>
+        <th>상품명</th>
+        <td>
+          <span id="modalProductName" class="productName">상품명 출력</span>
+          <input type="hidden" id="modalProductId" name="productId" value="5">
+          <input type="hidden" id="modalOrderItemId" name="orderItemId" value="">
+        </td>
+      </tr>
+      <tr>
+        <th>만족도</th>
+        <td>
+          <div class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" id="rating" name="rating" value="">
+        </td>
+      </tr>
+      <tr>
+        <th>파일</th>
+        <td>
+          <div id="fileContainer">
+            <input type="file" class="file-input" name="pReviewFiles" id="pReviewFiles" multiple>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <td><textarea id="contents" name="contents"  class="contents"></textarea></td>
+      </tr>
+    </table>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-primary" id="submitReviewBtn">등록하기</button>
+
+      <button type="button" class="btn-secondary" id="closeReviewModal">취소</button>
+    </div>
+  </div>
+</div>

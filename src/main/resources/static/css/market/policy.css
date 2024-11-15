@@ -1,0 +1,158 @@
+.main_content {
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+    height: auto;
+    margin: 0 auto; /* 가운데 정렬 */
+    padding: 20px;
+}
+
+.terms {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.body {
+    margin: 20px;
+}
+
+.articles {
+    margin: 20px;
+}
+
+
+
+.header-title {
+    display: flex; /* 플렉스 박스를 사용하여 제목과 추가 이미지를 나란히 배치 */
+    justify-content: center; /* 제목은 가운데 정렬 */
+    align-items: center; /* 세로 정렬을 가운데로 */
+    margin-bottom: 30px;
+    position: relative; /* 포지션을 상대적으로 설정하여 absolute를 사용할 수 있게 함 */
+}
+
+.print-image {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    position: absolute; /* 절대 위치 설정 */
+    right: 0; /* 오른쪽 끝에 위치 */
+    top: 50%; /* 세로 가운데 정렬 */
+    transform: translateY(-50%); /* 정확한 가운데 정렬을 위해 */
+}
+
+.print-image img {
+    width: 30px; /* 이미지 크기 조정 */
+    height: 30px; /* 세로 크기 조정 */
+    margin: 10px;
+}
+
+
+.terms {
+    display: flex; /* 플렉스 박스를 사용하여 이미지와 텍스트를 나란히 배치 */
+    align-items: center; /* 세로 정렬을 가운데로 */
+    margin-bottom: 20px; /* 이미지와 글 사이 여백 */
+}
+
+.image-row {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-left: auto; /* 왼쪽 공간 자동 추가 */
+}
+
+.image-container {
+    text-align: center; /* 이미지와 텍스트를 센터 정렬 */
+    margin-left: 20px; /* 이미지 간의 간격 */
+}
+
+.image-container img {
+    width: 50px; /* 이미지 크기 조정 */
+    height: 50px;
+}
+
+/* 추가 이미지 스타일 */
+.print-image {
+    text-align: center; /* 추가 이미지 센터 정렬 */
+}
+
+
+/* 본문 스타일 */
+.articles h3 {
+    margin-top: 15px;
+}
+
+.articles p {
+    margin: 5px 0;
+}
+
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+h3 {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin: 0.83em 0;
+}
+
+/* 기본 이미지 밑 텍스트 스타일 */
+.image-container p {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+/* 구매회원 약관 페이지에서만 이미지 하단 텍스트 강조 */
+.buyer-page .image-container:nth-child(1) p {
+    font-size: 1.3em; /* 폰트 크기 더 크게 */
+    font-weight: bold; /* 볼드체 */
+    color: black; /* 강조를 위한 색상 변경 */
+}
+
+/* 판매회원 약관 페이지에서만 이미지 하단 텍스트 강조 */
+.seller-page .image-container:nth-child(2) p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: black;
+}
+
+/* 전자금융거래 페이지에서만 이미지 하단 텍스트 강조 */
+.finance-page .image-container:nth-child(3) p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: black;
+}
+
+/* 위치정보 약관 페이지에서만 이미지 하단 텍스트 강조 */
+.location-page .image-container:nth-child(4) p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: black;
+}
+
+/* 개인정보처리 페이지에서만 이미지 하단 텍스트 강조 */
+.personal-page .image-container:nth-child(5) p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: black;
+}
+
+@media print {
+    /* 헤더와 푸터를 출력에서 제외 */
+    #header, #footer {
+        display: none;
+    }
+
+    /* 메인 콘텐츠 전체 너비 설정 */
+    .main_content {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 페이지 레이아웃에 맞게 조정할 수 있는 스타일 */
+    body {
+        margin: 0;
+    }
+}

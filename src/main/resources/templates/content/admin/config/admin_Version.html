@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Banner Page</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminversion.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminVersionModal.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>환경설정</p>
+                <p>
+                    <a href="#">HOME</a>
+                    <span>></span>
+                    <a href="#">환경설정</a>
+                    <span>></span>
+                    <a href="#">버전이력</a>
+                </p>
+            </section>
+            <article id="admin_Version">
+                <div class="top1">버전 목록</div>
+                <div><span class="top2">사이트 버전 목록입니다.</span></div>
+                <table class="admin_Version_table">
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 15%">
+                        <col style="width: 20%">
+                        <col style="width: 15%">
+                        <col style="width: 25%">
+                        <col style="width: 15%">
+                    </colgroup>
+                    <tr>
+                        <th><input type="checkbox" class="checkbox"></th>
+                        <th>번호</th>
+                        <th>버전</th>
+                        <th>작성자</th>
+                        <th>등록일시</th>
+                        <th>변경내역</th>
+                    </tr>
+                    <tr th:each="version : ${versionList}">
+                        <td><input type="checkbox" class="checkboxes" th:value="${version.verId}"></td>
+                        <td th:text="${version.verId}"></td>
+                        <td th:text="${version.ver_name}"></td>
+                        <td th:text="${version.ver_writer}"></td>
+                        <td th:text="${version.rdate}"></td>
+                        <td>
+                            <a href="#" class="openModalBtn2"
+                               th:data-ver_name="${version.ver_name}"
+                               th:data-ver_content="${version.ver_content}">[확인]</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="btn">
+                    <button id="version_delete">선택삭제</button>
+                    <button id="openModalBtn">등록</button>
+                </div>
+                <!--
+                <div class="versionPage">
+                    <th:block th:if="${pageResponseDTO.prev}">
+                        <a th:href="@{/admin/product/list(pg=${pageResponseDTO.start-1})}"> < </a>
+                    </th:block>
+
+                </div>
+                  -->
+            </article>
+        </section>
+
+
+
+        <!--  modal -->
+        <div id="orderModal" class="modal">
+            <div class="modal-content">
+                <div class="header">
+                    <span class="close" style="cursor:pointer; float: right;">&times;</span>
+                    <h3>버전확인</h3>
+                </div>
+                <form id="versionForm">
+                    <table>
+                        <colgroup>
+                            <col style="width: 15%;">
+                            <col style="width: 50%;">
+                        </colgroup>
+                        <tr>
+                            <td>버전</td>
+                            <td>
+                                <input type="text" name="ver_name" placeholder="버전입력하기" required >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="height: 300px;">변경내역</td>
+                            <td>
+                                <textarea name="ver_content" placeholder="변경내역작성하기" style="width: 100%; height: 300px;" required></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <div>
+                        <button type="submit">등록하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal orderModal">
+            <div class="modal-content">
+                <div class="header">
+                    <span class="close2" style="cursor:pointer; float: right;">&times;</span>
+                    <h3>버전확인</h3>
+                </div>
+                <table>
+                    <colgroup>
+                        <col style="width: 15%;">
+                        <col style="width: 50%;">
+                    </colgroup>
+                    <tr>
+                        <td>버전</td>
+                        <td><span class="verName"></span></td> <!-- 버전명이 표시될 위치 -->
+                    </tr>
+                    <tr>
+                        <td style="height: 300px;">변경내역</td>
+                        <td><span class="verContent" style="line-height: 1.8;"></span></td> <!-- 변경내역이 표시될 위치 -->
+                    </tr>
+                </table>
+                <div>
+                    <button type="submit" class="closeButton">닫기</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('versionForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // 기본 폼 제출 방지
+
+                // 폼 데이터 수집
+                const formData = {
+                    ver_name: document.querySelector('input[name="ver_name"]').value,
+                    ver_content: document.querySelector('textarea[name="ver_content"]').value
+                };
+
+                // fetch 요청
+                fetch("/admin/config/version", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => {
+                        // 응답 상태 코드 체크
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(text || '등록 실패'); // 텍스트로 응답받기
+                            });
+                        }
+                        return response.text(); // 빈 응답이 올 수 있으므로 JSON이 아닌 텍스트로 받기
+                    })
+                    .then(data => {
+                        if (data) {
+                            const jsonData = JSON.parse(data); // JSON 파싱
+                            alert(jsonData.message); // 메시지 출력
+                        } else {
+                            alert('버전이 등록되었습니다.'); // 빈 응답에 대한 처리
+                        }
+                        document.getElementById('orderModal').style.display = 'none';
+                    })
+                    .catch(error => {
+                        alert('등록 실패: ' + error.message);
+                    });
+            });
+        </script>
+        <script>
+            //제목줄 체크박스
+            const checkAll = document.querySelector('.checkbox');
+            //제목줄 제외 체크박스
+
+            //1. 제목줄 체크박스 클릭시
+            checkAll.addEventListener('click', function(){
+                const isChecked = checkAll.checked; // 제목줄 체크, 체크여부 변수
+                const checkBoxes = document.querySelectorAll('.checkboxes'); //제목줄 제외 체크박스
+
+                // 전체선택
+                if(isChecked){
+                    for(const checkBox of checkBoxes){
+                        checkBox.checked = true;
+
+                    }
+                    // 전체해제
+                }else {
+                    for(const checkBox of checkBoxes){
+                        checkBox.checked = false;
+
+                    }
+                }
+            })
+
+            //2. 선택항목 체크박스 클릭시 제목줄 체크박스 업데이트
+            const checkBoxes = document.querySelectorAll('.checkboxes');
+
+            checkBoxes.forEach(checkBox => {
+                checkBox.addEventListener('click' , function (){
+                    const checkCount = document.querySelectorAll('.checkboxes:checked').length;
+                    if(checkCount === checkBoxes.length){
+                        checkAll.checked = true;
+                    }else {
+                        checkAll.checked = false;
+                    }
+                })
+            })
+
+            const btn_delete = document.getElementById('version_delete');
+            btn_delete.addEventListener('click', function (e) {
+                e.preventDefault();
+                const checks = document.querySelectorAll('.checkboxes:checked');
+
+                // 선택된 체크박스가 없을 경우
+                if (checks.length === 0) {
+                    alert('삭제할 항목을 선택하세요');
+                    return;
+                }
+
+                // 삭제 확인 메시지
+                const confirmDelete = confirm('삭제하시겠습니까?');
+                if (!confirmDelete) {
+                    return; // 사용자가 "Cancel"을 클릭한 경우, 함수 종료
+                }
+
+                // 체크된 항목의 value를 Integer로 변환하여 배열로 만들기
+                const data = Array.from(checks).map(checkbox => parseInt(checkbox.value));
+
+                fetch('/admin/config/version/delete', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                    .then(resp => {
+                        if (!resp.ok) {
+                            throw new Error("삭제 실패");
+                        }
+                        alert('삭제 성공');
+                        checks.forEach(checkbox => {
+                            const tr = checkbox.closest('tr');
+                            if (tr) {
+                                tr.remove(); // 삭제된 행 제거
+                            }
+                        });
+                        location.reload(); // 페이지 새로 고침
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert('실패');
+                    });
+            });
+        </script>
+        <script th:src="@{/js/adminVersionModal.js}"></script>
+
+
+</th:block>
+
+
+
+

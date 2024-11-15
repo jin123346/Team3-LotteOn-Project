@@ -1,0 +1,41 @@
+#admin_Version div:nth-of-type(1) {width: 900px; margin: 0 auto; padding: 3px;}
+#admin_Version div:nth-of-type(2) {width: 900px; margin: 0 auto; padding: 3px;}
+#admin_Version div:nth-of-type(2) p {width: 900px; margin: 3px auto 0; padding: 3px;}
+
+
+.admin_Version_table{
+    width: 900px;
+    border-collapse: collapse;
+    table-layout: fixed; 
+    margin: 20px auto 20px;
+    border-radius: 8px;
+    padding: 3px;
+    overflow: hidden; /* 모서리 둥글게 하기 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }/* 그림자 효과 */
+
+
+.admin_Version_table td{
+height: 30px;
+padding: 15px; /* 셀 안쪽 여백 설정 */
+text-align: center; /* 텍스트 왼쪽 정렬 */
+border-top: 1px solid rgba(172, 172, 172, 0.5);
+}
+
+
+.admin_Version_table th {text-align: center; background-color: rgb(226,232,238); height: 40px;}
+
+.admin_Version_table tr{
+padding: 12px; /* 셀 안쪽 여백 설정 */
+text-align: center; /* 텍스트 왼쪽 정렬 */}
+
+
+#admin_Version > div:nth-of-type(2){ border-radius: 8px; overflow: hidden; /* 모서리 둥글게 하기 */}
+
+
+.btn {margin: 20px auto; width: 900px; display: flex; justify-content: space-between;}
+.btn button {cursor: pointer; width: 60px; height: 35px; background-color: #81a6d3; border: none; color: white; border-radius: 6px; margin-top: 20px; margin-bottom: 20px;}
+
+.top1 {font-weight: bold; font-size: 14px;}
+.top2 {width: auto; padding: 3px; background: linear-gradient(to top, #cdd8e6 50%, transparent 50%);}
+
+.versionPage {width: 500px; height: 30px; margin: 20px auto; text-align: center}

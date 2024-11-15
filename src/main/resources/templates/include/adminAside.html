@@ -1,0 +1,74 @@
+<div id="admin_aside" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <div id="admin_aside_list">
+        <a th:href="@{/}"><img class="top_log" th:src="@{/images/sample/lotte로고(white).png}" alt="로고사진"></a>
+        <div class="aside_first">
+            <h2><a th:href="@{/admin/main}">관리자 메인</a></h2>
+        </div>
+        <div class="aside_second"  data-current-url="[[${#httpServletRequest.requestURI}]]">
+            <ul class="admin_menu">
+                <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="share-2" class="lucide lucide-share-2 align-middle"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+                    환경설정</a>
+                    <ul class="admin_sub_menu">
+                        <li><a th:href="@{/admin/config/basic}" class="active">기본설정</a></li>
+                        <li><a th:href="@{/admin/config/banner}" class="active">배너관리</a></li>
+                        <li><a th:href="@{/admin/config/terms}" class="active">약관관리</a></li>
+                        <li><a th:href="@{/admin/config/version}" class="active">버전이력</a></li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-bag" class="lucide lucide-shopping-bag align-middle"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    상점관리</a>
+                    <ul class="admin_sub_menu">
+                        <li><a th:href="@{/admin/store/shoplist}" class="active">상점목록</a></li>
+                        <li><a th:href="@{/admin/store/sale}" class="active">판매현황</a></li>
+                    </ul>
+                </li>
+                <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users align-middle"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    회원관리</a>
+                    <ul class="admin_sub_menu">
+                        <li><a th:href="@{/admin/user/list}" class="active">회원목록</a></li>
+                        <li><a th:href="@{/admin/user/point}" class="active">포인트관리</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-square" class="lucide lucide-check-square align-middle"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                    상품관리</a>
+                    <ul class="admin_sub_menu" th:classappend="${asideProduct} ? 'open' : ''" >
+                        <li th:classappend="${productlist} ? 'active' : ''"><a th:href="@{/seller/product/list}" class="active">상품목록</a></li>
+                        <li th:classappend="${productregister} ? 'active' : ''"><a th:href="@{/seller/product/register}" class="active">상품등록</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="files" class="lucide lucide-files align-middle"><path d="M20 7h-3a2 2 0 0 1-2-2V2"></path><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"></path><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"></path></svg>
+                    주문관리</a>
+                    <ul class="admin_sub_menu">
+                        <li><a th:href="@{/seller/order/status}" class="active">주문현황</a></li>
+                        <li><a th:href="@{/seller/order/delivery}" class="active">배송현황</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="files" class="lucide lucide-files align-middle"><path d="M20 7h-3a2 2 0 0 1-2-2V2"></path><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"></path><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"></path></svg>
+                    쿠폰관리</a>
+                    <ul class="admin_sub_menu">
+                        <li><a th:href="@{/seller/coupon/list}" class="active">쿠폰목록</a></li>
+                        <li><a th:href="@{/seller/coupon/issued}" class="active">쿠폰발급현황</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                    고객센터</a>
+                    <ul class="admin_sub_menu">
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="@{/admin/notice/list}" class="active">공지사항</a></li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="@{/admin/faq/list}" class="active">자주묻는질문</a></li>
+                        <li><a th:href="@{/admin/qna/list}" class="active">문의하기</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+

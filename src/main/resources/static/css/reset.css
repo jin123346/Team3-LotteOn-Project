@@ -1,0 +1,56 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+
+*{margin: 0; padding:0; font-family: Noto Sans KR, Malgun Gothic,arial, sans-serif; font-size: 12px; font-weight: 400;}
+html{color:#111; position:relative;}
+html, body{height:100%; }
+body{font-size:12px; line-height:18px; font-family: 'Noto Sans KR', sans-serif;}
+a, address, blockquote, br, fieldset, legend, label, form, input, select, textarea, button, cite, code, dl, dt, dd, h1, h2, h3, h4, h5, h6, p, div, iframe, ul, ol, li, hr, img {margin: 0; padding: 0;}
+a{color:#111; text-decoration: none;}
+img{border:none; vertical-align: top;}
+ul, ol{list-style:none;}
+address{font-style: normal;}
+table{
+    border-spacing: none;
+}
+/* clearfix */
+.cf{}
+.cf::after {content: ""; display: block; clear: both;}
+
+/* hyper link */
+a, a:link, a:visited, a:active, a:hover{text-decoration: none;}
+
+/* input outline */
+input:active{outline: none;}
+input:focus{outline: none;}
+select:active{outline:none;}
+select:focus{outline: none;}
+
+table {
+    table-layout: fixed;
+}
+input {
+    padding-left: 10px;
+    margin: 0 5px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+}
+
+textarea{
+    border: 1px solid #dddddd;
+}
+textarea:focus{
+    outline: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}

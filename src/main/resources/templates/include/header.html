@@ -1,0 +1,214 @@
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/common.css">
+
+
+<header id="header" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <div class="headerIn">
+        <div class="headerBanner">
+            <div class="headerslide" th:each="banner : ${banners}" th:if="${banner.ban_location} == '메인 상단 배너'"
+                 th:style="'background-color:' + ${banner.ban_color}">
+                <a th:href="${banner.ban_link}" target="_blank">
+                    <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="util innerContent">
+            <div class="accountArea">
+                <ul>
+                    <!-- 로그인되지 않은 경우 -->
+                    <li th:if="${#authentication.name == 'anonymousUser'}"><a th:href="@{/user/login}">로그인</a></li>
+                    <li th:if="${#authentication.name == 'anonymousUser'}"><a th:href="@{/user/join}">회원가입</a></li>
+
+                    <!-- 로그인된 경우 -->
+                    <li th:if="${#authentication.name != 'anonymousUser'}">
+
+                        <span th:elseif="${#authorization.expression('hasRole(''ROLE_MEMBER'')')}">
+<!--                         + ${userName} + -->
+                          <span style="margin-right: 10px;" >[[${memberName}]]님 환영합니다!</span>
+                         </span>
+
+                        <!-- 로그아웃 메뉴 -->
+                        <a th:href="@{/user/logout}">로그아웃</a>
+                    </li>
+
+                    <li><a th:href="@{/mypage/orderdetails}">주문배송</a></li>
+                    <li><a th:href="@{/cs/main}">고객센터</a></li>
+                </ul>
+            </div>
+        </div><!--util innercontent end-->
+
+
+        <div class="main innerContent">
+            <h1 class="logoArea on">
+                <a th:href="@{/}"> <img th:src="@{${logoImagePath}}" alt="LOTTE ON" class="loaded"></a>
+                <p>LotteOn</p>
+            </h1><!--logo h1-->
+
+            <div class="searchWideArea">
+                <div class="searchArea on TXT">
+                    <label for="headerSearchId" class="blind">검색어</label>
+                    <input type="search" title="검색어 입력" id="headerSearchId" autocomplete="off" aria-label=""
+                           placeholder="검색어를 입력하세요" class="TXT">
+                    <button type="submit" data-cmpnt-typ="header_main" data-cmpnt-name="srch_srchbtn"
+                            data-cmpnt-stts="" class="btnSearchInner" onclick="performSearch()"  onsubmit="performSearch()">
+                        <span class="blind">검색</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="buttonArea user" sec:authorize="hasAnyAuthority('ROLE_MEMBER', 'ROLE_ANONYMOUS')">
+                <ul>
+                    <li>
+                        <a th:href="@{/cs/qna/list}" data-cmpnt-typ="header_main" data-cmpnt-name="chat" class="chat">
+                            문의
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/mypage/myInfo}" data-cmpnt-typ="header_main" onclick="" data-cmpnt-name="mylotte" class="my" >
+                            마이롯데
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/market/cart}" data-cmpnt-typ="header_main" data-cmpnt-name="cart" class="cart" >
+                            장바구니
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="buttonArea admin"  sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_SELLER')">
+                <ul>
+                    <li>
+                        <a th:href="@{/admin/qna/list}" data-cmpnt-typ="header_main" data-cmpnt-name="chat" class="chat">
+                            문의관리
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/main}" data-cmpnt-typ="header_main" data-cmpnt-name="mylotte" class="my">
+                            관리자
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </div><!--maininner end-->
+
+
+    </div>
+    <hr class="header_hr">
+
+    <div data-v-24610bba="" class="sub">
+        <div data-v-24610bba="" class="innerContent">
+            <div data-v-24610bba="" class="category on">
+                <div class="moreViewWrap">
+                    <button type="button" class="moreView" id="viewAllButton">
+                            <span class="blind">전체 카테고리
+                                보기
+                            </span>
+                        <span class="bar">
+                                <!-- Dropdown Menu -->
+                                <div class="categoryMenu">
+                                    <ul class="menu-1depth" id="menu-1depth">
+                                        <!-- 1st Depth Categories -->
+                                        <li th:each="category : ${categories}" onmouseover="showSubmenu(this)"
+                                            onmouseout="hideSubmenu(this)">
+                                            <span><a th:text="${category.name}"
+                                                     th:href="@{'/market/main/'+${category.id}}">Category Name</a></span>
+
+                                            <!-- 2nd Depth Subcategories -->
+                                            <ul th:if="${category.children != null && !#lists.isEmpty(category.children)}"
+                                                class="menu-2depth">
+                                                <li th:each="child : ${category.children}"
+                                                    onmouseover="showSubmenu(this)" onmouseout="hideSubmenu(this)">
+                                                    <span th:text="${child.name}">Subcategory Name</span>
+
+                                                    <!-- 3rd Depth Sub-subcategories -->
+                                                    <ul th:if="${child.children != null && !#lists.isEmpty(child.children)}"
+                                                        class="menu-3depth">
+                                                        <li th:each="subChild : ${child.children}">
+                                                            <a th:text="${subChild.name}" th:href="@{'/market/list/' + ${subChild.id}}">Sub-subcategory Name</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </span>
+                    </button>
+                </div>
+                <div class="menu">
+                    <div id="menuInner" tabindex="0" class="menuInner"><!---->
+                        <ul>
+                            <li class="active">
+                                <a th:href="@{/}" data-gtm-vis-recent-on-screen11901096_1103="329"
+                                   data-gtm-vis-first-on-screen11901096_1103="329"
+                                   data-gtm-vis-total-visible-time11901096_1103="100"
+                                   data-gtm-vis-has-fired11901096_1103="1">
+                                    홈
+                                    <span class="blind">
+                                            선택됨
+                                        </span>
+                                </a>
+                            </li>
+                            <li class=""><a th:href="@{/#hitProduct}">히트상품</a></li>
+                            <li class=""><a th:href="@{/#recommended-products}">추천상품</a></li>
+                            <li class=""><a th:href="@{/#latest-products}">최신상품</a></li>
+                            <li class=""><a th:href="@{/#sold-products}">인기상품</a></li>
+                            <li class=""><a th:href="@{/#discount-products}">할인상품</a></li>
+                        </ul>
+                        <button type="button" class="btnMenuClose">
+                            <span class="blind">전체보기 닫기</span>
+                        </button>
+                    </div>
+                </div><!---->
+            </div><!---->
+
+            <div data-v-202b6f61="" data-v-24610bba="" class="trending">
+                <button data-v-202b6f61="" type="button" class="moreView">
+                        <span data-v-202b6f61="" class="blind">전체 순위
+                            보기
+                        </span>
+                </button>
+                <div data-v-202b6f61="" class="preview">
+                    <div data-v-202b6f61=""
+                         class="swiper-container swiper-container-initialized swiper-container-vertical"
+                         tabindex="0">
+                        <div class="swiper-wrapper"
+                             style="transition-duration: 0ms; transform: translate3d(0px, -420px, 0px);">
+                            <div data-v-202b6f61="" class="swiper-slide swiper-slide-duplicate"
+                                 data-swiper-slide-index="29" style="height: 60px;"><a data-v-202b6f61=""
+                                                                                       href="https://www.lotteon.com/search/search/search.ecn?render=search&amp;platform=pc&amp;q=%EC%98%AC%EB%A6%AC%EB%B8%8C%EB%8D%B0%EC%98%AC%EB%A6%AC%EB%B8%8C&amp;mallId=1"
+                                                                                       class="linkWrap" tabindex="-1"
+                                                                                       aria-hidden="true"><span
+                                    data-v-202b6f61="" class="rank">30</span><span data-v-202b6f61=""
+                                                                                   class="keyword">올리브데올리브</span><!----><span
+                                    data-v-202b6f61=""
+                                    class="rankup">
+                                            35
+                                            <span data-v-202b6f61="" class="flag up"></span></span></a></div>
+                            <div data-v-202b6f61="" class="swiper-slide" data-swiper-slide-index="0"
+                                 style="height: 60px;">
+                                <a data-v-202b6f61=""
+                                   href="https://www.lotteon.com/search/search/search.ecn?render=search&amp;platform=pc&amp;q=%EC%97%AC%EC%84%B1%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D%EB%B3%B5%EC%84%B8%ED%8A%B8&amp;mallId=1"
+                                   class="linkWrap"><span data-v-202b6f61="" class="rank">1</span><span
+                                        data-v-202b6f61="" class="keyword">여성트레이닝복세트</span><!----><span
+                                        data-v-202b6f61="" class="ranknone">
+
+                                            <span data-v-202b6f61="" class="flag none"></span></span></a>
+                            </div>
+
+                        </div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                    </div>
+                </div><!---->
+            </div>
+        </div>
+    </div>
+    <hr class="headerOn">
+
+    <!-- <button type="button" class="moreView"><span class="blind">전체 카테고리 보기</span><span
+            class="bar"></span></button> -->
+</header><!--Header end-->

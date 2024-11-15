@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 리스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .main {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .article-box {
+            margin-bottom: 20px;
+        }
+
+        .article-box h3 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .article-list {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .article-header {
+            display: flex;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .article-inlist {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            border-bottom: none;
+            transition: background-color 0.2s;
+        }
+
+        .article-inlist:hover {
+            background-color: #f1f1f1;
+        }
+
+        .article {
+            flex-grow: 1;
+            font-size: 1.1em;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .checkbox {
+            margin-right: 10px;
+        }
+
+        .checkboxes {
+            margin-left: 10px;
+        }
+
+        .number,
+        .type,
+        .views,
+        .date,
+        .manage {
+            width: 100px;
+            text-align: center;
+        }
+
+        .number-box,
+        .type-box,
+        .views-box,
+        .date-box,
+        .manage-box {
+            width: 100px;
+            text-align: center;
+        }
+
+
+        .title {
+            flex-grow: 1;
+
+        }
+
+        
+
+        .manage a {
+            color: #ff6347;
+            margin: 0 5px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        .pagination a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .button-ctl {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-delete {
+            margin-right: auto;
+            width: 95px;
+            height: 35px;
+            margin-top: 20px;
+        }
+
+        .btn-Write {
+            width: 95px;
+            height: 35px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <head>
+        <div id="header"></div>
+    </head>
+    <main class="main">
+        <div class="article-box">
+            <h3>공지사항</h3>
+            <div>
+                <select id="customer-service" name="customer-service">
+                    <option value="service">고객 서비스</option>
+                    <option value="transaction">거래 관련</option>
+                    <option value="inquiry">문의하기</option>
+                    <option value="feedback">피드백</option>
+                </select>
+            </div>
+            <div class="article-list">
+                <div class="article-header">
+                    <div class="checkboxes">
+                        <input type="checkbox" id="select-all">
+                    </div>
+                    <div class="number">번호</div>
+                    <div class="type">유형</div>
+                    <div class="title">제목</div>
+                    <div class="views">조회</div>
+                    <div class="date">날짜</div>
+                    <div class="manage">관리</div>
+                </div>
+
+                <!-- 게시물 리스트 -->
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+                <div class="article-inlist">
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-item">
+                    </div>
+                    <div class="number-box">1</div>
+                    <div class="type-box">공지</div>
+                    <a class="article-box" href="/article/view?no=1">[롯데숏핑] 구매회원 이용약관 계정 안내 (시행일: 0000년00월00일)</a>
+                    <div class="views-box">100</div>
+                    <div class="date-box">2024.07.16</div>
+                    <div class="manage-box"><a href="/article/edit?no=1">수정</a> | <a href="/article/delete?no=1">삭제</a>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="button-ctl">
+                <button type="button" class="btn-delete">선택삭제</button>
+                <button type="button" class="btn-Write">작성하기</button>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <a href="#">이전</a>
+            <a href="#">다음</a>
+        </div>
+    </main>
+    <footer>
+        <div id="footer"></div>
+    </footer>
+    <script>
+  fetch('/css/footer.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading footer:', error));
+       
+
+    fetch('/css/header.html') // 헤더 파일 경로
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+    })
+    .catch(error => console.error('Error loading header:', error));
+    
+    
+    // 체크박스 전체 선택 기능
+        const selectAllCheckbox = document.getElementById('select-all');
+        const checkboxes = document.querySelectorAll('.checkbox-item');
+
+        selectAllCheckbox.addEventListener('change', function () {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        });
+    </script>
+</body>
+
+</html>

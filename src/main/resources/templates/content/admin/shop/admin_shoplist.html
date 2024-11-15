@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/sellerLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Banner Page</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminshoplist.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/shoplistmodal.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/validation.js}"></script>
+    <script th:src="@{/js/postcode.js}"></script>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>상점목록</p>
+                <p><a href="#">HOME</a> > 상점관리 > 상점목록</p>
+            </section>
+
+            <article id="admin_banner_main">
+
+                <div>
+                    <table class="admin_banner_table">
+                        <colgroup>
+                            <col style="width: 6%">
+                            <col style="width: 6%">
+                            <col style="width: 11%">
+                            <col style="width: 9%">
+                            <col style="width: 16%">
+                            <col style="width: 16%">
+                            <col style="width: 16%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                        </colgroup>
+                        <div>
+                            <select id="shopsearch">
+                                <option value="">상호명</option>
+                                <option value="">대표자</option>
+                                <option value="">사업자등록번호</option>
+                                <option value="">연락처</option>
+                            </select>
+                            <input id="search" type="text" placeholder="검색어 입력">
+                            <button id="serachbtn" type="button">검색</button>
+                        </div>
+                        <div class="status">
+                            <span class="status-icon-in-operation">●</span> <span class="status-text-in-operation">운영
+                                                중</span>
+                            <span class="status-icon-ready">●</span> <span class="status-text-readyd">운영
+                                                중지</span>
+                            <span class="status-icon-stop-operation">●</span> <span class="status-text-stop-operation">운영
+                                                준비</span>
+                        </div>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>번호</th>
+                            <th>상호명</th>
+                            <th>대표</th>
+                            <th>사업자등록번호</th>
+                            <th>통신판매업번호</th>
+                            <th>연락처</th>
+                            <th>운영</th>
+                            <th>관리</th>
+                        </tr>
+
+                        <tr th:each="seller, iterStat : ${sellerList}">
+                            <td><input type="checkbox" class="sellerCheckbox" th:value="${seller.id}"></td>
+                            <td th:text="${seller.id}"></td>
+                            <td th:text="${seller.user.uid}" style="display: none;"></td>
+                            <td th:text="${seller.company}"></td>
+                            <td th:text="${seller.ceo}"></td>
+                            <td th:text="${seller.bno}"></td>
+                            <td th:text="${seller.mo}"></td>
+                            <td th:text="${seller.hp}"></td>
+                            <td th:switch="${seller.status}">
+                                <span th:case="'InOperation'" class="status-icon status-icon-in-operation">●</span>
+                                <span th:case="'Ready'" class="status-icon status-icon-ready">●</span>
+                                <span th:case="'StopOperation'" class="status-icon status-icon-stop-operation">●</span>
+                            </td>
+                            <td>
+                                <select id="operantion" th:value="${seller.status}" onchange="confirmGradeChange(this)">
+                                    <option value="InOperation" th:selected="${seller.status == 'InOperation'}">운영중
+                                    </option>
+                                    <option value="Ready" th:selected="${seller.status == 'Ready'}">운영 준비</option>
+                                    <option value="StopOperation" th:selected="${seller.status == 'StopOperation'}">운영
+                                        정지
+                                    </option>
+                                </select>
+                                <!--                                <input type="hidden" value="${member.user.uid}" class="member-uid">-->
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </article>
+            <div class="list_button">
+                <button id="deleteSelectedBtn">선택삭제</button>
+                <button class="openModalBtn">상점등록</button>
+            </div>
+            <th:block th:replace="~{content/admin/shop/shoplistmodal}"></th:block>
+
+            <script th:src="@{/js/shoplistmodal.js}"></script>
+
+            <script>
+                function confirmGradeChange(selectElement) {
+                    const selectedGrade = selectElement.value; // 선택된 등급
+                    const row = selectElement.closest('tr'); // select 요소가 속한 tr 찾기
+                    const sellerUid = row.cells[2].innerText; // 세 번째 td에서 UID 가져오기
+
+                    const confirmChange = confirm(`해당 상태로 변경하시겠습니까? (${selectedGrade})`);
+                    if (confirmChange) {
+                        const updatedData = {
+                            uid: sellerUid, // uid를 포함
+                            status: selectedGrade // 새 등급
+                        };
+
+                        console.log("updatedData:", updatedData); // updatedData 값 확인
+
+                        fetch(`/admin/store/updateStatus?uid=${sellerUid}`, { // 여기서 sellerUid가 URL에 포함됩니다
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json();
+                                } else {
+                                    throw new Error('네트워크 응답이 좋지 않습니다.');
+                                }
+                            })
+                            .then(data => {
+                                console.log(data.message); // 성공 메시지 출력
+                            })
+                            .catch(error => {
+                                console.error('업데이트 오류:', error);
+                            });
+
+                    }
+                }
+
+            </script>
+
+            <script>
+                // DOMContentLoaded를 사용하여 DOM이 완전히 로드된 후에 함수 설정
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.getElementById('btnPostCode').onclick = function () {
+                        postcode(); // postcode 함수 호출
+                    };
+                });
+            </script>
+            <script th:src="@{/js/sellerList.js}"></script>
+
+</th:block>

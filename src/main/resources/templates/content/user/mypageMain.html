@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link  rel="stylesheet" th:href="@{/css/user/mypageMain.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+<main>
+    <div class="info">
+        <p class="info-title">나의 쇼핑정보</p>
+        <div class="summary-table">
+            <div class="summary-item">
+                <span>주문</span><br>
+                <span class="summary-value" th:text="${orderCount}">2</span>
+            </div>
+            <div class="summary-item">
+                <span>쿠폰</span><br>
+                <span class="summary-value" th:text="${IssuedList.size()}"></span>
+            </div>
+            <div class="summary-item">
+                <span>포인트</span><br>
+                <span class="summary-value" th:text="${totalPoints}">1,000</span> <!-- 최종 포인트 값 출력 -->
+            </div>
+            <div class="summary-item">
+                <span>문의</span><br>
+                <span class="summary-value">1</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="container">
+        <aside>
+            <ul>
+                <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+                <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+                <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+                <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+                <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+                <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+            </ul>
+        </aside>
+
+        <div class="center">
+            <div class="slider-wrapper">
+                <div class="ad" th:each="banner : ${banners}" th:if="${banner.ban_location} == '마이페이지 배너'">
+                    <a th:href="${banner.ban_link}" target="_blank">
+                        <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="details">
+                <p>최근주문내역</p>
+                <a th:href="@{/mypage/orderdetails}">더보기 ></a>
+            </div>
+
+            <table>
+                <tbody>
+                <tr class="font">
+                    <th>날짜</th>
+                    <th>상품정보</th>
+                    <th>상태</th>
+                    <th>확인/신청</th>
+                </tr>
+
+                <!-- 최근 3일 이내 주문이 없을 때 메시지 표시 -->
+                <tr th:if="${#lists.isEmpty(groupDTO)}">
+                    <td colspan="4" style="text-align: center; color: #a9a9a9;">최근 주문 내역이 없습니다.</td>
+                </tr>
+
+                <!-- 최근 3일 이내 주문 내역이 있을 때 -->
+                <tr th:each="orderItem : ${groupDTO}">
+                    <!-- 주문 날짜 -->
+                    <td>
+                        <data th:value="${orderItem.orderDate}" th:text="${#strings.substring(orderItem.orderDate, 0, 10)}">2023-01-01</data>
+                    </td>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <div class="eximg">
+                                <!-- 그룹화된 주문 아이템들을 반복 -->
+                                <div>
+                                    <a th:href="@{'/market/view/' + ${orderItem.categoryId} + '/' + ${orderItem.productId}}">
+                                        <img th:if="${orderItem.path == null}" th:src="@{'/uploads/productImg/' + ${orderItem.image}}" class="eximg1-1" alt="상품 이미지">
+                                        <img th:unless="${orderItem.path == null}" th:src="@{'/uploads/'+${orderItem.path} +'/'+ ${orderItem.image}}" class="eximg1-1" alt="상품 이미지">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="Pinf">
+                                <!-- 주문 번호 -->
+                                <a href="#"
+                                   class="order-number"
+                                   th:data-order-id="${orderItem.orderId}"
+                                   th:data-order-date="${#strings.substring(orderItem.orderDate, 0, 10)}"
+                                   th:data-company="${orderItem.company}"
+                                   th:data-product-name="${orderItem.productName}"
+                                   th:data-quantity="${orderItem.stock}"
+                                   th:data-price="${orderItem.orderPrice}"
+                                   th:data-discount="${orderItem.savedDiscount}"
+                                   th:data-total-price="${orderItem.formattedPrice}"
+                                   th:data-status="${orderItem.status.description}"
+                                   th:data-customer-name="${orderItem.customerName}"
+                                   th:data-customer-phone="${orderItem.hp}"
+                                   th:data-customer-address="${orderItem.addr1 + ' ' + orderItem.addr2}"
+                                   th:data-delivery-requests="${orderItem.shippingInfo}"
+                                   th:data-product-image="${orderItem.image}"
+                                   th:data-product-path="${orderItem.path}"
+                                   onclick="openOrderModal(this)">
+                                    주문번호: <span th:text="${orderItem.orderId}"></span>
+                                </a>
+
+                                <!-- 회사명 (Seller Uid) -->
+                                <a href="#"
+                                   class="seller-number"
+                                   th:data-company="${orderItem.seller.company}"
+                                   th:data-ceo="${orderItem.seller.ceo}"
+                                   th:data-phone="${orderItem.seller.hp}"
+                                   th:data-fax="${orderItem.seller.fax}"
+                                   th:data-email="${orderItem.seller.mo}"
+                                   th:data-bno="${orderItem.seller.bno}"
+                                   th:data-address="${orderItem.seller.addr + ' ' + orderItem.seller.addr2}"
+                                >
+                                    회사명: <span th:text="${orderItem.company}"></span>
+                                </a>
+                                <!-- 상품명 -->
+                                <a th:href="@{'/market/view/' + ${orderItem.categoryId} + '/' + ${orderItem.productId}}" class="productName">
+                                    <span>상품명 :</span>
+                                    <span th:text="${orderItem.productName}"></span>
+                                </a>
+                                <p>수량: <span  th:text="${orderItem.stock}">0</span></p>
+                                <p>가격: <span  th:text="${orderItem.formattedPrice}">0</span>원</p>
+
+                                </div>
+
+                        </div>
+                    </td>
+
+                    <!-- 배송 상태 -->
+                    <td>
+                      <span class="order-status"
+                            th:text="${orderItem.pay == 'no-bankbook' ? (orderItem.orderStatus == 'waiting' ? '결제 대기' : orderItem.orderStatus) : orderItem.status.description}">
+</span>
+                    </td>
+
+                    <!-- 버튼들 -->
+                    <td>
+                        <div class="button" style="display: flex; flex-direction: column; gap: 3px;">
+                            <button class="receipt-btn custom-button" th:data-order-item-id="${orderItem.orderItemId}">수취확인</button>
+                            <div>
+                                <button class="pReview-btn custom-button"
+                                        th:attr="data-product-no=${orderItem.productId}, data-product-name=${orderItem.productName}, data-order-item-id=${orderItem.getOrderItemId()}"
+                                        >
+                                    상품평쓰기
+                                </button>
+                            </div>
+                            <button class="return-btn " th:data-order-item-id="${orderItem.orderItemId}">반품신청</button>
+                            <button class="exchange-btn" th:data-order-item-id="${orderItem.orderItemId}">교환신청</button>
+                        </div>
+
+                    </td>
+                    <!-- 상품 정보 -->
+
+                </tr>
+                </tbody>
+            </table>
+
+            <div style="position: relative; margin-top: 15px;">
+                <div class="details">
+                    <p>포인트적립내역</p>
+                    <a href="">더보기 ></a>
+                </div>
+
+                <table class="points-table">
+                    <tbody>
+                    <tr class="font">
+                        <th>날짜</th>
+                        <th>구분</th>
+                        <th>주문번호</th>
+                        <th>적립번호</th>
+                        <th>비고</th>
+                        <th>유효기간</th>
+
+                    </tr>
+                    <tr class="tr2">
+                        <td>
+                            <data value="">2022-12-13</data>
+                        </td>
+                        <td>
+                            <data value="">적립</data>
+                        </td>
+                        <td>
+                            <data value="">2022121001</data>
+                        </td>
+                        <td>
+                            <data value="">340</data>
+                        </td>
+                        <td>
+                            <data value="">상품 구매확정</data>
+                        </td>
+                        <td>
+                            <data value="">2024-12-10</data>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="position: relative; margin-top: 15px;">
+                <div class="details">
+                    <p>상품평</p>
+                    <a th:href="@{/mypage/reviewdetails}">더보기 ></a>
+                </div>
+                <table class="Review-table">
+                    <tbody>
+                    <tr class="font">
+                        <th>번호</th>
+                        <th>상품명</th>
+                        <th>평점</th>
+                        <th>작성일</th>
+
+                    </tr>
+                    <th:block th:each="review : ${recentReviews}">
+                    <tr class="tr3">
+                        <td th:text="${review.reviewId}"><data value="">1</data></td>
+                        <td>
+                            <div class="product-container">
+                                <div class="eximg2">
+                                    <a th:href="@{'/market/view/' + ${review.product.categoryId}+ '/' + ${review.product.productId}}">
+                                    <img th:if="${review.getPReviewFiles().size() > 0}"
+                                         th:src="@{'/uploads/ReviewImg/' + ${review.getPReviewFiles()[0].sname}}"
+                                         alt="상품 이미지">
+                                    </a>
+                                    <!-- 이미지가 없는 경우 "이미지 없음" 텍스트 표시 -->
+                                    <span th:if="${review.getPReviewFiles().size() == 0}" class="no-image-text">이미지 없음</span>
+
+                                </div>
+
+                                <div class="product-info">
+                                    <div>
+                                        <p>상품번호:</p>
+                                        <span class="truncate" th:text="${review.product.productId}">123456</span>
+                                    </div>
+                                    <div>
+                                        <p>상품명:</p>
+                                        <span class="truncate" th:text="${review.product.productName}">치킨</span>
+                                    </div>
+                                    <div>
+                                        <p>리뷰:</p>
+                                        <span class="truncate" th:text="${review.content}">배송이 빠릅니다. 잘 사용하겠습니다.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        <td>
+                            <data class="rating-display" th:text="${review.rating}">평점</data>
+                        </td>
+                        <td>[[${#strings.substring(review.rdate,0,10)}]]</td>
+                    </tr>
+                    </th:block>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="position: relative; margin-top: 15px;">
+                <div class="details">
+                    <p>문의내역</p>
+                    <a href="">더보기 ></a>
+                </div>
+
+                <table class="inquiry-table">
+                    <tbody>
+                    <tr class="font">
+                        <th>번호</th>
+                        <th>문의채널</th>
+                        <th>문의유형</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>상태</th>
+
+                    </tr>
+                    <tr class="tr3">
+                        <td>
+                            <data value="">1</data>
+                        </td>
+                        <td>
+                            <data value="">고객센터</data>
+                        </td>
+                        <td>
+                            <data value="">주문 /결제</data>
+                        </td>
+                        <td>
+                            <data value="">신용카드 결제 중 오류가 난 경우 어떻게 하나요?</data>
+                        </td>
+                        <td>
+                            <data value="">2022-12-12</data>
+                        </td>
+                        <td>
+                            <data value="">검토중</data>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="position: relative; margin-top: 15px;">
+                <div class="details">
+                    <p>나의설정</p>
+                </div>
+                <div class="settings">
+                    <div class="setting-item">
+                        <div class="setting-item2-1">
+                            <p>기본배송지설정</p>
+                            <a href="#">변경</a>
+                        </div>
+                        <div class="setting-item2-1-1">
+                            <p>부산광역시 사하구 다대포로 120<br>한빛빌딩 10층</p>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-item2-2">
+                            <p>Email 설정</p>
+                            <a href="#">변경</a>
+                        </div>
+                        <div class="setting-item2-2-2">
+                            <p class="email">abc123@naver.com</p>
+                            <p>(최종수정일 2021-12-10)</p>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-item2-3">
+                            <p>휴대폰 설정</p>
+                            <a href="#">변경</a>
+                        </div>
+
+                        <div class="setting-item2-3-3">
+                            <p>010 - 1234 - 1001</p><br>
+                            <p>(최종수정일 2021-12-10)</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+    <th:block th:replace="~{content/user/mypageMainModal}"></th:block>
+    <script  th:src="@{/js/mypageMain.js}"></script>
+</th:block>

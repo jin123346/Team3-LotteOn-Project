@@ -1,0 +1,226 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: normal 12px '고딕';
+}
+
+ul,ol{list-style: none;}
+a{text-decoration: none; color: #111;}
+
+#wrapper{
+    width: 100%;
+    height: 100%;
+}
+main {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+.info{
+    width: 1200px;
+    height: 75px;
+    background-color: antiquewhite;
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+
+}
+.info-title {
+    position: relative;
+    width: 101x;
+    height: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    left: 100px;
+}
+
+.summary-table {
+    position: relative;
+    display: flex;
+    left: 750px;
+    justify-content: space-around; /* 항목 간격 조정 */
+    width: 300px; /* 전체 폭 사용 */
+    padding: 10px 0; /* 위아래 여백 */
+
+}
+
+.summary-item {
+    width: 80px;
+    text-align: center; /* 항목 중앙 정렬 */
+    border-right: 1px solid black;
+}
+.summary-item:last-child {
+    border-right: none; /* 마지막 항목의 오른쪽 검은 줄 제거 */
+}
+
+.summary-value {
+    font-size: 16px; /* 값의 크기 조정 */
+    font-weight: bold; /* 값 두껍게 */
+}
+#container{
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+aside {
+    float: left;
+    width: 200px;
+    height: auto;
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    border-right:1px solid #ccc;
+}
+
+aside > ul {
+    padding: 0; /* ul의 기본 패딩 제거 */
+    margin: 0; /* ul의 기본 마진 제거 */
+}
+
+aside > ul > li {
+    font-size: 16px;
+    margin: 15px 0; /* 위아래 간격 조정 */
+}
+
+aside > ul > li:nth-child(2){
+    text-decoration: underline;
+}
+.center {
+    flex-grow: 1;
+    width: 994px;
+    height: auto;
+
+}
+
+.ad{
+    width: 900px;
+    height: 86px;
+    margin: 10px auto;
+    border: 1px solid red;
+    background-color: beige;
+    display: flex;
+    justify-content: center; /* 수평 정렬: flex-start, flex-end, center */
+    align-items: center; /* 수직 정렬: flex-start, flex-end, center */
+    font-size: large;
+
+}
+.details{
+    width: 880px;
+    height: 20px;
+    margin: 0 48px;
+
+}
+
+.center p{
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+}
+.center a{
+    font-size: 12px;
+    font-weight: 400;
+    float: right;
+}
+
+.dateInquiry{
+    width: 900px;
+    height: 75px;
+    margin: 0 48px;
+    background-color: #DCE6F2;
+}
+.dateInquiry > div{
+    width: 140px;
+    height: 22px;
+
+}
+.dateInquiry .period-buttons{
+    width: 600px;
+    height: 40px;
+}
+.dateInquiry >div p{
+    font-size: 16px;
+    font-weight: 400;
+    margin: 28px 30px;
+    line-height: 19.35px;
+}
+
+.period-buttons {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+
+}
+.period-buttons button {
+    position: relative;
+    width: 60px;
+    height: 35px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.date-range-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.date-range-input input {
+    position: relative;
+    padding: 5px;
+    font-size: 16px;
+    width: 160px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.date-range-input span {
+    font-size: 18px;
+}
+.text-center{
+    width: 54px;
+    height: 33px;
+}
+.text-center button{
+    width: 50px;
+    height: 35px;
+    left: 360px;
+    bottom: 35px;
+    border: 1px solid #b4b0b0;
+    line-height: 19px;
+    cursor: pointer;
+}
+
+
+table {
+    width: 900px;
+    height: 133px;
+    margin: 0 48px;
+    border-top: 2px solid black;
+    border-collapse: collapse;
+}
+th {
+    background-color: gray;
+    height: 42.5px;
+}
+
+.points-table th:nth-child(1) {width: 16.67%}
+.points-table th:nth-child(2) {width: 16.67%}
+.points-table th:nth-child(3) {width: 16.67%}
+.points-table th:nth-child(4) {width: 16.67%}
+.points-table th:nth-child(5) {width: 16.67%}
+.points-table th:nth-child(6) {width: 16.67%}
+
+.font{
+    color: white;
+}
+
+td {
+    height: 89px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tr2{
+    border-bottom: 1px solid #b4b0b0;
+}

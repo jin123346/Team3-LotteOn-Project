@@ -1,0 +1,106 @@
+#container {
+    height: 770.5px !important;
+}
+
+.article-div {
+    width: 900px;
+    height: auto;
+    border-collapse: collapse;
+    margin: 20px 40px;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 8px;
+}
+
+.article-list {
+    width: 100%;
+    border-collapse: collapse;
+    height: auto;
+    box-sizing: border-box;
+    text-indent: 20px;
+}
+
+.article-list thead {
+    height: 50px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.article-list thead th {
+    font-size: 16px;
+}
+
+.article-list td {
+    height: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
+    max-width: 250px;
+    border-bottom: 1px solid #ddd;
+}
+
+.article-list tr:last-child td {
+    border-bottom: none;
+}
+
+
+.article-list td.article-date, .article-list td.article-number {
+    text-align: center !important;
+}
+
+.pagination {
+    text-align: center;
+    font-family: Roboto, NotoSansKR, Malgun Gothic, AppleSDGothicNeo, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 30px 0;
+}
+
+.pagination a, .pagination button, .pagination span {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: #999;
+    line-height: 26px;
+    margin: 2px 2px;
+    text-indent: -1px;
+}
+
+.pagination a.active, .pagination button.active, .pagination span.active {
+    margin: 0 4px;
+    background-color: #343b4d;
+    border: 1px solid #343b4d;
+    color: #fff;
+}
+
+.pagination a:hover, .pagination button:hover {
+    color: #333;
+}
+
+.pagination .prev, .pagination .next {
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+}
+
+.pagination .prev.off, .pagination .next.off {
+    pointer-events: none;
+    background-size: contain;
+}
+
+.pagination .skip {
+    margin: 0 7px 0 4px;
+    width: auto;
+    letter-spacing: 1px;
+}
+
+.article-list td > a:hover {
+    background: linear-gradient(to top, #ffe0e0 50%, transparent 50%);
+}
+
+

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn::Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin/shoplistmodal.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin_delivery_modal.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin-modal.css}">
+    <link rel="stylesheet"  th:href="@{/css/admin/adminOrder.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+                    <section id="admin_navi">
+                        <p>주문현황</p>
+                        <p><a href="#">HOME</a> > 주문관리 > 주문현황</p>
+                     </section>
+              
+                <article id="admin_order_main">
+                    <div>
+                        <select id="ordersearch"  name="type">
+                            <option value="orderNumber">주문번호</option>
+                            <option value="orderUid">주문자</option>
+                            <option value="orderName">주문자명</option>
+                        </select>
+                        <input id="search" type="text" name="keyword" placeholder="검색어 입력">
+                        <button id="searchBtn" type="button">검색</button>
+                    </div>
+                    <table class="admin_order_table">
+                        <colgroup>
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 8%">
+                            <col style="width: 17%">
+                            <col style="width: 6%">
+                            <col style="width: 10%">
+                            <col style="width: 8%">
+                            <col style="width: 13%">
+                            <col style="width: 11%">
+                            <col style="width: 9%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>주문번호</th>
+                            <th>주문자</th>
+                            <th>주문자명</th>
+                            <th>상품명</th>
+                            <th>주문건수</th>
+                            <th>주문합계</th>
+                            <th>결제수단</th>
+                            <th>주문상태</th>
+                            <th>주문일</th>
+                            <th>배송</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order, i:${adminOrderItemPageResponseDTO.getAdminorderitemdtoList()}">
+                            <td><a class="order-modal-btn" th:text="${order.orderItemId}">10101212121</a></td>
+                            <td th:text="${order.order.uid}">wlgus5946</td>
+                            <td th:text="${order.order.memberName}">챱챱김</td>
+                            <td class="productname" th:text="${order.product.productName}">초코틴틴</td>
+                            <td th:text="${order.stock}">896</td>
+                            <td th:text="${order.savedPrice}">9,000</td>
+                            <td>
+                                <span th:switch="${order.order.pay.toString()}">
+                                    <span th:case="'credit-card'">신용카드</span>
+                                    <span th:case="'check-card'">체크카드</span>
+                                    <span th:case="'bank-transfer'">계좌이체</span>
+                                    <span th:case="'no-bankbook'">무통장입금</span>
+                                    <span th:case="'mobile-payment'">휴대폰결제</span>
+                                    <span th:case="'kakaopay'">카카오페이</span>
+                                </span>
+                            </td>
+                            <td class="orderstatus" >
+                                  <span th:switch="${order.status.toString()}">
+                                    <span th:case="'ORDER_CONFIRMED'">주문확인중</span>
+                                    <span th:case="'PREPARING'">상품준비중</span>
+                                    <span th:case="'SHIPPING'">상품배송중</span>
+                                    <span th:case="'DELIVERED'">상품배송완료</span>
+                                    <span th:case="'CONFIRMATION'">구매확정</span>
+                                    <span th:case="'RETURN_REQUESTED'">반품요청중</span>
+                                    <span th:case="'RETURN_PENDING'">반품대기중</span>
+                                    <span th:case="'REFUND_REQUESTED'">환불요청중</span>
+                                    <span th:case="'REFUND_PENDING'">환불대기중</span>
+                                    <span th:case="'REFUND_COMPLETED'">환불완료</span>
+                                    <span th:case="'EXCHANGE_REQUESTED'">교환요청중</span>
+                                    <span th:case="'EXCHANGE_PENDING'">교환중</span>
+                                    <span th:case="'EXCHANGE_COMPLETED'">교환완료</span>
+                                    <span th:case="*">알 수 없음</span>
+                                  </span>
+                            </td>
+                            <td th:text="${#strings.substring(order.order.orderDate,0,10)}"></td>
+                            <td><button class="openModalBtn">배송하기</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </article>
+                    <!-- 페이지네이션 컨테이너 -->
+                    <div class="pagination">
+                        <th:block th:if="${adminOrderItemPageResponseDTO.prev}">
+                            <a href="#" class="qnaprev">이전</a>
+                        </th:block>
+
+                        <th:block th:each="num : ${#numbers.sequence(adminOrderItemPageResponseDTO.start, adminOrderItemPageResponseDTO.end)}">
+                            <a href="#"
+                               th:class="${num == adminOrderItemPageResponseDTO.pg} ? 'qnacurrent' : 'qnanum'">[[${num}]]</a>
+                        </th:block>
+
+                        <th:block th:if="${adminOrderItemPageResponseDTO.next}">
+                            <a href="#" class="qnanext">다음</a>
+                        </th:block>
+                    </div>
+
+        <section class="shipping-section">
+            <div id="shipping-modal" class="shipping-modal">
+                    <div class="shipping-modals">
+                        <span>배송입력</span>
+                        <span class="shipping-close" style="cursor: pointer;">&times;</span>
+                    </div>
+                    <form>
+                        <table class="modaltable"  id="shippin_d_modal">
+                            <tr>
+                                <th>주문번호</th>
+                                <td>
+                                    <input type="text" id="orderNo" name="orderNo" placeholder="123456" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>수령인</th>
+                                <td>
+                                    <input type="text" id="recipient" name="recipient" placeholder="홍길동" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>주소</th>
+                                <td>
+                                    <input type="text" id="zipcode" placeholder="유저우편번호" readonly><br>
+                                    <input type="text" id="address1" placeholder="유저기본주소" readonly><br>
+                                    <input type="text" id="address2" placeholder="유저상세주소" readonly>
+                                </td>
+                            </tr>
+                           
+            
+                            <tr>
+                                <th>택배사</th>
+                                <td> <select id="classification" >
+                                    <option value="" disabled selected>택배사선택</option>
+                                    <option value="대한통운">대한통운</option>
+                                    <option value="로젠택배">로젠택배</option>
+                                    <option value="우체국">우체국</option>
+                                </select><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>운송장번호</th>
+                                <td><input type="text" id="ownerName" name="ownerName" value="" placeholder=""><br></td>
+                            </tr>
+                            <tr>
+                                <th>기타</th>
+                                <td><textarea name="etc" id="etc" placeholder="유저요청사항" readonly></textarea><br></td>
+                            </tr>
+                            
+                         </table>
+                        <div id="order_submit_btn_div">
+                        <button type="submit" id="order_submit_btn">등록하기</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+                    <section class="modal-section">
+                        <div id="order-modal" class="order-modal">
+                            <div class="order-items">
+                                <span class="order-close" style="cursor: pointer;">&times;</span>
+                                <h3>주문상세</h3>
+                            </div>
+                            <div class="modal-main">
+                                <div class="order-details">
+                                    <div class="product-info">
+                                        <h3>상품정보</h3>
+                                            <table class="product-details" id="product_details">
+                                                <colgroup>
+                                                    <col style="width: 10%">
+                                                    <col style="width: 5%">
+                                                    <col style="width: 20%">
+                                                    <col style="width: 7%">
+                                                    <col style="width: 7%">
+                                                    <col style="width: 7%">
+                                                    <col style="width: 7%">
+                                                    <col style="width: 7%">
+                                                    <col style="width: 10%">
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th>이미지</th>
+                                                    <th>제품번호</th>
+                                                    <th>상품명</th>
+                                                    <th>판매자</th>
+                                                    <th>가격</th>
+                                                    <th>할인</th>
+                                                    <th>재고</th>
+                                                    <th>배송비</th>
+                                                    <th>결제금액</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="orderDetails">
+<!--                                                <tr>-->
+<!--                                                    <td class="pro-img-details">-->
+<!--                                                        <img src="../images/sample/화면 캡처 2024-10-17 102744.png" alt="#">-->
+<!--                                                    </td>-->
+<!--                                                    <td class="pro-num-details">123456789</td>-->
+<!--                                                    <td class="pro-name-details">프리미엄 퀄리티 오가닉 코튼 100% 에코백 - 다용도 사용 가능, 강력한 내구성</td>-->
+<!--                                                    <td class="pro-seller-details">뭐지</td>-->
+<!--                                                    <td class="pro-price-details">뭐지</td>-->
+<!--                                                    <td class="pro-sell-details">뭐지</td>-->
+<!--                                                    <td class="pro-stock-details">뭐지</td>-->
+<!--                                                    <td class="pro-ship-details">5000원</td>-->
+<!--                                                    <td class="total-pay-details">뭐지</td>-->
+<!--                                                </tr>-->
+                                                </tbody>
+                                            </table>
+                                        <div class="total-price">
+                                            <div class="pay-title">
+                                                <h3>결제정보</h3>
+                                            </div>
+
+                                            <div class="total-info">
+                                                <div class="total-item">
+                                                    <div>총 상품금액</div>
+                                                    <div class="price" id="OrderTotalProductPrice">1234원</div>
+                                                </div>
+                                                <div class="total-item">
+                                                    <div>총 할인금액</div>
+                                                    <div class="price" id="OrderSavePrice">34원</div>
+                                                </div>
+                                                <div class="total-item">
+                                                    <div>배송비</div>
+                                                    <div class="price" id="OrderTotalFee">1000원</div>
+                                                </div>
+                                                <div class="total-item">
+                                                    <div>총 결제금액</div>
+                                                    <div id="OrderTotalPrice">20000원</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="pay-info">
+                                        <div class="payment-flex">
+                                            <div class="payment-info">
+                                                <div class="pay-id">주문번호</div>
+                                                <div class="payment">결제방법</div>
+                                                <div class="pay-user">주문자 / 연락처</div>
+                                                <div class="pay-total">결제상태</div>
+                                            </div>
+                                            <div class="payment-details">
+                                                <div class="pay-id-details" id="OrderNumber">주문번호</div>
+                                                <div class="pay-details" id="OrderProcess">결제방법</div>
+                                                <div class="pay-user-details" Id="OrderHp">주문자 / 연락처</div>
+                                                <div class="pay-total-details" id="OrderState">결제완료</div>
+                                                <span class="total-amount">총 결제금액</span>
+                                                <span class="price" id="OrderTotalPrices">200000000원</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="shipping">
+                                        <h3>배송정보</h3>
+                                        <div class="shipping-flex">
+                                            <div class="user-info">
+                                                <div class="user">수취인</div>
+                                                <div class="user-hp">연락처</div>
+                                                <div class="user-addr">배송지 주소</div>
+                                            </div>
+                                            <div class="user-details">
+                                                <div class="user-name-details" id="OrderReceiver">수취인수취인수취인</div>
+                                                <div class="user-hp-details" id="OrderReceiverHp">연락처수취인수취인</div>
+                                                <div class="user-addr-details" id="OrderAddr">배송지 주소수취인수취인</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+<!--<script th:src="@{/js/delivery.js}"></script>-->
+
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+
+                            const modal = document.querySelector('.modal-section');
+                            const orderModal = document.querySelector('.order-items');
+                            const modalClose = document.querySelector('.order-close');
+
+
+
+////////////////////////주문상세보기모달////////////////////////////////////////////
+                            function openModal(order) {
+
+
+                                const orderDetail = document.getElementById('orderDetails');
+                                fetch(`/api/order/status/modal?id=${order.order.orderId}`)
+                                    .then(resp => resp.json())
+                                    .then(adminOrderDTO => {
+                                        console.log("웨옹 :" , adminOrderDTO)
+                                        const details = document.querySelector('.product-details tbody');
+                                        details.innerHTML = '';
+
+                                        adminOrderDTO.orderItems.forEach(item => {
+                                            console.log("item",item);
+
+
+                                            const imagePath = item.savedPath != null
+                                                ? `/uploads/${item.savedPath}/${item.file190}`
+                                                : `/uploads/productImg/${item.file190}`;
+
+                                            const row = `
+                                            <tr>
+                                                <td class="pro-img-details">
+                                                    <img src="${imagePath}" alt="#">
+                                                </td>
+                                                <td class="pro_num_details">${item.orderItemId}</td>
+                                                <td class="pro-name-details">${item.productName}</td>
+                                                <td class="pro-seller-details">${item.orderItemId}</td>
+                                                <td class="pro-price-details">${item.savedPrice.toLocaleString() + '원'}</td>
+                                                <td class="pro-sell-details">${item.savedDiscount.toLocaleString() + '원'}</td>
+                                                <td class="pro-stock-details">${item.stock}</td>
+                                                <td class="pro-ship-details">${item.shippingFees.toLocaleString() + '원'}</td>
+                                                <td class="total-pay-details">${item.orderPrice.toLocaleString() + '원'}</td>
+                                           </tr>
+                                    `;
+                                            details.innerHTML += row;
+                                        })
+
+                                    })
+                                    .catch(err => {
+                                        console.log(err);
+                                    });
+                                document.getElementById('OrderTotalProductPrice').textContent = order.order.totalOriginalPrice.toLocaleString() + '원';
+                                document.getElementById('OrderSavePrice').textContent =order.order.totalDiscount.toLocaleString() + '원';
+                                document.getElementById('OrderTotalFee').textContent = order.order.totalShipping.toLocaleString() + '원';
+                                document.getElementById('OrderTotalPrice').textContent = order.order.totalPrice.toLocaleString() + '원';
+                                document.getElementById('OrderNumber').textContent = order.order.orderId;
+                                document.getElementById('OrderProcess').textContent = order.order.pay;
+                                document.getElementById('OrderHp').textContent = order.order.memberName +"/"+ order.order.memberHp;
+                                document.getElementById('OrderState').textContent = order.order.orderStatus;
+                                document.getElementById('OrderTotalPrices').textContent = order.order.totalPrice.toLocaleString() + '원';
+                                document.getElementById('OrderReceiver').textContent = order.order.receiver;
+                                document.getElementById('OrderReceiverHp').textContent = order.order.hp;
+                                document.getElementById('OrderAddr').textContent = order.order.addr1;
+
+                                modal.style.display = 'flex'; // 모달을 flex로 표시
+                                orderModal.style.display = 'block'; // 내부 모달도 표시
+
+
+                            }
+
+                            function closeModal() {
+                                modal.style.display = 'none'; // 모달을 숨김
+                                orderModal.style.display = 'none'; // 내부 모달도 숨김
+                            }
+
+                            // document에 이벤트 위임 설정
+                            document.addEventListener('click', function (e) {
+                                if (e.target.classList.contains('order-modal-btn')) {
+                                    e.preventDefault();
+                                    const order = JSON.parse(e.target.getAttribute('data-order'))
+                                    openModal(order);
+                                }else if (e.target.classList.contains('delivery-modal-btn')){
+                                    e.preventDefault();
+                                    const order = JSON.parse(e.target.getAttribute('data-order'))
+                                    openModal2(order);
+                                }
+                            });
+
+                            modalClose.addEventListener('click', closeModal);
+
+                            window.addEventListener('click', function (event) {
+                                if (event.target === modal) {
+                                    closeModal();
+                                }else if (event.target === productModal2){
+                                    closeModal2();
+                                }
+                            });
+
+///////////////////////////////////////배송하기모달///////////////////////////////////////////////////////
+                            const productModal2 = document.querySelector('.shipping-section');
+                            const modalcontent2 = document.querySelector('.shipping-modal');
+                            const modalClose2 = document.querySelector('.shipping-close');
+
+
+                            function openModal2 (order) {
+
+                                console.log("먀먀 : ", order);
+
+                                document.getElementById('orderNo').value = order.orderItemId;
+                                document.getElementById('recipient').value = order.order.receiver;
+                                document.getElementById('zipcode').value = order.order.postcode;
+                                document.getElementById('address1').value = order.order.addr1;
+                                document.getElementById('address2').value = order.order.addr2;
+                                document.getElementById('classification').value;
+                                document.getElementById('ownerName').value;
+                                document.getElementById('etc').value = order.order.shippingInfo;
+
+
+                                productModal2.style.display = 'flex'; // 모달을 flex로 표시
+                                modalcontent2.style.display = 'block'; // 내부 모달도 표시
+
+
+
+                                const form = document.getElementsByTagName('form')[0];
+                                form.addEventListener('submit', function (e){
+                                    e.preventDefault();
+                                    const formData = new FormData();
+
+                                    const orderItemId = document.getElementById('orderNo').value;
+                                    const receiver =  document.getElementById('recipient').value;
+                                    const postcode = document.getElementById('zipcode').value;
+                                    const addr = document.getElementById('address1').value;
+                                    const addr2 = document.getElementById('address2').value;
+                                    const deliveryMessage = document.getElementById('etc').value;
+                                    const deliveryCompany = document.getElementById('classification').value;
+                                    const trackingnumber = document.getElementById('ownerName').value;
+
+
+
+                                    console.log("deliveryCompany :" + deliveryCompany)
+                                    console.log("trackingnumber :" + trackingnumber)
+                                    console.log("orderItemId" + orderItemId)
+                                    console.log("receiver" + receiver)
+                                    console.log("postcode" + postcode)
+                                    console.log("addr" + addr)
+                                    console.log("addr2" + addr2)
+                                    console.log("deliveryMessage" + deliveryMessage)
+
+                                    if(!deliveryCompany || !trackingnumber) {
+                                        alert('택배사나 운송장번호를 입력해주세요.');
+                                        return;
+                                    }
+
+                                    formData.append('orderItemId', orderItemId);
+                                    formData.append('receiver', receiver);
+                                    formData.append('postcode', postcode);
+                                    formData.append('addr', addr);
+                                    formData.append('addr2', addr2);
+                                    formData.append('deliveryCompany', deliveryCompany);
+                                    formData.append('trackingnumber', trackingnumber);
+                                    formData.append('deliveryMessage', deliveryMessage);
+
+                                    console.log("formData entries:", Array.from(formData.entries()));
+
+                                    fetch('/seller/order/status/delivery/modal', {
+                                        method: 'post',
+                                        body: formData
+                                    })
+                                        .then(resp => resp.json())
+                                        .then(productDelivery => {
+                                            if(productDelivery) {
+                                                alert('배송등록이 완료되었습니다.')
+                                                closeModal2();
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                            alert('안된당')
+                                        });
+
+                                })
+
+                            }
+                            function closeModal2() {
+                                productModal2.style.display = 'none'; // 모달을 숨김
+                                modalcontent2.style.display = 'none'; // 내부 모달도 숨김
+                            }
+
+                            modalClose2.addEventListener('click', closeModal2);
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            // 전체페이지로드
+                            loadPageOrPages(1, null, null);
+
+                            //처음 버튼을 눌렀을 때 type, keyword만 보냄
+                            document.getElementById('searchBtn').addEventListener('click', function (e) {
+                                e.preventDefault();
+                                const type = document.getElementById('ordersearch').value;
+                                const keyword = document.getElementById('search').value;
+
+                                if (!type || !keyword) {
+                                    alert('검색어를 입력하세요');
+                                    return;
+                                } else {
+                                    // 콘솔에 type과 keyword 값 출력
+                                    console.log('검색 기준 type:', type);
+                                    console.log('검색어 keyword:', keyword);
+
+                                    fetch(`/api/order/status/page?type=${type}&keyword=${keyword}`)
+                                        .then(resp => resp.json())
+                                        .then(adminOrderItemPageResponseDTO => {
+                                            console.log("야옹 : ", adminOrderItemPageResponseDTO);
+                                            const ordertbody = document.querySelector('.admin_order_table tbody');
+                                            ordertbody.innerHTML = '';
+
+                                            updateTable(adminOrderItemPageResponseDTO.adminorderitemdtoList);
+                                            updatePagination(adminOrderItemPageResponseDTO, type, keyword)
+
+                                        })
+                                        .catch(err => console.log(err));
+                                }
+                            });
+
+                            // 컨트롤러에서 값을 받아와서 페이징 함수 처리 하는곳
+                            function loadPageOrPages(page, type, keyword) {
+                                let url = '';
+                                if(type && keyword) {
+                                    url = `/api/order/status/page?pg=${page}&type=${type}&keyword=${keyword}`
+                                } else if(!type && !keyword){
+                                    url = `/api/order/status/page?pg=${page}`
+                                }
+                                    fetch(url)
+                                        .then(resp => resp.json())
+                                        .then(adminOrderItemPageResponseDTO => {
+                                            console.log("야옹 : ", adminOrderItemPageResponseDTO);
+                                            const ordertbody = document.querySelector('.admin_order_table tbody');
+                                            ordertbody.innerHTML = '';
+
+                                            updateTable(adminOrderItemPageResponseDTO.adminorderitemdtoList);
+                                            updatePagination(adminOrderItemPageResponseDTO, type, keyword)
+
+                                        })
+                                        .catch(err => console.log(err));
+
+
+                            }
+
+                            //테이블 내용 업데이트 함수
+                            function updateTable(adminorderitemdtoList) {
+                                console.log("먀옹..? : " , adminorderitemdtoList)
+                                const ordertbody = document.querySelector('.admin_order_table tbody');
+                                if (adminorderitemdtoList.length === 0) {
+                                    const row = `
+                                <tr>
+                                    <td>등록된 글이 없습니다.</td>
+                                </tr>
+                                `;
+                                    ordertbody.innerHTML += row;
+                                } else {
+
+                                    const statusTextMap = {
+                                        "ORDER_CONFIRMED": "주문확인중",
+                                        "PREPARING": "상품준비중",
+                                        "SHIPPING": "상품배송중",
+                                        "DELIVERED": "상품배송완료",
+                                        "CONFIRMATION": "구매확정",
+                                        "RETURN_REQUESTED": "반품요청중",
+                                        "RETURN_PENDING": "반품대기중",
+                                        "REFUND_REQUESTED": "환불요청중",
+                                        "REFUND_PENDING": "환불대기중",
+                                        "REFUND_COMPLETED": "환불완료",
+                                        "EXCHANGE_REQUESTED": "교환요청중",
+                                        "EXCHANGE_PENDING": "교환중",
+                                        "EXCHANGE_COMPLETED": "교환완료"
+                                    };
+
+                                    const payTextMap = {
+                                        "credit-card": "신용카드",
+                                        "check-card": "체크카드",
+                                        "bank-transfer": "계좌이체",
+                                        "no-bankbook": "무통장입금",
+                                        "mobile-payment": "휴대폰결제",
+                                        "kakaopay": "카카오페이"
+                                    };
+
+
+
+                                    adminorderitemdtoList.forEach(order => {
+                                        const row = `
+                                                <tr>
+                                                    <td><a class="order-modal-btn" href="#" data-order-id="${order.orderItemId}" data-order='${JSON.stringify(order)}'>${order.orderItemId}</a></td>
+                                                    <td>${order.order.uid}</td>
+                                                    <td>${order.order.memberName}</td>
+                                                    <td class="productname">${order.product.productName}</td>
+                                                    <td>${order.stock}</td>
+                                                    <td>${order.savedPrice}</td>
+                                                    <td>${payTextMap[order.order.pay] || "알 수 없음"}</td>
+                                                    <td class="orderstatus">${statusTextMap[order.status] || "알 수 없음"}</td>
+                                                    <td>${order.order.orderDate.substring(0, 10)}</td>
+                                                    <td><button class="delivery-modal-btn" data-order='${JSON.stringify(order)}'>배송하기</button></td>
+                                                </tr>`;
+                                        ordertbody.innerHTML += row;
+                                    })
+                                }
+                            }
+
+
+                            //페이지 업데이트 함수
+                            function updatePagination(adminOrderItemPageResponseDTO, type, keyword) {
+                                const paginationElement = document.querySelector('.pagination');
+                                paginationElement.innerHTML = '';
+
+                                if (adminOrderItemPageResponseDTO.prev) {
+                                    const prevLink = `<a href="#" data-page="${adminOrderItemPageResponseDTO.start - 1}" class="qnaprev">이전</a>`;
+                                    paginationElement.innerHTML += prevLink;
+                                }
+
+                                for (let num = adminOrderItemPageResponseDTO.start; num <= adminOrderItemPageResponseDTO.end; num++) {
+                                    const pageLink = `<a href="#" data-page="${num}" class="${num === adminOrderItemPageResponseDTO.pg ? 'qnacurrent' : 'qnanum'}">${num}</a>`;
+                                    paginationElement.innerHTML += pageLink;
+                                }
+
+                                if (adminOrderItemPageResponseDTO.next) {
+                                    const nextLink = `<a href="#" data-page="${adminOrderItemPageResponseDTO.end + 1}" class="qnanext">다음</a>`;
+                                    paginationElement.innerHTML += nextLink;
+                                }
+
+                                document.querySelectorAll('.pagination a').forEach(link => {
+                                    link.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        const page = this.getAttribute('data-page');
+                                        if(type !== null && keyword !== null){
+                                            loadPageOrPages(page, type, keyword);
+                                        }else if (!type && !keyword){
+                                            loadPageOrPages(page, null, null);
+                                        }
+
+
+
+                                    })
+                                })
+                            }
+                        })
+
+                    </script>
+</th:block>

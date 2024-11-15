@@ -1,0 +1,101 @@
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+/* 모달 창 내용 */
+.modal-content {
+    background-color: white;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 중앙에 정렬 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 700px; 
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.modal-content .header{
+    background-color: #e23;
+}
+.modal-content .header h3{
+    padding: 10px 20px;
+    font-size: 20px;
+    color: #000000;
+    font-weight: 500;
+}
+.modaltable {
+width: 100%;
+top: 35px;
+border-collapse: collapse;
+margin: 0 auto;
+margin-top: 20px;
+border-top: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+}
+        
+th, td {
+padding: 10px;
+}
+.modaltable th{
+    border: none;
+}
+.modaltable th {
+            width: 153px;
+            height: 30px;
+            padding: 10px;
+            text-align: left;
+            background-color: #f2f2f2;
+            
+        }
+
+/* 닫기 버튼 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* 입력 필드 스타일 */
+ input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="number"] {
+            width: 185px;
+            height: 20px;
+            padding: 15px 20px 15px 3px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #address1, #address2 {
+            width: 380px;
+        }
+
+ button[type="submit"] {
+    width: 130px;
+    height: 40px;
+    margin-top: 30px;
+    margin-left: 290px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}

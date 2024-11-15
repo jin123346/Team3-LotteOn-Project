@@ -1,0 +1,151 @@
+*{margin: 0; padding:0; font-family: '고딕', sans-serif;}
+html{color:#111; position:relative;}
+html, body{height:100%;}
+ol,ul {list-style: none}
+a {text-decoration: none; color: inherit;}
+a:hover {text-decoration: underline; font-weight: bold;}
+
+#wrapper {
+    width: 100%;
+    height: auto;
+
+}
+.cs_main {
+    width: 1200px;
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+
+}
+#container {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    /*border-top: 1px solid rgb(199,199,199);*/
+}
+
+/*aside*/
+#aside {
+    width: 200px;
+    border-right: 1px solid rgb(199, 199, 199);
+    box-sizing: border-box;
+
+}
+#aside h1 {font-size: large; font-weight: bold; text-align: center; margin: 20px 20px 40px;}
+.aside_list ul li {overflow: hidden; padding: 16px 0; border-bottom: 1px solid rgb(194, 194, 194); width:140px; margin-left: 10px;}
+
+.active {line-height: 24px;}
+.active:hover {text-decoration: underline; font-weight: bold;}
+
+/*메인*/
+#service {
+    flex-grow: 1;
+    min-width: 0;
+    width: 1000px;
+}
+
+/*롯데온이 도와드릴게요*/
+.tit1 {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 36px;
+    font-weight: bold;
+}
+.tit1 span {
+    color: #ef2a23;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+#service > div{
+    border:1px solid rgba(0, 0, 0, 0.1);
+    box-shadow:0px 4px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
+    padding: 10px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
+
+#service > div > div{
+    border-bottom: 1px solid #ddd;
+}
+
+#service > div:last-child > div{
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+
+/*td 기본 설정*/
+td{padding: 3px;}
+
+.notice_table td, .question td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50px;}
+
+
+
+/*첫번째 td외 모든 td center적용*/
+.notice_table td:nth-of-type(2) {text-align: center;}
+
+.question td:nth-of-type(2){text-align: center;}
+.question td:nth-of-type(3){text-align: center;}
+
+
+/*main 제목*/
+h2 {margin: 20px 10px 40px}
+
+/*1:1문의-일반회원*/
+h3 { margin: 0 10px;}
+/*1:1문의-전화번호*/
+h4 { margin: 0 10px 40px;}
+
+/*공지사항*/
+.notice div {overflow: hidden; }
+.notice h2 {float: left; margin : 10px 10px 10px; font-size: large; font-weight: bold;}
+.notice span{float: right; margin-top: 10px;}
+.notice table {margin: 10px 10px; margin-bottom: 20px; width: 98%;}
+
+
+/*자주하는질문*/
+.qna div {overflow: hidden;}
+.qna h2 {float: left; margin : 10px 10px 10px; font-size: large; font-weight: bold;}
+.qna span{float: right; margin-top: 10px;}
+.qna table {margin: 50px 10px; text-align: center; width: 98%;}
+/* .qna table td {width: 100px;} */
+.qna table img {width: 58%; height: auto; margin-bottom: 15px; transition: transform 0.3s ease;}
+.qna table img:hover {transform: scale(1.25);}
+
+
+/*문의하기*/
+.question {margin-bottom: 10px;}
+.question div {overflow: hidden; }
+.question h2 {float: left; margin : 10px 10px 10px; font-size: large; font-weight: bold;}
+.question span{float: right; margin-top: 10px;}
+.question table {margin: 10px 10px; margin-bottom: 20px;  width: 98%;}
+.inquiry {margin: 0 10px;}
+
+/*1:1 상담안내*/
+.onecounsel { }
+.counsel-container {display: flex; overflow: hidden; justify-content: center
+
+}
+.onecounsel h2 {margin : 10px 10px 20px; font-size: large; font-weight: bold;}
+.counsel1, .counsel2 {
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    width: 45%;
+    margin: 0px 20px;
+    border-radius: 5px;
+    text-align: center;}
+.onecounsel a {display: inline-block; margin: 10px;}
+.counsel1 p:first-of-type,.counsel2 p:first-of-type{
+    margin-top: 20px;
+}
+
+.counsel1 p,.counsel2 p{
+    margin-bottom: 10px;
+}
+

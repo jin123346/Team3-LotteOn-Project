@@ -1,0 +1,454 @@
+
+/* qnaList css */
+.admin-articleList {
+    width: 1200px;
+    height: auto;
+    border: 1px solid #ddd;
+    min-height: 700px;
+    max-height: 3500px;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+
+
+.article-box {
+    width: 900px;
+    margin: 20px auto;
+}
+
+.article-inlist {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s;
+    padding: 10px 0 10px 0;
+
+}
+
+.article-box h3 {
+    margin: 20px 0px 10px 30px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.article-title {
+    width: 900px;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+#customer-service1 {width: 95px; height: 33px;}
+#customer-service2 {width: 95px; height: 33px;}
+
+
+.article-header,
+.article-inlist {
+    display: flex;
+    align-items: center; /* 수직 정렬을 위해 추가 */
+    justify-content: space-between; /* 요소 간의 간격을 균등하게 배분 */
+    border-top: 1px solid #ddd;
+    height: 50px;
+    text-align: center;
+
+}
+
+.article-inlist:hover {
+    background-color: #f1f1f1;
+}
+
+
+
+
+
+.checkbox {
+    text-align: center;
+
+}
+
+.checkboxes, .checkbox {
+    text-align: center;
+}
+
+.number{width: 40px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.type, .type2{flex: 0 0 50px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.views{flex: 0 0 40px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.date{flex: 0 0 100px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.manage {flex: 0 0 100px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.title {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+    max-width: 410px;
+
+
+}
+.manage a {
+    color: #ff6347;
+    margin: 0 5px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+}
+
+.pagination a {
+    padding: 10px;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #f1f1f1;
+}
+
+.button-ctl {
+    display: flex;
+    justify-content: space-between;
+    width: 900px;
+    margin: 20px auto;
+
+}
+
+.btn-delete {
+    /* 가로 방향 중앙 정렬 */
+    text-align: center;        /* 세로 방향 중앙 정렬 */
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    background: #ddd;
+    border: none;
+}
+
+.btn-Write {
+    /* 가로 방향 중앙 정렬 */
+    align-items: center;        /* 세로 방향 중앙 정렬 */
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    background: #ddd;
+    border: none;
+}
+
+
+
+/* 어드민 뷰 css */
+
+.zero{
+    width: 100%;
+    height: 60px;
+}
+.admin-main {
+    width: 1200px;
+    height: auto;
+    display: flex;
+    margin-top: 10px;
+    margin: 0 auto;
+
+}
+
+
+
+.admin-in {
+    width: auto;
+    height: auto;
+    padding-top: 20px;
+
+}
+
+.admin-view {
+    width: 92%;
+    height: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+.admin-in h3{
+    margin-left: 30px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 0px;
+    font-weight: bold;
+
+}
+.admin-type,
+.admin-title,
+.admin-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    margin-top: 0px;
+    border-bottom: 1px solid #ccc ;
+
+}
+.type-box1,
+.title-box,
+.content-box {
+    flex: 1; /* 박스가 공간을 차지하도록 설정 */
+    font-size: 16px;
+    font-weight: bold;
+
+
+}
+
+.type-view,
+.title-view,
+.content-view {
+    flex: 5; /* 뷰가 박스보다 더 많은 공간을 차지하도록 설정 */
+    padding: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.btn-controller{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.delete-btn, .register-btn{
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    margin: 100px 10px 50px 5px;
+    background: #ddd;
+
+
+
+}
+.list-btn,.delete-btn, .register-btn, .btn-ok{
+    display: flex;
+    margin-right: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    margin: 100px 10px 50px 5px;
+    background: #ddd;
+}
+
+
+
+/* qna-list css */
+
+.coment-box h3{
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+.qna-number{width: 40px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.qna-type, .qna-type2{flex: 0 0 70px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.qna-write{
+    flex: 0 0 70px;
+    text-align: center;
+    font-size: 12px;
+    margin-right: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.qna-date{flex: 0 0 100px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.qna-status {flex: 0 0 100px; text-align: center; font-size: 12px;  margin-right: 10px;}
+.qna-title {
+    width: 410px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+
+
+/* riply css */
+.reply-box{
+    width: calc(100% - 200px);
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+
+}
+
+input{
+    text-indent: 6px;
+}
+
+.coment-box{
+    width: 100%;
+    height: auto;
+
+}
+.reply-coment{
+
+    margin-left: 30px;
+}
+.reply-table{
+    width: 100%;
+    align-items: center;
+    border-top: 1px solid;
+}
+
+.reply-content,
+.reply-answer,
+.reply-title,
+.reply-type,
+.reply-nontent{
+    width: auto;
+    height: auto;
+    border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
+    padding: 15px 0 15px 10px  ;
+
+
+}
+.reply-type div:nth-child(1),
+.reply-title div:nth-child(1),
+.reply-content div:nth-child(1),
+.reply-answer div:nth-child(1) {
+    width: 70px/* 원하는 너비 설정 */;
+}
+.reply-contents{
+    resize: none;
+    width: 600px;
+    min-height: 100px;
+    max-height: 400px;
+}
+
+
+
+
+.reoly-btn-controoler{
+    width: 100%;
+    height: auto;
+    justify-content: flex-end;
+    display: flex;
+    margin: 100px 0 0 0 ;
+}
+
+.replt-btn-list,.replt-btn-delete,.replt-btn-ok{
+    display: flex;              /* Flexbox로 변경 */
+    justify-content: center;    /* 가로 방향 중앙 정렬 */
+    align-items: center;        /* 세로 방향 중앙 정렬 */
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    background: #ccc;
+    margin-right: 10px;
+
+}
+
+
+/* 통합 write css */
+.write-box{
+    width: 900px;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+
+}
+
+.coment-box{
+    width: 100%;
+    height: auto;
+
+
+}
+.write-table{
+    width: 100%;
+    align-items: center;
+    border-top: 1px solid #D9D9D9;
+}
+
+.write-type,
+.write-title{
+    width: auto;
+    height: 50px;
+    border-bottom: 1px solid #D9D9D9;
+    display: flex;
+    align-items: center;
+    padding: 15px 0 15px 10px  ;
+
+}
+.write-input{
+    width: auto;
+    height: auto;
+    border-bottom: 1px solid #D9D9D9;
+    display: flex;
+    align-items: center;
+    padding: 15px 0 15px 10px  ;
+
+}
+.first_choice{width: 100px; height: 30px; font-size: 12px; border: 1px solid #D9D9D9; border-radius: 4px;}
+.second_choice{width: 100px; height: 30px; margin-left: 10px; font-size: 12px; border: 1px solid #D9D9D9; border-radius: 4px;}
+.write-type div:nth-child(1),
+.write-title div:nth-child(1),
+.write-content div:nth-child(1),
+.write-input div:nth-child(1) {
+    font-size: 12px;
+    font-weight: bold;
+    width: 100px/* 원하는 너비 설정 */;
+}
+.write-title input{width: 600px; height: 40px; font-size: 12px; border: 1px solid #D9D9D9; border-radius: 4px;}
+
+
+.write-btn-controoler{
+    width: 900px;
+    height: auto;
+    justify-content: center;
+    display: flex;
+    margin: 40px auto;
+}
+.write-btn-cancel,
+.write-btn-regip,
+.write-btn-modify{
+    display: flex;              /* Flexbox로 변경 */
+    justify-content: center;    /* 가로 방향 중앙 정렬 */
+    align-items: center;        /* 세로 방향 중앙 정렬 */
+    width: 80px;
+    height: 35px;
+    font-size: 12px;
+    border: none;
+    background-color: #81a6d3;
+    border-radius: 4px;
+    color: white;
+    margin-right: 20px;
+
+}
+.write-btn-cancel {background-color: rgb(200, 200, 200);
+}
+
+
+/* 각 내용 입력창 */
+.faq-contents{
+    resize: none;
+    width: 600px;
+    min-height: 250px;
+    max-height: 500px;
+    border: 1px solid #D9D9D9;
+}
+.notice-contents{
+    resize: none;
+    width: 600px;
+    min-height: 250px;
+    max-height: 500px;
+    border: 1px solid #D9D9D9;
+}
+.faq-contents{
+    resize: none;
+    width: 600px;
+    min-height: 250px;
+    max-height: 500px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+}

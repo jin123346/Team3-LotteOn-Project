@@ -1,0 +1,200 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.findid-section {
+    width: 520px;
+    margin: 76px auto 60px;
+    box-sizing: border-box;
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.findid-section > img {
+    display: block;
+    margin: 0 auto;
+}
+
+.findid-section > h2 {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+
+hr {
+    border: none;
+    border-top: 1px solid #bebebe;
+    margin: 16px 0;
+}
+
+.table {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.table > div {
+    padding: 8px;
+}
+
+.nameArea {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.name, .email {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.nametext {
+    width: 95%;
+    height: 48px;
+    padding-left: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #e4eaec;
+    border-radius: 4px;
+}
+
+.emailArea {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.emailzone {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.emailtext {
+    width: calc(72% - 10px); /* 왼쪽 입력 필드 너비 증가 */
+    height: 48px;
+    padding-left: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #e4eaec;
+    border-radius: 4px;
+}
+
+.getCodeBtn {
+    width: calc(25% - 10px); /* 인증번호 받기 버튼 너비 감소 */
+    height: 48px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #bebebe;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.verificationCodetext {
+    width: calc(72% - 10px); /* 인증번호 입력 필드 너비 증가 */
+    height: 48px;
+    padding-left: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #e4eaec;
+    border-radius: 4px;
+}
+
+.verificationCode {
+    width: calc(25% - 10px); /* 확인 버튼 너비 감소 */
+    height: 48px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #bebebe;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+#resultEmail {
+    font-size: 13px;
+    color: #f00;
+    margin-top: 8px;
+    display: block;
+    width: 100%;
+}
+
+.note {
+    height: 58.5px;
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #999;
+}
+
+.bottom {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.cancelBtn, .nextBtn {
+    width: 70px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.nextBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button-container {
+    display: flex; /* Flexbox로 버튼들을 나란히 배치 */
+    justify-content: space-between; /* 버튼 간격을 균등하게 배치 */
+    margin-top: 20px; /* 상단 여백 추가 */
+}
+
+.idBtn, .pwBtn {
+    flex: 1;
+    margin: 0 10px;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.idBtn {
+    background-color: #333333;
+    color: #ddd;
+}
+
+.pwBtn {
+    color: #333;
+    background-color: #fff;
+}
+
+.pwBtn:hover {
+    background-color: #333333;
+    color: #ddd;
+}
+

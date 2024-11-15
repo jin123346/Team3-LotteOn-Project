@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Banner Page</title>
+    <link rel="stylesheet"  th:href="@{/css/admin/adminbanner.css}">
+    <link rel="stylesheet"  th:href="@{/css/admin/adminBannerModal.css}">
+    <!-- Pickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+    <!-- Pickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+            <div id="admin_service">
+                <section>
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                    <section id="admin_navi">
+                            <p>환경설정</p>
+                            <p>
+                                <a href="#">HOME</a>
+                                <span>></span>
+                                <a href="#">환경설정</a>
+                                <span>></span>
+                                <a href="#">배너관리</a>
+                            </p>
+                    </section>
+                    <div class="admin_banner">
+                        <ul class="banner_menu">
+                            <li onclick="filterbanners('메인 상단 배너')">메인 상단</li>
+                            <li onclick="filterbanners('메인 슬라이더 배너')">메인 슬라이더</li>
+                            <li onclick="filterbanners('상품 상세보기 배너')">상품 상세보기</li>
+                            <li onclick="filterbanners('회원 로그인 배너')">회원 로그인</li>
+                            <li onclick="filterbanners('마이페이지 배너')">마이 페이지</li>
+                        </ul>
+                    </div>
+                    <article id="admin_banner_main">
+                        <div>
+                            <h2 id="banner-title">메인 상단 배너</h2>
+                        </div>
+                        <table class="admin_banner_table">
+                            <colgroup>
+                                <col style="width: 40px">
+                                <col style="width: 40px">
+                                <col style="width: 90px">
+                                <col style="width: 130px">
+                                <col style="width: 90px">
+                                <col style="width: 90px">
+                                <col style="width: 90px">
+                                <col style="width: 80px">
+                                <col style="width: 80px">
+                                <col style="width: 80px">
+                            </colgroup>
+                            <tr>
+                                <th><input type="checkbox" class="checkbox"></th>
+                                <th>번호</th>
+                                <th>이미지</th>
+                                <th>배너정보</th>
+                                <th>배너위치</th>
+                                <th>시작일</th>
+                                <th>종료일</th>
+                                <th>시작시간</th>
+                                <th>종료시간</th>
+                                <th>관리</th>
+                            </tr>
+                            <tr th:each="banner : ${banners}" >
+                                <td><input type="checkbox" class="checkboxes" th:value="${banner.ban_id}"></td>
+                                <td th:text="${banner.ban_id}"></td>
+                                <td><img th:src="@{/uploads/{filename}(filename=${banner.getBan_image()})}"></td>
+                                <td>
+                                    <p th:text="'배너명 :' + ${banner.ban_name}"></p>
+                                    <p th:text="'크기 :' + ${banner.ban_size}">크기 : 1200 x 80</p>
+                                    <p th:text="'색상 :' + ${banner.ban_color}">배경색 : 빨강</p>
+                                    <p th:text="'링크 : ' + ${banner.ban_link}">배너링크</p>
+                                </td>
+                                <td th:text="${banner.ban_location}"></td>
+                                <td th:text="${banner.ban_sdate}">2023.01.01</td>
+                                <td th:text="${banner.ban_edate}">2023.01.07</td>
+                                <td th:text="${banner.ban_stime}">13:00</td>
+                                <td th:text="${banner.ban_etime}">15:00</td>
+                                <td class="status">
+                                    <p th:onclick="|updateStatus(${banner.ban_id}, 'ACTIVE')|"
+                                       th:classappend="${banner.status == 0} ? 'active' : ''">
+                                        [활성]</p>
+                                    <p th:onclick="|updateStatus(${banner.ban_id}, 'INACTIVE')|"
+                                       th:classappend="${banner.status == 1} ? 'inactive' : ''">
+                                        [비활성]</p>
+                                </td>
+                            </tr>
+                        </table>
+                        </article>
+                            <div class="banner_button">
+                                <button id="banner_delete">선택삭제</button>
+                                <button id="openModalBtn">배너등록</button>
+                            </div>
+            </section>
+
+        <th:block th:replace="~{content/admin/config/admiinBanner_orderModal}"></th:block>
+    <script>
+        //제목줄 체크박스
+        const checkAll = document.querySelector('.checkbox');
+        //제목줄 제외 체크박스
+
+        //1. 제목줄 체크박스 클릭시
+        checkAll.addEventListener('click', function(){
+            const isChecked = checkAll.checked; // 제목줄 체크, 체크여부 변수
+            const checkBoxes = document.querySelectorAll('.checkboxes'); //제목줄 제외 체크박스
+
+            // 전체선택
+            if(isChecked){
+                for(const checkBox of checkBoxes){
+                    checkBox.checked = true;
+
+                }
+                // 전체해제
+            }else {
+                for(const checkBox of checkBoxes){
+                    checkBox.checked = false;
+
+                }
+            }
+        })
+
+        //2. 선택항목 체크박스 클릭시 제목줄 체크박스 업데이트
+        const checkBoxes = document.querySelectorAll('.checkboxes');
+
+        checkBoxes.forEach(checkBox => {
+            checkBox.addEventListener('click' , function (){
+                const checkCount = document.querySelectorAll('.checkboxes:checked').length;
+                if(checkCount === checkBoxes.length){
+                    checkAll.checked = true;
+                }else {
+                    checkAll.checked = false;
+                }
+            })
+        })
+        const btn_delete = document.getElementById('banner_delete');
+        btn_delete.addEventListener('click', function (e) {
+            e.preventDefault();
+            const checks = document.querySelectorAll('.checkboxes:checked');
+
+            if (checks == null) {
+                alert('삭제할 항목을 선택하세요');
+                return;
+            }
+            const data = Array.from(checks).map(checkbox => checkbox.value);
+            fetch('/admin/banner/delete', {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+                .then(resp => {
+                    if (resp.ok == false) {
+                        throw new Error("실패")
+                    }
+                    alert('성공');
+                    checks.forEach(checkbox => {
+                        const tr = checkbox.closest('tr');
+                        if (tr) {
+                            tr.remove();
+                            location.reload(); // 새로 추가..
+                        }
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert('실패')
+
+
+                })
+        })
+
+    </script>
+                <script>
+                    function filterbanners(location){
+                        const title = document.getElementById('banner-title');
+                        title.innerText = location;
+
+                        const rows = document.querySelectorAll('.admin_banner_table tr');
+                        rows.forEach((row,index) => {
+                            if(index === 0 ){
+                                row.style.display = '';
+                            }else {
+                                if (row.cells[4].innerText === location){
+                                    row.style.display = ''; // 보여주기
+                                } else {
+                                    row.style.display = 'none'; // 숨기기
+                                }
+                            }
+
+                        });
+                    }
+
+                    function updateStatus(bannerId, status) {
+                        fetch(`/api/admin/banner/updateStatus?id=${bannerId}&status=${status}`, {
+                            method: 'GET'
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === "success") {
+                                    alert("상태가 성공적으로 업데이트되었습니다.");
+                                    location.reload(); // 상태 변경 후 페이지 새로고침
+                                } else {
+                                    throw new Error("상태 업데이트 실패");
+                                }
+                            })
+                            .catch(error => {
+                                console.error("오류 발생:", error);
+                                alert("상태 업데이트에 실패했습니다.");
+                            });
+                    }
+                </script>
+    <script>
+
+    // 모달 열고 닫는 기능 구현
+    var modal = document.getElementById("orderModal");
+       var btn = document.getElementById("openModalBtn");
+       var span = document.getElementsByClassName("close")[0];
+       // 버튼을 클릭하면 모달을 엽니다.
+       btn.onclick = function() {
+           modal.style.display = "block";
+       }
+       // 닫기 버튼을 클릭하면 모달을 닫습니다.
+       span.onclick = function() {
+           modal.style.display = "none";
+       }
+       // 모달 외부를 클릭하면 모달을 닫습니다.
+       window.onclick = function(event) {
+           if (event.target == modal) {
+               modal.style.display = "none";
+           }
+       }
+    </script>
+</th:block>

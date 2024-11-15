@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link  rel="stylesheet" th:href="@{/css/user/mysettings.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!--    <script th:src="@{/js/validation.js}"></script>-->
+    <script th:src="@{/js/postcode.js}"></script>
+    <script th:src="@{/js/mysettings.js}"></script>
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+        <div class="info">
+            <p class="info-title">나의 쇼핑정보</p>
+            <div class="summary-table">
+                <div class="summary-item">
+                    <span>주문</span><br>
+                    <span class="summary-value" th:text="${orderCount}">2</span>
+                </div>
+                <div class="summary-item">
+                    <span>쿠폰</span><br>
+                    <span class="summary-value" th:text="${IssuedList.size()}"></span>
+                </div>
+                <div class="summary-item">
+                    <span>포인트</span><br>
+                    <span class="summary-value" th:text="${totalPoints}">1,000</span> <!-- 최종 포인트 값 출력 -->
+                </div>
+                <div class="summary-item">
+                    <span>문의</span><br>
+                    <span class="summary-value">1</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="container">
+            <aside>
+                <ul>
+                    <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+                    <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+                    <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+                    <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+                    <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+                    <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+                </ul>
+            </aside>
+
+            <div class="center">
+                <div class="slider-wrapper">
+                    <div class="ad" th:each="banner : ${banners}" th:if="${banner.ban_location} == '마이페이지 배너'">
+                        <a th:href="${banner.ban_link}" target="_blank">
+                            <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="details">
+                        <p>나의설정</p>
+                    </div>
+                    <table>
+                        <tr>
+                            <th><label for="uid">사용자ID</label></th>
+                            <td>
+                                <span id="uid" readonly>[[${member.user.uid}]]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="password">비밀번호</label></th>
+                            <td>
+                                <a href="/user/findpass" id="change-password-btn" class="btn">수정</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="name">이름</label></th>
+                            <td>
+                                <input id="name" th:value="${member.name}"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="birth">생년월일</label></th>
+                            <td>
+                                <span id="birth" >1990년 04월 20일</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="email">Email</label></th>
+
+                            <td>
+                                <!-- 현재 이메일 입력 필드 -->
+                                <input type="text" id="email" placeholder="이메일 아이디" th:value="${member.email}" />
+
+<!--                                &lt;!&ndash; @ 기호 &ndash;&gt;-->
+<!--                                <span>@</span>-->
+
+<!--                                &lt;!&ndash; 이메일 도메인 직접 입력 필드 &ndash;&gt;-->
+<!--                                <input type="text" id="email-domain" placeholder="도메인 입력"-->
+<!--                                        required >-->
+
+<!--                                &lt;!&ndash; 이메일 도메인 선택 &ndash;&gt;-->
+<!--                                <select id="domain-select" onchange="updateDomain()" disabled>-->
+<!--                                    <option value="">도메인 선택</option>-->
+<!--                                    <option value="gmail.com">gmail.com</option>-->
+<!--                                    <option value="naver.com">naver.com</option>-->
+<!--                                    <option value="daum.net">daum.net</option>-->
+<!--                                    <option value="직접 입력">직접 입력</option>-->
+<!--                                </select>-->
+
+<!--                                &lt;!&ndash; 이메일 수정 버튼 &ndash;&gt;-->
+<!--                                <button id="edit-email-btn" type="button" onclick="showEmailInput()">수정하기</button>-->
+
+<!--                                &lt;!&ndash; 숨겨진 이메일 저장 버튼 &ndash;&gt;-->
+<!--                                <button id="save-email-btn" type="button" onclick="saveEmail()" style="display:none;">저장</button>-->
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="phone">휴대폰</label></th>
+                            <td>
+                                <input id="phone" th:value="${member.hp}" />
+
+                                <!-- 수정하기 버튼 -->
+<!--                                <button id="edit-phone-btn" type="button" onclick="editPhone()">수정하기</button>-->
+
+                                <!-- 저장 버튼 (숨김) -->
+                                <button id="save-phone-btn" type="button" onclick="savePhone()" style="display:none;">저장</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="address"><label for="zipcode">주소</label></th>
+                            <td>
+                                <input type="text" id="zipcode" placeholder="우편번호"  th:value="${member.postcode}" style="margin-bottom: 10px;">
+                                <button type="button" class="btnZip" onclick="postcode()">주소검색</button><br>
+                                <input type="text" id="address1" placeholder="기본주소검색" th:value="${member.addr}" style="margin-bottom: 10px;"><br>
+                                <input type="text" id="address2" placeholder="상세주소입력" th:value="${member.addr2}" style="margin-bottom: 10px;">
+                            </td>
+                        </tr>
+                        <tr class="exit" style="border-bottom: none">
+                            <th></th>
+                            <td>
+                                <button type="button" id="cancel" style="border-radius: 4px; float: right">회원탈퇴</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="modifydiv">
+                        <button type="button" id="modify">수정하기</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+</th:block>

@@ -1,0 +1,67 @@
+html{color:#111; position:relative;}
+html, body{height:100%;}
+ol,ul {list-style: none}
+a {text-decoration: none; color: inherit;}
+
+#wrapper {
+    width: 100%;
+    height: auto;
+
+}
+main {
+    width: 1200px;
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+
+}
+#navi {width: 1200px; height: 50px; border-top: 1px solid rgb(199,199,199);}
+#navi p {font-size: 15px; font-weight: bold; margin-top: 13px;}
+
+#container {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+
+/*어사이드*/
+#aside {
+    width: 200px;
+    height: 770.5px;
+    border-right: 1px solid rgb(199, 199, 199);
+    box-sizing: border-box;
+}
+
+#aside h1 {font-size: large; font-weight: bold; text-align: center; margin: 20px 20px 40px;}
+.aside_list ul li {overflow: hidden; padding: 16px 0; border-bottom: 1px solid rgb(194, 194, 194); width:140px; margin-left: 10px;}
+/*.aside_list ul li:nth-of-type(1) a{font-weight: bold; text-decoration: underline;}*/
+.aside_list ul li a:hover{
+    color:#ef2a23;
+}
+#aside .active {line-height: 24px;color:#ef2a23; text-decoration: underline;font-weight: 700}
+#aside .active:hover {text-decoration: underline; opacity: 50%}
+
+
+
+/*메인*/
+#service {flex-grow: 1;
+    min-width: 0;
+    width: 1000px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.hidden {display: none;}
+
+.hidden {display: none;}
+
+
+/*회원 , 회원관련 문의 내용입니다.*/
+h2 {margin: 30px 40px 0px; font-weight: bold; font-size: large;}
+.title p {font-size: 14px; color: rgb(117, 117, 117); margin: 20px 25px 20px;}
+
+.container{
+    width: 95%;
+    margin: 0 auto;
+}

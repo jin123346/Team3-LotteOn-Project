@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/marketLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link   rel="stylesheet" th:href="@{/css/market/marketOrderComplete.css}">
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+
+                    <section class="section orderCompleted">
+                        <div class="sectionWrapper">
+                            <div class="sub_tit">
+                                <h3 id="h3_list">주문완료</h3>
+                                <div class="location">
+                                    <span><a href="">홈&nbsp;</a></span>
+                                    <span>주문하기&nbsp;</span>
+                                    <span><strong>주문완료&nbsp;</strong></span>
+                                </div>
+                            </div>
+                            <div class="orderInfo-txt">
+                                <span>고객님의 주문이 정상적으로 완료되었습니다.</span>
+                                <span>주문번호 : <strong th:text="${orderDTO.getOrder().getOrderId()}"></strong></span>
+                                <p>즐거운 쇼핑이 되셨나요? 항상 고객님을 위한 <strong>롯데ON</strong>이 되겠습니다.</p>
+                            </div>
+                        <section class="orderCompany">
+                            <div class="order-groupbyCom" th:each="seller,iterStat :${orderDTO.getSellers()}">
+                                <h4 th:text="${seller.getCompany()}"></h4>
+                                <table class="order-items" >
+                                    <colgroup>
+                                        <col style="width: 40%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 40%;">
+                                    </colgroup>
+                                    <!-- 반복부분 -->
+                                    <tr th:each="orderItem:${seller.getOrderItems()}">
+                                        <td>
+                                            <div>
+                                                <img th:if="${orderItem.getProduct().getSavedPath()==null}" th:src="@{'/uploads/productImg/'+${orderItem.getProduct().getFile190()}}" alt="">
+                                                <img th:unless="${orderItem.getProduct().getSavedPath()==null}" th:src="@{'/uploads/'+${orderItem.getProduct().getSavedPath()}+'/'+${orderItem.getProduct().getFile190()}}" alt="">
+                                            </div>
+                                            <div>
+                                                <span th:text="${orderItem.getProduct().getProductName()}">상품명</span>
+
+                                                <p id="product_option" th:if="${orderItem.combination != null}"> [ 옵션 :[[${orderItem.combination}]]]</p>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <div class="qnt">
+                                                주문 수량  
+                                                <input type="number" name="quantity" th:placeholder="${orderItem.getStock()}" readonly>
+                                            </div>
+                                        </td>
+
+                                        <td >
+                                            <p>상품금액 :<span class="price" th:text="${orderItem.getSavedPrice()*orderItem.getStock()}"></span></p>
+                                            <p>할인금액 : <span class="price" th:text="${orderItem.getSavedDiscount()}">-1350</span></p>
+                                            <p>결제금액 : <span class="price" th:text="${orderItem.getOrderPrice()}">28500</span></p>
+                                        </td>   
+                                    </tr>
+
+                                    <tr class="totalArea" >
+                                        <td >
+                                            <span class="price" th:text="${seller.getTotalOriginalPrice()}" >30000</span>
+                                            <p class="plus">배송비</p> <span class="price" th:text="${seller.getTotalShipping()}">0</span>
+                                            <p class="minus">상품 할인</p> <span class="price dis" th:text="${seller.getTotalDiscount()}">500</span>
+                                            <p class="equal">=</p><span class="price" th:text="${seller.getTotalFinalPrice()+seller.getTotalShipping()}">29500</span>
+                                        </td>
+                                
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                        </section>
+                            <div class="totalOrderInfo">
+                                <h4>주문 금액 정보</h4>
+                                <div class="totalPrice-bar">
+                                    <div class="originalPrice">
+                                        <span>상품금액</span>
+                                        <p class="price" th:text="${orderDTO.order.getTotalOriginalPrice()}">69000</p>
+                                    </div>
+                                    <div class="discoutnPrice">
+                                        <span>총 상품금액할인</span>
+                                        <p class="price minus" th:text="${orderDTO.getTotalDiscount()}">2000</p>
+
+                                    </div>
+                                    <div class="discoutnPrice2">
+                                        <span>쿠폰 및 포인트 할인 </span>
+                                       <p class="price minus" th:text="${orderDTO.getOrder().getUsedCoupon()+orderDTO.getOrder().getUsedPoint()}">2000</p>
+
+
+                                    </div>
+                                    <div class="deliveryPrice">
+                                        <span>배송비/포장비</span>
+                                        <p class="price" th:text="${orderDTO.getTotalShippingFee()}">0</p>
+                                    </div>
+                                    <div class="totalPrice">
+                                        <span>총 결제비용</span>
+                                        <p class="price red" th:text="${orderDTO.getFinalPaymentAmount()}" >65500</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="InfoWrapper">
+                                <div class="orderUser Info">
+                                    <h4>결제정보</h4>
+                                    <table class="creditInfo">
+                                        <tr>
+                                            <th>주문번호</th>
+                                            <td>[[${orderDTO.getOrder().orderId}]]</td>
+                                        </tr>
+                                        <tr>
+                                            <th>결제방법</th>
+                                            <td>[[${orderDTO.getOrder().pay}]]</td>
+                                        </tr>
+                                        <tr>
+                                            <th>주문자/연락처</th>
+                                            <td>[[${orderDTO.getOrder().memberName}]] / [[${orderDTO.getOrder().memberHp}]]</td>
+                                        </tr>
+                                        <tr>
+                                            <th>총 결제금액</th>
+                                            <td class="price" th:text="${orderDTO.getFinalPaymentAmount()}">29500</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="expectPoint Info">
+                                    <h4>적립 예상 포인트</h4>
+                                    <div>
+                                        <span>구매적립완료</span>
+                                        <p class="point" th:text="${orderDTO.getOrder().getExpectedPoint()}">32</p>
+                                    </div>
+                                    <p>
+                                        ˙ 구매적립은 구매확정 시 적립됩니다.<br>
+                                        ˙ 리뷰적립은 리뷰작성 시 적립됩니다.
+
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="delivery Info">
+                                <h4>배송정보</h4>
+                                <table class="delivery-table">
+                                    <tr>
+                                        <th>수취인</th>
+                                        <td>[[${orderDTO.getOrder().receiver}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>연락처</th>
+                                        <td>[[${orderDTO.getOrder().hp}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송지주소</th>
+                                        <td>[ [[${orderDTO.getOrder().postcode}]] ] [[${orderDTO.getOrder().addr1}]] [[${orderDTO.getOrder().addr2}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th>총 결제금액</th>
+                                        <td class="price" th:text="${orderDTO.getFinalPaymentAmount()}"></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+
+                            <!-- <div class="btn">
+                                <button class="returnShopping">쇼핑하러가기</button>
+                            </div> -->
+
+                           
+                            
+                                
+                        </div><!--sectionWrapper-->
+                    </section>
+
+    <script th:src="@{/js/marketOrderCompleted.js}"></script>
+</th:block>

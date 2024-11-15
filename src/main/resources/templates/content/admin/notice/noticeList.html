@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin QnA Page</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminnoticelist.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>공지사항</p>
+                <p>
+                    <a href="#">HOME</a>
+                    <span>></span>
+                    <a href="#">고객센터</a>
+                    <span>></span>
+                    <a href="#">공지사항</a>
+                </p>
+            </section>
+
+            <article id="admin_notice_list">
+                <div>
+                    <div>
+                        <select id="noticesearch" class="noticeselect" name="noticeType">
+                            <option value="" disabled selected>유형 선택</option>
+                            <th:block th:each="type : ${noticeTypes}">
+                                <option th:value="${type.name()}" th:text="${type.name()}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <table class="admin_notice_list_table">
+                        <colgroup>
+                            <col style="width: 7.5%">
+                            <col style="width: 7.5%">
+                            <col style="width: 10%">
+                            <col style="width: 40%">
+                            <col style="width: 10%">
+                            <col style="width: 15%">
+                            <col style="width: 10%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" class="checkbox"></th>
+                            <th>번호</th>
+                            <th>유형</th>
+                            <th>제목</th>
+                            <th>조회</th>
+                            <th>날짜</th>
+                            <th>관리</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:if="${noticePageResponseDTO.getNoticedtoList() == null}">
+                            notice가 없습니다.
+                        </th:block>
+                        <th:block th:unless="${noticePageResponseDTO.getNoticedtoList() ==null}">
+                        <tr th:each="notice, i:${noticePageResponseDTO.getNoticedtoList()}">
+                            <td><input type="checkbox" name="noticeNo" th:value="${notice.noticeNo}" class="checkboxes"></td>
+                            <td>[[${noticePageResponseDTO.startNo - i.index}]]</td>
+                            <td th:text="${notice.noticetype}">고객서비스</td>
+                            <td>
+                                <a th:href="@{/admin/notice/view(no=${notice.noticeNo})}" th:text="${notice.noticetitle}"></a>
+                            </td>
+                            <td th:text="${notice.noticehit}"></td>
+                            <td>[[${#strings.substring(notice.date,0,10)}]]</td>
+                            <td>
+                                <a th:href="@{/admin/notice/delete(no=${notice.noticeNo})}" class="admin_notice_delete_a">[삭제]</a><br>
+                                <a th:href="@{/admin/notice/modify(no=${notice.noticeNo})}">[수정]</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="notice_button">
+                        <button class="notice_delete_a" id="notice_delete_btn"> 선택삭제</button>
+                        <a th:href="@{/admin/notice/write}" class="notice_register_a">작성하기</a>
+                    </div>
+            </article>
+
+            <div class="noticepage">
+                <th:block th:if="${noticePageResponseDTO.prev}">
+                    <a th:if="${noticePageResponseDTO.getNoticeType() == null}" th:href="@{/admin/notice/list(pg=${(noticePageResponseDTO.start)-1})}" class="noticeprev">이전</a>
+                    <a th:if="${noticePageResponseDTO.getNoticeType() != null}" th:href="@{/admin/notice/list(pg=${(noticePageResponseDTO.start)-1},noticeType=${noticePageResponseDTO.noticeType})}" class="noticeprev">이전</a>
+                </th:block>
+
+                <th:block th:each="num:${#numbers.sequence(noticePageResponseDTO.start,noticePageResponseDTO.end)}">
+                    <a th:if="${noticePageResponseDTO.getNoticeType() == null}" th:href="@{/admin/notice/list(pg=${num})}" th:class="${num == noticePageResponseDTO.pg} ? 'noticecurrent' : 'noticenum'">[[${num}]]</a>
+                    <a th:if="${noticePageResponseDTO.getNoticeType() != null}" th:href="@{/admin/notice/list(pg=${num}, noticeType=${noticePageResponseDTO.noticeType})}" class="noticenum" >[[${num}]]</a>
+                </th:block>
+
+                <th:block th:if="${noticePageResponseDTO.next}">
+                    <a th:if="${noticePageResponseDTO.getNoticeType() == null}" th:href="@{/admin/notice/list(pg=${(noticePageResponseDTO.end)+1})}" class="noticenext">다음</a>
+                    <a th:if="${noticePageResponseDTO.getNoticeType() != null}" th:href="@{/admin/notice/list(pg=${(noticePageResponseDTO.end)+1}, noticeType=${noticePageResponseDTO.noticeType})}" class="noticenext">다음</a>
+                </th:block>
+            </div>
+
+        </section>
+        <script>
+            //제목줄 체크박스
+            const checkAll = document.querySelector('.checkbox');
+            //제목줄 제외 체크박스
+
+            //1. 제목줄 체크박스 클릭시
+            checkAll.addEventListener('click', function(){
+                const isChecked = checkAll.checked; // 제목줄 체크, 체크여부 변수
+                const checkBoxes = document.querySelectorAll('.checkboxes'); //제목줄 제외 체크박스
+
+                // 전체선택
+                if(isChecked){
+                    for(const checkBox of checkBoxes){
+                        checkBox.checked = true;
+
+                    }
+                    // 전체해제
+                }else {
+                    for(const checkBox of checkBoxes){
+                        checkBox.checked = false;
+
+                    }
+                }
+            })
+
+            //2. 선택항목 체크박스 클릭시 제목줄 체크박스 업데이트
+            const checkBoxes = document.querySelectorAll('.checkboxes');
+
+            checkBoxes.forEach(checkBox => {
+                checkBox.addEventListener('click' , function (){
+                    const checkCount = document.querySelectorAll('.checkboxes:checked').length;
+                    if(checkCount === checkBoxes.length){
+                        checkAll.checked = true;
+                    }else {
+                        checkAll.checked = false;
+                    }
+                })
+            })
+            const btn_check_delete = document.getElementById('notice_delete_btn');
+            btn_check_delete.addEventListener('click', function (e) {
+                e.preventDefault();
+                const checks = document.querySelectorAll('.checkboxes:checked');
+
+                if (checks.length === 0) {
+                    alert('삭제할 항목을 선택하세요');
+                    return;
+                }
+                const data = Array.from(checks).map(checkbox => checkbox.value);
+                fetch('/admin/notice/delete/check', {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                })
+                    .then(resp => {
+                        if (resp.ok == false) {
+                            throw new Error("실패")
+                        }
+                        alert('성공');
+                        checks.forEach(checkbox => {
+                            const tr = checkbox.closest('tr');
+                            if (tr) {
+                                tr.remove();
+                                location.reload(); // 새로 추가.. reload말고 다른방법 생각해보기..
+                            }
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert('실패')
+
+
+                    })
+            })
+
+        </script>
+        <!--단일삭제-->
+        <script>
+            document.querySelectorAll('.admin_notice_delete_a').forEach(button => {
+                button.addEventListener('click',function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    const deleteconfirm = confirm('정말 삭제하시겠습니까?');
+                    if(deleteconfirm){
+                        window.location.href = url;
+                    }
+                })
+            })
+            document.addEventListener('DOMContentLoaded', function() {
+                const messageDiv = document.getElementById('messageDiv');
+                const message = messageDiv.textContent;
+                if (message) {
+                    alert(message);
+                }
+            });
+        </script>
+        <script>
+            document.getElementById('noticesearch').addEventListener('change', function () {
+                const selecttype = this.value;
+                console.log("Selected type:", selecttype);
+
+                if (!selecttype) {
+                    return;
+                } else {
+                    fetch(`/admin/notice/list/check?noticeType=${selecttype}`)
+                        .then(resp => resp.json())
+                        .then(noticePageResponseDTO => {
+                            console.log("뿌애애애애애애애애앵애앵애애애애애애앵:", noticePageResponseDTO);
+                            console.log("부애앵2 :" + noticePageResponseDTO.noticedtoList.length);
+
+
+
+                            // 목록 갱신
+                            const noticeListElement = document.querySelector('.admin_notice_list_table tbody');
+                            noticeListElement.innerHTML = ''; // 기존 목록 초기화
+
+                            // 목록 업데이트
+                            noticePageResponseDTO.noticedtoList.forEach(notice => {
+                                const row = `
+                                    <tr>
+                                        <td><input type="checkbox" name="noticeNo" value="${notice.noticeNo}" class="checkboxes"></td>
+                                        <td>${noticePageResponseDTO.startNo--}</td>
+                                        <td>${notice.noticetype}</td>
+                                        <td><a href="/admin/notice/view?no=${notice.noticeNo}">${notice.noticetitle}</a></td>
+                                        <td>${notice.noticehit}</td>
+                                        <td>${notice.date.substring(0, 10)}</td>
+                                        <td>
+                                            <a href="/admin/notice/delete?no=${notice.noticeNo}" class="admin_notice_delete_a">[삭제]</a><br>
+                                            <a href="/admin/notice/modify?no=${notice.noticeNo}">[수정]</a>
+                                        </td>
+                                    </tr>`;
+                                noticeListElement.innerHTML += row;
+                            });
+
+// 페이지네이션 요소 선택
+                            const paginationElement = document.querySelector('.noticepage');
+                            paginationElement.innerHTML = ''; // 기존 내용 초기화
+
+// 이전 버튼
+                            if (noticePageResponseDTO.prev) {
+                                const prevLink = noticePageResponseDTO.noticeType == null
+                                    ? `<a href="/admin/notice/list?pg=${noticePageResponseDTO.start - 1}" class="noticeprev">이전</a>`
+                                    : `<a href="/admin/notice/list?pg=${noticePageResponseDTO.start - 1}&noticeType=${noticePageResponseDTO.noticeType}" class="noticeprevs">이전</a>`;
+                                paginationElement.innerHTML += prevLink;
+                            }
+
+// 페이지 번호
+                            for (let num = noticePageResponseDTO.start; num <= noticePageResponseDTO.end; num++) {
+                                const pageLink = noticePageResponseDTO.noticeType == null
+                                    ? `<a href="/admin/notice/list?pg=${num}" class="${num === noticePageResponseDTO.pg ? 'noticecurrent' : 'noticenum'}">${num}</a>`
+                                    : `<a href="/admin/notice/list?pg=${num}&noticeType=${noticePageResponseDTO.noticeType}" class="${num === noticePageResponseDTO.pg && noticePageResponseDTO.noticeType === noticePageResponseDTO.noticeType ? 'noticecurrents' : 'noticenums'}">${num}</a>`;
+                                paginationElement.innerHTML += pageLink;
+                            }
+
+// 다음 버튼
+                            if (noticePageResponseDTO.next) {
+                                const nextLink = noticePageResponseDTO.noticeType == null
+                                    ? `<a href="/admin/notice/list?pg=${noticePageResponseDTO.end + 1}" class="noticenexts">다음</a>`
+                                    : `<a href="/admin/notice/list?pg=${noticePageResponseDTO.end + 1}&noticeType=${noticePageResponseDTO.noticeType}" class="noticenexts">다음</a>`;
+                                paginationElement.innerHTML += nextLink;
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+            });
+
+        </script>
+</th:block>

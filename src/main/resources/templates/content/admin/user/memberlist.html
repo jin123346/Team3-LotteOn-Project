@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Member</title>
+    <link rel="stylesheet" th:href="@{/css/memberlist.css}">
+    <link rel="stylesheet" th:href="@{/css/memberlistmodal.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!--    <script th:src="@{/js/validation.js}"></script>-->
+    <script th:src="@{/js/postcode.js}"></script>
+    <script th:src="@{/js/memberlistmodal.js}"></script>
+    <!--        <script th:src="@{/js/util.js}"></script>-->
+    <script th:src="@{/js/memberList.js}"></script>
+    <script th:src="@{/js/confirmGradeChange.js}"></script>
+    <script th:src="@{/js/confirmStatusChange.js}"></script>
+    <script>
+        // DOMContentLoaded를 사용하여 DOM이 완전히 로드된 후에 함수 설정
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('btnPostCode').onclick = function () {
+                postcode(); // postcode 함수 호출
+            };
+        });
+    </script>
+
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>회원목록</p>
+                <p><a href="#">HOME</a> > 회원관리 > 회원목록</p>
+            </section>
+
+
+            <article id="admin_banner_main">
+
+                <div>
+                    <table class="admin_banner_table">
+                        <colgroup>
+                            <col style="width: 5%">
+                            <col style="width: 5%">
+                            <col style="width: 6%">
+                            <col style="width: 10%">
+                            <col style="width: 5%">
+                            <col style="width: 11%">
+                            <col style="width: 10%">
+                            <col style="width: 11%">
+                            <col style="width: 9%">
+                            <col style="width: 10%">
+                            <col style="width: 9%">
+                            <col style="width: 9%">
+                        </colgroup>
+                        <div>
+                            <select id="shopsearch">
+                                <option value="">아이디</option>
+                                <option value="">이름</option>
+                                <option value="">이메일</option>
+                                <option value="">휴대폰</option>
+                            </select>
+                            <input id="search" type="text" placeholder="검색어 입력">
+                            <button id="serachbtn" type="button">검색</button>
+                        </div>
+
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>번호</th>
+                            <th>아이디</th>
+                            <th>이름</th>
+                            <th>성별</th>
+                            <th>등급</th>
+                            <th>포인트</th>
+                            <th>이메일</th>
+                            <th>휴대폰</th>
+                            <th>가입일</th>
+                            <th>상태</th>
+                            <th>관리</th>
+                        </tr>
+                        <tr th:each="member, iterStat : ${memberList}">
+                            <td><input type="checkbox" class="memberCheckbox" th:value="${member.id}"></td>
+                            <td th:text="${member.id}"></td>  <!-- 번호 -->
+                            <td th:text="${member.user.uid}"></td>  <!-- 아이디 -->
+                            <td th:text="${member.name}"></td>      <!-- 이름 -->
+                            <td th:text="${member.gender}"></td>    <!-- 성별 -->
+                            <td>
+                                <select id="grade" th:value="${member.grade}" onchange="confirmGradeChange(this)">
+                                    <option value="VVIP" th:selected="${member.grade.name() == 'VVIP'}">VVIP</option>
+                                    <option value="VIP" th:selected="${member.grade.name() == 'VIP'}">VIP</option>
+                                    <option value="GOLD" th:selected="${member.grade.name() == 'GOLD'}">GOLD</option>
+                                    <option value="SILVER" th:selected="${member.grade.name() == 'SILVER'}">SILVER
+                                    </option>
+                                    <option value="FAMILY" th:selected="${member.grade.name() == 'FAMILY'}">FAMILY
+                                    </option>
+                                </select>
+                                <input type="hidden" value="${member.user.uid}" class="member-uid">
+                            </td>
+                            <td th:text="${member.point}"></td>    <!-- 포인트 -->
+                            <!--                            <td th:text="${member.point == 0.0 ? '0' : #numbers.formatDecimal(member.point, 0, 'COMMA')}"></td>-->
+                            <td th:text="${member.email}"></td>    <!-- 이메일 -->
+                            <td th:text="${member.hp}"></td>       <!-- 휴대폰 -->
+                            <td th:text="${member.regDate}"></td> <!-- r -->
+                            <!--                            <td th:text="${member.regDate != null ? #dates.format(member.regDate, 'yyyy-MM-dd') : ''}"></td>-->
+                            <td th:text="${member.statusDisplayName}"
+                                th:class="${ member.status.name() == 'ACTIVE' ? 'activeMember' :
+                                            (member.status.name() == 'SUSPENDED' ? 'suspended' :
+                                            (member.status.name() == 'DORMANT' ? 'dormant' :
+                                            (member.status.name() == 'WITHDRAWN' ? 'withdrawn' : '')))}">
+                            </td> <!-- 상태 이름 출력 -->
+                            <td>
+                                <a href="#" class="openModalBtn2" th:data-id="${member.user.uid}">
+                                    [수정]
+                                </a><br>
+
+                                <select id="memberStatus" th:value="${member.statusDisplayName}"
+                                        onchange="confirmStatusChange(this)">
+                                    <option value="ACTIVE" th:selected="${member.status.name() == 'ACTIVE'}">정상</option>
+                                    <option value="SUSPENDED" th:selected="${member.status.name() == 'SUSPENDED'}">중지
+                                    </option>
+                                    <option value="DORMANT" th:selected="${member.status.name() == 'DORMANT'}">휴면
+                                    </option>
+                                    <option value="WITHDRAWN" th:selected="${member.status.name() == 'WITHDRAWN'}">탈퇴
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </article>
+            <div class="list_button">
+                <button id="deleteSelectedBtn">선택삭제</button>
+            </div>
+        </section>
+
+        <div id="memberlistModal" class="modal">
+            <div class="modal-content">
+                <div class="header">
+                    <span class="close">&times;</span>
+                    <h3>회원수정</h3>
+                </div>
+                <form>
+                    <table class="modaltable">
+                        <tr>
+                            <th><label for="uid">아이디</label></th>
+                            <td>
+                                <input type="text" id="uidDisplay" name="uidDisplay" placeholder="a101" readonly>
+                                <input type="hidden" id="uid" name="uid" value="a101">
+                                <span style="margin-left: 10px;">아이디는 수정 불가</span><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="name">이름</label></th>
+                            <td>
+                                <input type="text" id="name" name="name" placeholder="홍길동" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="gender" id="gender">성별</label></th>
+                            <td>
+                                <label>
+                                    <input type="radio" name="gender" value="male"> 남
+                                </label>
+                                <label>
+                                    <input type="radio" name="gender" value="female"> 여
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="status">등급</label></th>
+                            <td><input type="text" id="status" name="status" placeholder="FAMILY" readonly>
+                                <span style="margin-left: 10px;">등급 수정은 회원 목록에서 선택수정 가능</span><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="status">상태</label></th>
+                            <td><span>정상</span><br></td>
+                        </tr>
+                        <tr>
+                            <th><label for="EMAIL">EMAIL</label></th>
+                            <td>
+                                <input type="text" id="EMAIL" name="EMAIL" placeholder="a101@naver.com" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="HP">휴대폰</label></th>
+                            <td>
+                                <input type="text" id="HP" name="HP" placeholder="010-1111-1111" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="zipcode">주소</label></th>
+                            <td>
+                                <input type="text" id="zipcode" name="postcode" placeholder="우편번호">
+                                <button type="button" id="btnPostCode">우편번호 검색</button>
+                                <input type="text" id="address1" name="addr1" placeholder="기본주소"><br>
+                                <input type="text" id="address2" name="addr12" placeholder="상세주소">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="Joindate">회원가입일</label></th>
+                            <td>
+                                <input type="text" id="Joindate" name="regDate" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="Lastlogindate">최근 로그인날짜</label></th>
+                            <td>
+                                <input type="text" id="Lastlogindate" name="lastDate" readonly>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit">수정하기</button>
+                </form>
+
+            </div>
+        </div>
+
+</th:block>
+

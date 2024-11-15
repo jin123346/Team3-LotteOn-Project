@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Banner Page</title>
+    <link rel="stylesheet"  th:href="@{/css/admin/amdinbasic.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>환경설정</p>
+                <p>
+                    <a href="#">HOME</a>
+                    <span>></span>
+                    <a href="#">환경설정</a>
+                    <span>></span>
+                    <a href="#">기본설정</a>
+                </p>
+            </section>
+            <article id="admin_version">
+                <div class="top1">버전 정보</div>
+                <div><span class="top2">현재 사이트 버전입니다.</span></div>
+                <table class="admin_version_table">
+                    <colgroup>
+                        <col style="width: 150px">
+                        <col style="width: 750px">
+                    </colgroup>
+                    <tr>
+                        <td>사이트 버전</td>
+                        <td>[[${versionInfo.ver_name}]]</td>
+                    </tr>
+                </table>
+            </article>
+            <article id="admin_site">
+                <div class="top1">사이트</div>
+                <div><span class="top2">브라우저 탭, 헤더 및 푸터 노출 정보입니다.</span></div>
+                <table class="admin_site_table">
+                    <colgroup>
+                        <col style="width: 150px;">
+                        <col style="width: 750px">
+                    </colgroup>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input type="hidden" name="hd_id"  th:value="${headerInfo.hd_id}"/> <!-- 기업 ID -->
+                            <input type="text" name="hd_title" placeholder="ex:LotteON" th:value="${headerInfo.hd_title}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>부제</td>
+                        <td>
+                            <input type="text" name="hd_subtitle" placeholder="ex: 더 나은 쇼핑을 위한 선택" th:value="${headerInfo.hd_subtitle}">
+                        </td>
+                    </tr>
+                </table>
+                <div class="basic_modi">
+                    <button type="button" onclick="submitHeaderInfo()">수정하기</button>
+                </div>
+            </article>
+            <article id="admin_logo">
+                <div class="top1">로고</div>
+                <div><span class="top2">브라우저 탭, 헤더 및 푸터 노출 로고입니다.</span></div>
+                <table class="admin_logo_table">
+                    <colgroup>
+                        <col style="width: 150px">
+                        <col style="width: 750px">
+                    </colgroup>
+                    <tr>
+                        <td>헤더 로고</td>
+                        <td>
+                            <input type="file" class="admin_logo1_image" name="hd_sName1" placeholder="선택된 파일 없음">
+                            <span><p>크기 370 x 76 권장</p></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>푸터 로고</td>
+                        <td>
+                            <input type="file" class="admin_logo2_image" name="hd_sName2" placeholder="선택된 파일 없음" th:placeholder="${headerInfo.hd_oName2}">
+                            <span><p>크기 155 x 36 권장</p></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>파비콘</td>
+                        <td>
+                            <input type="file" class="admin_logo3_image" name="hd_sName3" placeholder="선택된 파일 없음" th:value="${headerInfo.hd_sName3}">
+                            <span><p>크기 32 x 32 권장</p></span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="basic_modi">
+                    <button type="button" onclick="submitHeaderLogoInfo()">수정하기</button>
+                </div>
+            </article>
+            <article id="admin_company_info">
+                <div class="top1">기업 정보</div>
+                <div><span class="top2">푸터에 노출되는 기업 정보입니다.</span></div>
+                <table class="admin_company_info_table">
+                    <colgroup>
+                        <col style="width: 150px">
+                        <col style="width: 750px">
+                    </colgroup>
+                    <tr>
+                        <td>상호명</td>
+                        <td>
+                            <input type="hidden" name="ft_id" th:value="${footerInfo.ft_id}"/> <!-- 기업 ID -->
+                            <input type="text" name="ft_company" placeholder="ex: 롯데쇼핑 주식회사" th:value="${footerInfo.ft_company}"/> <!-- 기업명 -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>대표이사</td>
+                        <td>
+                            <input type="text" name="ft_ceo" placeholder="ex: 홍길동" th:value="${footerInfo.ft_ceo}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>사업자 등록번호</td>
+                        <td>
+                            <input type="text" name="ft_bo" placeholder="ex: 123-12-12345" th:value="${footerInfo.ft_bo}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>통신 판매업 신고</td>
+                        <td>
+                            <input type="text" name="ft_mo" placeholder="ex: 2024-서울강남-1234" th:value="${footerInfo.ft_mo}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>기본주소</td>
+                        <td>
+                            <input type="text" name="ft_addr1" placeholder="ex: 서울특별시 강남구 머시기동" th:value="${footerInfo.ft_addr1}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>상세주소</td>
+                        <td>
+                            <input type="text" name="ft_addr2" placeholder="ex: 삼성동, 머시기 빌딩 7층" th:value="${footerInfo.ft_addr2}"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="basic_modi">
+                    <button type="button" onclick="submitFooterInfo()">수정하기</button>
+                </div>
+            </article>
+
+            <article id="admin_cs_info">
+                <div class="top1">고객센터 정보</div>
+                <div><span class="top2">푸터에 노출되는 고객센터 정보입니다.</span></div>
+                <table class="admin_cs_info_table">
+                    <colgroup>
+                        <col style="width: 200px">
+                        <col style="width: 700px">
+                    </colgroup>
+                    <tr>
+                        <td>전화번호</td>
+                        <td>
+                            <input type="tel" name="ft_hp" placeholder="ex: 02-1234-1234" th:value="${footerInfo.ft_hp}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>업무시간</td>
+                        <td>
+                            <input type="text" name="ft_time" placeholder="평일 09:00 ~ 18:00" th:value="${footerInfo.ft_time}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>이메일</td>
+                        <td>
+                            <input type="email" name="ft_email" placeholder="lotte@naver.com" th:value="${footerInfo.ft_email}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>전자금융거래 분쟁담당</td>
+                        <td>
+                            <input type="tel" name="ft_troublehp" placeholder="1234-1234" th:value="${footerInfo.ft_troublehp}">
+                        </td>
+                    </tr>
+                </table>
+                <div class="basic_modi">
+                    <button type="button" onclick="submitFooterInfo()">수정하기</button>
+                </div>
+            </article>
+
+            <article id="copy_light">
+                <div class="top1">카피 라이트</div>
+                <div><span class="top2">푸터에 노출되는 카피라이트 정보입니다.</span></div>
+                <table class="copy_light_table">
+                    <colgroup>
+                        <col style="width: 150px">
+                        <col style="width: 750px">
+                    </colgroup>
+                    <tr>
+                        <td>카피 라이트</td>
+                        <td>
+                            <input type="text" name="ft_copyright" placeholder="ex: Copyright@LotteUp 머시기" th:value="${footerInfo.ft_copyright}">
+                        </td>
+                    </tr>
+                </table>
+                <div class="basic_modi">
+                    <button type="button" onclick="submitFooterInfo()">수정하기</button>
+                </div>
+            </article>
+
+        </section>
+        <script>
+
+            function submitFooterInfo() {
+                // 사용자에게 수정 여부를 확인
+                const isConfirmed = confirm("수정하시겠습니까?");
+
+                // 사용자가 "예"를 클릭한 경우
+                if (isConfirmed) {
+                    const footerInfo = {
+                        ft_id: document.querySelector('input[name="ft_id"]').value, // ID 추가
+                        ft_company: document.querySelector('input[name="ft_company"]').value,
+                        ft_ceo: document.querySelector('input[name="ft_ceo"]').value,
+                        ft_bo: document.querySelector('input[name="ft_bo"]').value,
+                        ft_mo: document.querySelector('input[name="ft_mo"]').value,
+                        ft_addr1: document.querySelector('input[name="ft_addr1"]').value,
+                        ft_addr2: document.querySelector('input[name="ft_addr2"]').value,
+                        ft_hp: document.querySelector('input[name="ft_hp"]').value,
+                        ft_time: document.querySelector('input[name="ft_time"]').value,
+                        ft_email: document.querySelector('input[name="ft_email"]').value,
+                        ft_troublehp: document.querySelector('input[name="ft_troublehp"]').value,
+                        ft_copyright: document.querySelector('input[name="ft_copyright"]').value,
+                    };
+
+                    fetch('/admin/config/footerInfo', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(footerInfo),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // 성공적으로 전송된 경우 메시지 표시
+                            alert("수정이 완료되었습니다.");
+                            console.log('Success:', data);
+                        })
+                        .catch((error) => {
+                            alert("수정이 완료되었습니다.");
+                            console.error('Error:', error);
+                        });
+                } else {
+                    // 사용자가 "아니오"를 클릭한 경우 아무 작업도 수행하지 않음
+                    alert("수정이 취소되었습니다.");
+                    console.log("수정이 취소되었습니다.");
+                }
+            }
+
+        </script>
+        <script>
+            function submitHeaderInfo() {
+
+                // 사용자에게 수정 여부를 확인
+                const isConfirmed = confirm("수정하시겠습니까?");
+
+                // 사용자가 "예"를 클릭한 경우
+                if (isConfirmed) {
+                    const formData = new FormData();
+                    // 나머지 데이터 추가
+                    formData.append('hd_id', document.querySelector('input[name="hd_id"]').value);
+                    formData.append('hd_title', document.querySelector('input[name="hd_title"]').value);
+                    formData.append('hd_subtitle', document.querySelector('input[name="hd_subtitle"]').value);
+
+                    fetch('/admin/config/headerInfo', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            alert("수정이 완료되었습니다."); // 수정 완료 메시지 표시
+                            console.log('Success:', data);
+                        })
+                        .catch((error) => {
+                            alert("수정이 완료되었습니다.");
+                            console.error('Error:', error);
+                        });
+                } else {
+                    // 사용자가 "아니오"를 클릭한 경우 아무 작업도 수행하지 않음
+                    console.log("수정이 취소되었습니다.");
+                }
+            }
+
+        </script>
+
+        <script>
+            function submitHeaderLogoInfo(){
+
+                const isConfirmed = confirm("수정하시겠습니까?");
+
+                if (isConfirmed) {
+                    const formData = new FormData();
+                    const file1 = document.querySelector('input[name="hd_sName1"]').files[0];
+                    const file2 = document.querySelector('input[name="hd_sName2"]').files[0];
+                    const file3 = document.querySelector('input[name="hd_sName3"]').files[0];
+
+                    if (!file1 || !file2 || !file3) {
+                        alert("모든 로고 파일을 선택해야 수정이 가능합니다."); // 에러 메시지 표시
+                        return; // 함수 종료
+                    }
+
+                    // 파일이 선택되었는지 확인
+                    if (file1) {
+                        formData.append('file1', file1);
+                    } else {
+                        console.error("헤더 로고 파일이 선택되지 않았습니다.");
+                    }
+                    if (file2) {
+                        formData.append('file2', file2);
+                    } else {
+                        console.error("푸터 로고 파일이 선택되지 않았습니다.");
+                    }
+                    if (file3) {
+                        formData.append('file3', file3);
+                    } else {
+                        console.error("파비콘 파일이 선택되지 않았습니다.");
+                    }
+
+                    formData.append('hd_id', document.querySelector('input[name="hd_id"]').value);
+
+                    fetch('/admin/config/headerLogoInfo', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            alert("수정이 완료되었습니다."); // 수정 완료 메시지 표시
+                            console.log('Success:', data);
+                        })
+                        .catch((error) => {
+                            alert("수정이 완료되었습니다.");
+                            console.error('Error:', error);
+                        });
+                } else {
+                    // 사용자가 "아니오"를 클릭한 경우 아무 작업도 수행하지 않음
+                    console.log("수정이 취소되었습니다.");
+                }
+
+
+            }
+        </script>
+</th:block>

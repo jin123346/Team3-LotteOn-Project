@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카테고리 관리</title>
+  <link rel="shortcut icon" th:href="@{/uploads/ConfigImg/favicon.ico}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/css/admin/config/category.css}" />
+  <style>
+    .category-item {
+      padding: 10px;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+      border: 1px solid #e9ecef;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .category-item.dragging {
+      opacity: 0.5;
+    }
+
+    .toggle-icon {
+      cursor: pointer;
+    }
+
+    .subcategory-list {
+      display: none;
+      padding-left: 20px;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .add-category-section, .add-subcategory-section {
+      margin-top: 20px;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .add-category-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>카테고리 관리</h1>
+
+  <ul class="category-list" id="categoryList">
+    <!-- Category items will be loaded dynamically -->
+  </ul>
+
+  <div class="add-category-section">
+    <input type="text" id="newCategoryInput" placeholder="1차 카테고리 이름을 입력하세요" />
+    <button class="add-category-btn" id="addCategoryBtn">+ 1차 카테고리 추가</button>
+  </div>
+
+  <div class="info-box">
+    <p>카테고리 메뉴 순서를 변경할 때 드래그 앤 드롭으로 1차, 2차 카테고리 메뉴 이동 후 수정하기를 클릭합니다.</p>
+  </div>
+
+  <button class="submit-btn" id="submitBtn">수정하기</button>
+</div>
+
+<script>
+  let draggedElement = null;
+
+  // Event Listener for Drag-and-Drop
+  document.getElementById('categoryList').addEventListener('dragstart', function (event) {
+    const target = event.target.closest('.category-item, .subcategory-item');
+    if (target) {
+      draggedElement = target;
+      event.dataTransfer.effectAllowed = 'move';
+      target.classList.add('dragging');
+    }
+  });
+
+  document.getElementById('categoryList').addEventListener('dragover', function (event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  });
+
+  document.getElementById('categoryList').addEventListener('drop', function (event) {
+    event.preventDefault();
+    const targetElement = event.target.closest('.category-item, .subcategory-item');
+    if (targetElement && draggedElement) {
+      if (draggedElement.classList.contains('category-item') && targetElement.classList.contains('category-item')) {
+        document.getElementById('categoryList').insertBefore(draggedElement, targetElement.nextSibling);
+      } else if (draggedElement.classList.contains('subcategory-item') && targetElement.classList.contains('subcategory-item')) {
+        const draggedParentCategory = draggedElement.closest('.category-item');
+        const targetParentCategory = targetElement.closest('.category-item');
+        if (draggedParentCategory === targetParentCategory) {
+          targetElement.closest('.subcategory-list').insertBefore(draggedElement, targetElement.nextSibling);
+        } else {
+          alert("2차 카테고리는 다른 1차 카테고리로 이동할 수 없습니다.");
+        }
+      } else {
+        alert("다른 계층 간에는 이동할 수 없습니다.");
+      }
+    }
+
+    if (draggedElement) {
+      draggedElement.classList.remove('dragging');
+      draggedElement = null;
+    }
+  });
+
+  // Event Listener for Adding 1st Level Category
+  document.getElementById('addCategoryBtn').addEventListener('click', function () {
+    const categoryName = document.getElementById('newCategoryInput').value.trim();
+    if (!categoryName) {
+      alert('1차 카테고리 이름을 입력해주세요.');
+      return;
+    }
+    const newCategoryItem = createCategoryItem(categoryName);
+    document.getElementById('categoryList').appendChild(newCategoryItem);
+    document.getElementById('newCategoryInput').value = '';  // Clear input
+  });
+
+  // Create Category Item (1st Level)
+  function createCategoryItem(categoryName) {
+    const newCategoryItem = document.createElement('li');
+    newCategoryItem.classList.add('category-item');
+    newCategoryItem.setAttribute('draggable', 'true');
+    newCategoryItem.innerHTML = `
+            <div class="category-header">
+                <span class="toggle-icon">▶</span>
+                <span>${categoryName}</span>
+                <button class="delete-btn">삭제</button>
+            </div>
+            <ul class="subcategory-list"></ul>
+            <button class="add-btn">+ 2차 카테고리 추가</button>
+            <div class="add-subcategory-section" style="display: none;">
+                <input type="text" class="newSubcategoryInput" placeholder="2차 카테고리 이름을 입력하세요" />
+                <button class="add-subcategory-btn">+ 추가</button>
+            </div>
+        `;
+
+    // Toggle Subcategory
+    newCategoryItem.querySelector('.toggle-icon').addEventListener('click', function () {
+      const subcategoryList = newCategoryItem.querySelector('.subcategory-list');
+      subcategoryList.style.display = subcategoryList.style.display === 'none' || !subcategoryList.style.display ? 'block' : 'none';
+    });
+
+    // Delete Category
+    newCategoryItem.querySelector('.delete-btn').addEventListener('click', function () {
+      if (confirm('이 카테고리를 삭제하시겠습니까?')) {
+        newCategoryItem.remove();
+      }
+    });
+
+    // Add Subcategory
+    newCategoryItem.querySelector('.add-btn').addEventListener('click', function () {
+      const subcategorySection = newCategoryItem.querySelector('.add-subcategory-section');
+      subcategorySection.style.display = subcategorySection.style.display === 'none' || !subcategorySection.style.display ? 'block' : 'none';
+    });
+
+    newCategoryItem.querySelector('.add-subcategory-btn').addEventListener('click', function () {
+      const subcategoryInput = newCategoryItem.querySelector('.newSubcategoryInput');
+      const subcategoryName = subcategoryInput.value.trim();
+      if (!subcategoryName) {
+        alert('2차 카테고리 이름을 입력하세요.');
+        return;
+      }
+
+      const subcategoryList = newCategoryItem.querySelector('.subcategory-list');
+      const newSubcategoryItem = document.createElement('li');
+      newSubcategoryItem.classList.add('subcategory-item');
+      newSubcategoryItem.setAttribute('draggable', 'true');
+      newSubcategoryItem.innerHTML = `
+                <span>${subcategoryName}</span>
+                <button class="delete-btn">삭제</button>
+            `;
+
+      // Delete Subcategory
+      newSubcategoryItem.querySelector('.delete-btn').addEventListener('click', function () {
+        if (confirm('이 카테고리를 삭제하시겠습니까?')) {
+          newSubcategoryItem.remove();
+        }
+      });
+
+      subcategoryList.appendChild(newSubcategoryItem);
+      subcategoryInput.value = '';  // Clear input
+    });
+
+    return newCategoryItem;
+  }
+
+  // Event Listener for Submit (Reorder Categories)
+  document.getElementById('submitBtn').addEventListener('click', function () {
+    alert('카테고리 순서가 업데이트되었습니다.');
+    // Here you can implement saving the updated order to the database
+  });
+</script>
+</body>
+</html>

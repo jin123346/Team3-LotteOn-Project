@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/sellerLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Coupon</title>
+    <link rel="stylesheet"   th:href="@{/css/admin/adminCoupon.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+
+            <div id="admin_service">    
+                <section>
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+                    <section id="admin_navi">
+                            <p>쿠폰목록</p>
+                            <p><a href="#">HOME > 쿠폰관리</a> > 쿠폰목록</p>
+                    </section>
+<!-- 작업 내용 추가 -->
+<div class="coupon-container">
+    <div class="coupon-header">
+        <select id="searchCategory">
+            <option value="" disabled selected>선택하세요</option> <!-- 기본 선택 안내 문구 -->
+            <option value="couponName">1.쿠폰명</option>
+            <option value="sellerCompany">2.발급자</option>
+        </select>
+
+        <input type="text" id="searchQuery" placeholder="검색어 입력" class="search-input">
+        <button id="searchBtnCoupon" class="search-btn">검색</button>
+    </div>
+    <div class="div-table-overflow-x">
+        <table class="coupon-table" id="couponTable">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">쿠폰번호</th>
+                    <th style="text-align: center;">쿠폰명</th>
+                    <th style="text-align: center;">쿠폰종류</th>
+                    <th style="text-align: center;">혜택</th>
+                    <th style="text-align: center;">사용기간</th>
+                    <th style="text-align: center;">발급자</th>
+                    <th style="text-align: center;">발급수</th>
+                    <th style="text-align: center;">사용수</th>
+                    <th style="text-align: center;">상태</th>
+                    <th style="text-align: center;">발급일</th>
+                    <th style="text-align: center;">관리</th>
+                </tr>
+            </thead>
+            <tbody id="couponTbody">
+            <tr th:each="coupon : ${couponList}" id="couponList">
+                <td><a href="#" class="order-link"
+                       th:data-coupon-id="${coupon.couponId}"
+                       th:data-issuer="${coupon.sellerCompany}"
+                       th:data-type="${coupon.couponType}"
+                       th:data-name="${coupon.couponName}"
+                       th:data-benefit="${coupon.benefit}"
+                       th:data-period="${coupon.startDate} + ' ~ ' + ${coupon.endDate}"
+                       th:data-notes="${coupon.notes}"
+                       th:text="${coupon.couponId}"></a>
+                </td>
+                <td th:text="${coupon.couponName}"></td>
+                <td th:text="${coupon.couponType}"></td>
+                <td th:text="${coupon.benefit}"></td>
+                <td>
+                    <span th:text="${coupon.startDate}"></span> ~
+                    <span th:text="${coupon.endDate}"></span>
+                </td>
+                <td th:text="${coupon.sellerCompany}"></td>
+                <td th:text="${coupon.issuedCount}"></td>
+                <td th:text="${coupon.usedCount}"></td>
+                <td class="coupon-status" th:text="${coupon.status}"></td>
+                <td th:text="${coupon.rdate}"></td>
+                <td><button class="end-button">종료</button></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <button class="add-coupon-btn">쿠폰등록</button>
+
+    <div class="pagination">
+        <th:block th:if="${responseDTO.pg > 1}">
+            <a th:href="@{/seller/coupon/list(page=${responseDTO.pg - 1})}" class="page-btn">＜</a>
+        </th:block>
+
+        <th:block th:each="i : ${#numbers.sequence(1, (responseDTO.total + responseDTO.size - 1) / responseDTO.size)}">
+            <a th:href="@{/seller/coupon/list(page=${i})}" th:class="${i == responseDTO.pg} ? 'active' : ''" class="num">
+                [[${i}]]
+            </a>
+
+        </th:block>
+
+        <th:block th:if="${responseDTO.pg < (responseDTO.total + responseDTO.size - 1) / responseDTO.size}">
+            <a th:href="@{/seller/coupon/list(page=${responseDTO.pg})}" class="page-btn">＞</a>
+        </th:block>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+</section>
+<!--모달 추가-->
+                <!-- 쿠폰 번호 모달 -->
+                <div id="couponModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>쿠폰/ 정보</h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 70%;">
+                                </colgroup>
+                                <tr>
+                                    <td>쿠폰번호</td>
+                                    <td><span id="modalCouponNumber"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>발급처</td>
+                                    <td><span id="modalIssuer"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>쿠폰종류</td>
+                                    <td><span id="modalCouponType"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>쿠폰명</td>
+                                    <td><span id="modalCouponName"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>혜택</td>
+                                    <td><span id="modalBenefit"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>사용기간</td>
+                                    <td><span id="modalPeriod"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>유의사항</td>
+                                    <td><span id="modalNotes"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-close-btn">닫기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 쿠폰 등록 모달 -->
+                <div id="addCouponModal" class="modal"
+                     th:data-seller-id="${seller != null ? seller.id : '정보 없음'}"
+                     th:data-seller-company="${seller != null ? seller.company : '정보 없음'}">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>쿠폰등록</h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="couponForm">
+                                <table>
+                                    <tr>
+                                        <td><label>발급처</label></td>
+                                        <td>
+                                            <span th:text="${seller != null ? seller.company : '정보 없음'}"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="couponType">쿠폰 종류</label></td>
+                                        <td>
+                                            <select id="couponType" name="couponType">
+                                                <option value="" disabled selected>종류 선택</option>
+                                                <option value="discount">개별상품할인</option>
+                                                <option value="gift" th:if="${userRoles.contains('ROLE_ADMIN')}">주문상품할인</option>
+                                                <option value="free" th:if="${userRoles.contains('ROLE_ADMIN')}">배송비 무료</option>
+                                            </select>
+                                            <select id="productSelect" >
+                                                <option value="" disabled selected>쿠폰 적용상품</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="couponName">쿠폰명</label></td>
+                                        <td><input type="text" id="couponName" name="couponName"
+                                                   placeholder="쿠폰명 입력"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>혜택</label></td>
+                                        <td>
+                                            <div class="benefit-options">
+                                                <label><input type="radio" name="benefit" value="1000">
+                                                    1,000 할인</label>
+                                                <label><input type="radio" name="benefit" value="2000">
+                                                    2,000 할인</label>
+                                                <label><input type="radio" name="benefit" value="3000">
+                                                    3,000 할인</label>
+                                                <label><input type="radio" name="benefit" value="4000">
+                                                    4,000 할인</label>
+                                                <label><input type="radio" name="benefit" value="5000">
+                                                    5,000 할인</label>
+                                                <label><input type="radio" name="benefit" value="10%"> 10%
+                                                    할인</label>
+                                                <label><input type="radio" name="benefit" value="20%"> 20%
+                                                    할인</label>
+                                                <label><input type="radio" name="benefit" value="30%"> 30%
+                                                    할인</label>
+                                                <label><input type="radio" name="benefit" value="40%"> 40%
+                                                    할인</label>
+                                                <label><input type="radio" name="benefit" value="50%"> 50%
+                                                    할인</label>
+                                                <label><input type="radio" name="benefit"
+                                                              value="freeShipping"> 배송비 무료</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="restrictions">적용 기준</label></td>
+                                        <td>
+                                            <input type="text" id="restrictions" name="restrictions" placeholder="1000원 단위로 입력해 주세요(숫자만 입력해 주세요)"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="startDate">사용 기간</label></td>
+                                        <td>
+                                            <input type="date" id="startDate" name="startDate">
+                                            <span>~</span>
+                                            <input type="date" id="endDate" name="endDate">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="notes">유의사항</label></td>
+                                        <td><textarea id="notes" name="notes"
+                                                      placeholder="유의사항 입력"></textarea></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-close-btn" id="cancelBtn">취소</button>
+                            <button class="modal-close-btn" id="submitBtn">등록</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+<script src="/js/adminCouponModal.js"></script>
+</th:block>

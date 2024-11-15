@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/user/couponDetail.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+        <div class="info">
+            <p class="info-title">나의 쇼핑정보</p>
+            <div class="summary-table">
+                <div class="summary-item">
+                    <span>주문</span><br>
+                    <span class="summary-value" th:text="${orderCount}">2</span>
+                </div>
+                <div class="summary-item">
+                    <span>쿠폰</span><br>
+                    <span class="summary-value" th:text="${IssuedList.size()}"></span>
+                </div>
+                <div class="summary-item">
+                    <span>포인트</span><br>
+                    <span class="summary-value" th:text="${totalPoints}">1,000</span> <!-- 최종 포인트 값 출력 -->
+                </div>
+                <div class="summary-item">
+                    <span>문의</span><br>
+                    <span class="summary-value">1</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="container">
+            <aside>
+                <ul>
+                    <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+                    <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+                    <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+                    <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+                    <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+                    <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+                </ul>
+            </aside>
+
+
+            <div class="center">
+
+                <div class="slider-wrapper">
+                    <div class="ad" th:each="banner : ${banners}" th:if="${banner.ban_location} == '마이페이지 배너'">
+                        <a th:href="${banner.ban_link}" target="_blank">
+                            <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="details">
+                        <p>쿠폰내역</p>
+                    </div>
+
+                    <table class="coupon-table">
+                        <tbody>
+                        <tr class="font">
+                            <th>쿠폰명</th>
+                            <th>할인금액</th>
+                            <th>적용기준/제한조건</th>
+                            <th>상태</th>
+                            <th>유효기간</th>
+                        </tr>
+<!--                        <tr th:if="${#lists.isEmpty(IssuedList)}">-->
+<!--                            <td colspan="6" style="text-align: center;">발급된 쿠폰이 없습니다.</td>-->
+<!--                        </tr>-->
+                        <!-- 쿠폰이 없을 때 표시할 내용 -->
+                        <tr th:if="${#lists.isEmpty(IssuedList)}">
+                            <td colspan="5" style="text-align: center;">
+                                <div class="coupon-empty" style="display: flex; flex-direction: column; align-items: center; padding: 80px; justify-content: center; font-size: 15px;">
+                                    <img src="/images/common/icon_no_result.svg" alt="No coupons"><br>
+                                    <span>발급된 쿠폰이 없습니다.</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 발급된 쿠폰이 있을 경우 -->
+                        <tr th:each="issued : ${IssuedList}" style="border-bottom: 1px solid #dddddd">
+                            <td th:text="${issued.couponName}"></td>
+                            <td th:text="${issued.benefit}"></td> <!-- 할인금액에 해당하는 필드 -->
+                            <td th:text="${issued.restrictions}"></td> <!-- 제한조건에 해당하는 필드 -->
+                            <td th:text="${issued.status != null ? issued.status : '미사용'}"></td>
+                            <td th:text="${issued.startDate} + ' ~ ' + ${issued.endDate}"></td> <!-- 유효기간 -->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="couponguide">
+                    <ul>
+                        <li>순금 / 골드바 / 돌반지 / 상품권 등 환금성 카테고리 및 중고상품 및 일부 프로모션 상품에는 쿠폰사용이 제한됩니다.</li>
+                        <li>쿠폰 적용 가능한 금액 기준은 판매자 상품별 할인과 G마켓 추가할인이 모두 포함된 할인적용가입니다.</li>
+                        <li>중복쿠폰은 판매자 할인, G마켓 할인과 중복 적용 가능하며 하나의 상품당 한장의 중복쿠폰만 사용 가능합니다.</li>
+                        <li>항공 할인은 항공권 전용 할인으로 결제 시점에 할인 혜택을 받을 수 있습니다.</li>
+                        <li>항공권 예약취소 또는 환불시 적용했던 항공할인은 id당 1회 한하여 다시 발급 됩니다.</li>
+                    </ul>
+
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+    <script th:src="@{/js/couponDetails.js}"></script>
+</th:block>
+</body>
+</html>

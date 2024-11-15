@@ -1,0 +1,245 @@
+*{margin: 0; padding:0; font-family: '고딕', sans-serif; box-sizing: border-box; font-size: 12px;}
+html{color:#111; position:relative;}
+html, body{height:100%;}
+ol,ul {list-style: none}
+a {text-decoration: none; color: inherit;}
+.hidden {display: none;}
+
+#wrapper {width: 100%; height: auto; display: flex; flex-direction: column;}
+
+
+
+/*관리자 헤더*/
+#admin_header {width: 100%; height: 100px; margin: 0 auto; background: linear-gradient(to bottom, rgb(239, 42, 35) 73%, rgba(239, 42, 35, 0.527) 27%); border-bottom: 0.1px solid #ffe8e8;}
+
+#admin_top {width: 1200px; margin: 0 auto; display: flex; height: 100px;}
+/*로고 + 홈, 로그인, 로그아웃*/
+.top_log {display: block;  width: 150px; height: 30px; margin: 20px;}
+
+
+
+
+/*메인*/
+#admin_main {
+    flex: 1;
+    width: 1200px;
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+}
+/*메인 컨테이너*/
+#admin_container {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;        
+}
+/*관리자 어사이드*/
+#admin_aside {
+    width: 200px;
+    box-sizing: border-box;
+    background-color: #293042; /* 배경색 추가 */
+    padding: 10px; /* 내부 여백 추가 */
+}
+
+/* 어사이드 - 관리자 메인 */
+.aside_first {
+    margin: 55px 0 10px 10px;
+}
+#admin_aside_list img {
+    /*width: 100px; height: 23px; */
+    margin: 18px auto 0;}
+
+.aside_first  h2 a {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    color: rgb(182, 182, 182); /* 글자색 조정 */
+    text-align: left; /* 중앙 정렬 */
+}
+
+/* 어사이드 - 메뉴 */
+.aside_second {
+    /*border-top: 1px solid rgb(196, 196, 196);/*
+    /*border-bottom: 1px solid rgb(196, 196, 196);*/
+    margin: 20px 0 10px 10px;
+}
+
+.admin_menu {
+    margin-top: 10px;  /* 위쪽 간격 줄이기 */
+    margin-bottom: 10px; /* 아래쪽 간격 줄이기 */
+}
+
+.admin_menu > li {
+    cursor: pointer;
+    padding: 5px; /* 항목 여백 추가 */
+    border-radius: 5px; /* 항목 둥글게 */
+    /*transition: background 0.3s; !* 배경 변화 효과 *!*/
+    color: rgb(174, 174, 174);
+}
+
+.admin_menu li > ul > li:hover {
+    color: #ef2a23;
+
+    background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+}
+
+.admin_menu li > ul > li.active {
+    color: #ef2a23;
+    text-decoration-line: underline;
+}
+
+
+
+/* 서브 메뉴 */
+.admin_sub_menu {
+    visibility: hidden;
+    padding: 5px;
+    padding-left: 20px;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+    overflow: hidden;
+    /* background-color: #f0f0f0; 서브 메뉴 배경색 */
+    border-radius: 5px; /* 둥글게 */
+}
+
+.admin_sub_menu.open {
+    max-height: 196px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin_sub_menu > li {
+    margin: 5px;
+    padding: 5px 10px; /* 서브 메뉴 항목 여백 추가 */
+    border-radius: 3px; /* 서브 메뉴 항목 둥글게 */
+    transition: background 0.3s; /* 서브 메뉴 항목 배경 변화 효과 */
+}
+
+/* 메인 서비스 */
+#admin_service {
+    display: flex; /* 내부 콘텐츠를 flexbox로 */
+    flex-direction: column; 
+    flex-grow: 1;
+    min-width: 0;
+    width: 1000px;
+    background-color: rgb(247,249,252);
+}
+
+.admin_gate { 
+height: 65px;
+background-color: rgb(255, 255, 255);
+display: flex;
+justify-content: space-between; /* 왼쪽과 오른쪽으로 구분 */
+align-items: center; /* 수직 중앙 정렬 */
+padding-right: 20px;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
+}
+
+.left-icons {
+display: flex;
+align-items: center; /* 수직 중앙 정렬 */
+justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.left-icons a {
+margin-left: 25px; /* 아이콘 간 간격 */
+}
+
+.left-icons a img {
+width: 20px;
+height: 20px; /* 아이콘 크기 20x20 */
+}
+
+.right-icons {
+display: flex;
+align-items: center;
+justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.right-icons a {
+margin-left: 25px; /* 아이콘 간 간격 */
+}
+
+.right-icons a img {
+width: 20px;
+height: 20px;
+}
+
+.right-icons span {
+margin-left: 13px; /* span과 마지막 아이콘 사이의 간격 */
+}
+
+a:hover {font-weight: bold; text-decoration: underline;}
+
+
+/* 내비게이션 */
+#admin_navi {
+    width: 900px;
+    height: auto;
+    
+    display: flex;
+    margin: 30px auto;
+}
+
+#admin_navi p:nth-of-type(1):before {
+    content: ""; 
+    display: inline-block; 
+    width: 5px; 
+    height: 13px; 
+    background-color: #161a1f; 
+    margin-right: 5px; 
+}
+
+#admin_navi p {
+    font-size: 15px; 
+    font-weight: bold; 
+    margin-top: 5px; 
+}
+
+#admin_navi p:nth-of-type(2) {
+    margin-left: auto;
+}
+
+
+
+
+/*footer*/
+#admin_footer {
+padding-top: 10px;
+padding-bottom: 10px;
+padding-left: 20px;
+width: 100%;
+background: #ffffff ;
+box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
+}
+
+     
+/*접고 열기*/
+#admin_service {
+width: 1000px; /* 기본 너비 */
+transition: width 0.3s; /* 부드러운 전환 효과 */
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+#admin_service.expanded {
+width: 1200px; /* aside가 숨겨질 때의 너비 */
+}
+
+#admin_gate {
+width: 100%; /* 기본적으로 100%로 설정 */
+transition: width 0.3s ease; /* 너비에 대한 부드러운 전환 효과 */
+}
+
+#admin_service.expanded #admin_gate {
+width: calc(1200px - 200px); /* aside가 숨겨질 때 gate의 너비 조정 */
+}
+
+#admin_aside.hidden {
+width: 0;
+padding: 0;
+overflow: hidden;
+}

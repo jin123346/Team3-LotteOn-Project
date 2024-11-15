@@ -1,0 +1,10 @@
+<div id="aside">
+    <h1>자주 묻는 질문</h1>
+    <div class="aside_list">
+        <ul>
+            <li th:each="board : ${boardCate}">
+                <a href="#" class="selectOptions" th:data-id="${board.boardCateId}" th:text="${board.name}"></a>
+            </li>
+        </ul>
+    </div>
+</div>

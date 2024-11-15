@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::FAQ</title>
+    <link rel="stylesheet"  th:href="@{/css/admin/adminmodify.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+                        <div id="admin_service">    
+                            <section>
+                                <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                                <section id="admin_navi">
+                                        <p>고객센터</p>
+                                        <p>
+                                            <a href="#">HOME</a>
+                                            <span>></span>
+                                            <a href="#">고객센터</a>
+                                            <span>></span>
+                                            <a href="#">자주묻는질문</a>
+                                        </p>
+                                </section>
+                                <div class="write-box">
+                                    <aside id="adminAside"></aside>
+                                    <div class="coment-box">
+                                        <form class="write-coment">
+                                            <div class="write-table">
+                                                <input type="hidden" class="hidden" th:value="${faq.faqNo}" name="faqNo">
+                                                <div class="write-type">
+                                                    <div>유형</div>
+                                                    <div>
+                                                        <td>
+                                                            <select class="first_choice" name="faqtype1" id="selectOption1">
+                                                                <option th:value="${faq.category.getParent().getName()}"  disabled selected th:text="${faq.category.getParent().getName()}">1차 선택</option>
+                                                                <th:block th:each="board : ${boardCate}">
+                                                                    <option th:value="${board.boardCateId}" th:text="${board.name}"></option>
+                                                                </th:block>
+                                                            </select>
+                                                            <select class="second_choice" name="categoryid" id="selectOption2">
+                                                                <option th:value="${faq.category.getBoardCateId()}" selected th:text="${faq.category.getName()}"></option>
+                                                            </select>
+                                                        </td>
+                                                    </div>
+                                                </div>
+                                                <div class="write-title">
+                                                    <div>제목</div>
+                                                    <div>
+                                                        <input th:value="${faq.faqtitle}" name="faqtitle">
+                                                    </div>
+                                                </div>
+                                                <div class="write-input">
+                                                    <div>내용</div>
+                                                    <div>
+                                                        <textarea class="faq-contents" th:value="${faq.faqcontent}" th:text="${faq.faqcontent}" oninput="autoResize(this)" name="faqcontent"></textarea>
+                                                    </div>
+                                                </div>
+                                        </form>
+                                        <div class="write-btn-controoler">
+                                            <a class="write-btn-cancel" th:href="@{/admin/faq/list}">취소하기</a>
+                                            <a class="write-btn-modify" href="#">수정하기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <script>
+                                const modifybtn = document.getElementsByClassName('write-btn-modify')[0];
+                                const form = document.getElementsByTagName('form')[0];
+
+                                modifybtn.addEventListener('click',function (e){
+                                    e.preventDefault();
+
+                                    const data = new FormData(form);
+
+                                    fetch('/admin/faq/modify', {
+                                        method : 'post',
+                                        body : data
+                                    })
+                                        .then(resp => resp.json())
+                                        .then(data => {
+                                            console.log(data);
+                                            if(data != null){
+                                                alert('수정되었습니다.');
+                                                window.location.href="/admin/faq/list"
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
+
+
+                                })
+
+
+                            </script>
+                            <script>
+                                const selectOption1 = document.getElementById('selectOption1');
+                                const selectOption2 = document.getElementById('selectOption2');
+
+                                selectOption1.addEventListener('change',function(){
+                                    const parentId = this.value;
+
+                                    selectOption2.innerHTML = '<option value="2차 선택" disabled selected>2차 선택</option>';
+
+                                    fetch(`/api/faq/subcate/${parentId}`)
+                                        .then(resp => resp.json())
+                                        .then(data => {
+                                            console.log(data);
+                                            data.forEach(boardsubCate => {
+                                                const option = document.createElement('option');
+                                                option.value = boardsubCate.boardCateId;
+                                                option.text = boardsubCate.name;
+                                                selectOption2.appendChild(option)
+                                            })
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
+
+
+                                })
+
+                            </script>
+</th:block>

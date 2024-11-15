@@ -1,0 +1,45 @@
+.admin_menu > li:nth-child(2) .admin_sub_menu > li:nth-child(2) > a {
+    text-decoration: underline;
+}
+
+.admin_banner {
+   width: 900px;
+   background-color: #bdbdbd;
+   height: 50px;
+
+   margin: 20px auto;
+}
+.banner_menu {
+   display: flex;
+   justify-content: left;
+}
+.banner_menu li {
+   width: 90px;
+   display: flex;
+   height: 50px;
+   margin: 0 auto;
+   color: rgb(24, 24, 24);
+   font-weight: bold;
+   cursor: pointer;
+   transition: color 0.3s;
+   align-items: center;
+   justify-content: center;
+}
+
+.banner_menu li:hover {
+   color: #ddd;
+}
+
+#admin_banner_main div {font-weight: bold; margin: 20px auto; width: 900px;}
+.admin_banner_table {width: 900px; border-collapse: collapse; border-top: 1px solid black;}
+.admin_banner_table td, th {border-bottom: 1px solid rgba(172, 172, 172, 0.5); height: 80px; text-align: center;}
+.admin_banner_table th {height: 50px;}
+
+#shopsearch {
+   width: 95px;
+   height: 33px;
+}
+tr a{
+text-decoration: underline;
+}
+

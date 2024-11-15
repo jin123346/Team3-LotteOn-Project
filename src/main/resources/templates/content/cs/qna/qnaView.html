@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/csLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LotteOn</title>
+    <link rel="stylesheet" th:href="@{/css/cs/qnaview.css}">
+    <link rel="stylesheet" th:href="@{/css/cs/popup.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <th:block th:replace="~{aside/qnaAside}"></th:block>
+    <div id="service">
+        <div class="title">
+            <h2 th:text="${qna.category.getParent().name}"></h2>
+            <p th:text = "${qna.category.getParent().name} + '관련 자주 묻는 질문입니다.'"></p>
+        </div>
+
+        <div class="qna-section">
+            <table class="qna-table" th:classappend="${isPopup} ? 'blur-content'">
+                <colgroup>
+                    <col style="width: 150px">
+                    <col style="width: 750px">
+                </colgroup>
+                <tr>
+                    <th colspan="2" class="signup-title">
+                        <span th:text="${qna.qnatitle}" style="font-weight: bold; color: #333; font-size: 16px;"></span>
+                        <div class="qinfo-container">
+                            <span class="qinfo-label" th:text="${qna.qnawriter}"></span>
+                            <span class="qinfo-label">[[${#strings.substring(qna.date,0,10)}]]</span>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="qcontent-label">[내용]</td>
+                    <td th:text="${qna.qnacontent}">질문 내용</td>
+                </tr>
+                <tr>
+                    <th colspan="2">답변</th>
+                </tr>
+                <tr>
+                    <td class="acontent-label">[답변]</td>
+                    <td th:text="${qna.qna_status.name() == 'completed' ? qna.qnareply : '아직 답변이 완료되지 않았습니다.'}">답변 내용</td>
+                </tr>
+            </table>
+
+            <div class="button-section">
+                <button class="list-btn" th:onclick="|location.href='@{/cs/qna/list}'|">목록</button>
+            </div>
+
+            <div th:if="${isPopup}" class="overlay" onclick="hidePopup()"></div>
+            <div th:if="${isPopup}" class="modal">
+                <p>본인이 작성한 글만 확인할 수 있습니다</p>
+                <button onclick="closeModal()">확인</button>
+            </div>
+        </div>
+    </div>
+    <!-- 팝업 및 오버레이 추가 -->
+    <div class="popup-container" th:if="${isPopup}">
+        <div class="popup-message" th:utext="${popupMessage}"></div>
+        <button class="popup-button" onclick="hidePopup();">확인</button>
+    </div>
+
+    <!-- 스크립트 추가 -->
+    <script th:inline="javascript">
+        let isPopup = /*[[${isPopup}]]*/ false;
+
+        function hidePopup() {
+            document.querySelector('.overlay').style.display = 'none';
+            document.querySelector('.popup-container').style.display = 'none';
+            closeModal(); // 모달도 닫기
+        }
+
+        function showPopup() {
+            if (isPopup) {
+                document.querySelector('.overlay').style.display = 'block';
+                document.querySelector('.popup-container').style.display = 'block';
+                document.querySelector('.qna-table').classList.add('blur-content'); // 테이블에 블러 처리
+            }
+        }
+
+        function closeModal() {
+            document.querySelector('.overlay').style.display = 'none';
+            document.querySelector('.modal').style.display = 'none';
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            showPopup(); // 모달을 보여주는 함수 호출
+        });
+    </script>
+</th:block>
+</body>

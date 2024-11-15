@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link  rel="stylesheet" th:href="@{/css/user/pointdetails.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+    <div class="info">
+        <p class="info-title">나의 쇼핑정보</p>
+        <div class="summary-table">
+            <div class="summary-item">
+                <span>주문</span><br>
+                <span class="summary-value" th:text="${orderCount}">2</span>
+            </div>
+            <div class="summary-item">
+                <span>쿠폰</span><br>
+                <span class="summary-value" th:text="${IssuedList.size()}"></span>
+            </div>
+            <div class="summary-item">
+                <span>포인트</span><br>
+                <span class="summary-value" th:text="${totalPoints}">1,000</span> <!-- 최종 포인트 값 출력 -->
+            </div>
+            <div class="summary-item">
+                <span>문의</span><br>
+                <span class="summary-value">1</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="container">
+        <aside>
+            <ul>
+                <li><a th:href="@{/mypage/orderdetails}">전체주문내역</a></li>
+                <li><a th:href="@{/mypage/pointdetails}">포인트내역</a></li>
+                <li><a th:href="@{/mypage/coupondetails}">쿠폰</a></li>
+                <li><a th:href="@{/mypage/reviewdetails}">나의리뷰</a></li>
+                <li><a th:href="@{/mypage/qnadetails}">문의하기</a></li>
+                <li><a th:href="@{/mypage/mysettings}">나의설정</a></li>
+            </ul>
+        </aside>
+
+        <div class="center">
+            <div class="slider-wrapper">
+                <div class="ad" th:each="banner : ${banners}" th:if="${banner.ban_location} == '마이페이지 배너'">
+                    <a th:href="${banner.ban_link}" target="_blank">
+                        <img th:src="@{'/uploads/' + ${banner.ban_image}}" alt="">
+                    </a>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="details">
+                    <p>포인트내역</p>
+                </div>
+                <div class="dateInquiry">
+                    <div>
+                        <p>기간별조회</p>
+                    </div>
+                    <div class="period-buttons">
+                        <button onclick="setPeriod(7)">1주일</button>
+                        <button onclick="setPeriod(15)">15일</button>
+                        <button onclick="setPeriod(30)">1개월</button>
+
+                        <form id="pointForm">
+                            <div class="date-range-input">
+                                <input type="date" id="startDate" required>
+                                <span>~</span>
+                                <input type="date" id="endDate" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" onclick="submitForm()">조회</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="points-table">
+                    <tbody>
+                    <tr class="font">
+                        <th >날짜</th>
+                        <th>구분</th>
+                        <th>포인트(사용/적립)</th>
+                        <th>주문번호</th>
+                        <th>적립번호</th>
+                        <th>비고</th>
+                        <th>유효기간</th>
+                    </tr>
+                    <!-- 데이터가 있을 경우 -->
+                    <tbody th:if="${pointList.size() > 0}">
+                    <tr class="tr2" th:each="point : ${pointList}" id="pointList">
+                        <td>
+                            <data value="" th:text="${#strings.substring(point.createdAt,0,10)}">2022-12-13</data>
+                        </td>
+                        <td>
+                            <data th:if="${point.amount >0}" value="" >적립</data>
+                            <data th:if="${point.usedPoint >0}" value="">사용</data>
+                        </td>
+                        <td>
+                            <data th:if="${point.usedPoint >0}" value="" th:text="${point.usedPoint}"></data>
+                            <data th:if="${point.amount >0}" value="" th:text="${point.amount}"></data>
+                        </td>
+                        <td>
+                            <data th:if="${point.orderItemId >0}" value="" th:text="${point.orderItemId}"></data>
+                            <data th:if="${point.orderId >0}" value="" th:text="${point.orderId}"></data>
+                        </td>
+                        <td>
+                            <data value="" th:text="${point.id}">340</data>
+                        </td>
+                        <td>
+                            <data value="" th:text="${point.description}"></data>
+                        </td>
+                        <td>
+                            <data value="" th:text="${#strings.substring(point.limitDate,0,10)}"></data>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <!-- 포인트 내역이 없을 때 표시할 내용 -->
+                    <tbody th:unless="${pointList.size() > 0}">
+                        <tr>
+                            <td colspan="7" style="text-align: center;">
+                                <div class="point-empty" style="display: flex; flex-direction: column; align-items: center; padding: 80px; justify-content: center; font-size: 15px;">
+                                    <img src="/images/common/icon_no_result.svg" alt="No points"><br>
+                                    <span>포인트 내역이 없습니다.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination">
+                    <!-- 이전 페이지 버튼 -->
+                    <th:block th:if="${pageResponseDTO.pg > 1}">
+                        <li>
+                            <a th:href="@{/mypage/pointdetails(page=${pageResponseDTO.pg - 1})}" class="page-btn">＜</a>
+                        </li>
+                    </th:block>
+
+                    <!-- 페이지 번호들 -->
+                    <th:block th:each="i : ${#numbers.sequence(1, (pageResponseDTO.total + pageResponseDTO.size - 1) / pageResponseDTO.size)}">
+                        <li>
+                            <a th:href="@{'/mypage/pointdetails'(page=${i})}"
+                               th:class="${i == pageResponseDTO.pg} ? 'active' : ''" class="num">
+                                [[${i}]]
+                            </a>
+                        </li>
+                    </th:block>
+
+                    <!-- 다음 페이지 버튼 -->
+                    <th:block th:if="${pageResponseDTO.pg < (pageResponseDTO.total + pageResponseDTO.size - 1) / pageResponseDTO.size}">
+                        <li>
+                            <a th:href="@{/mypage/pointdetails(page=${pageResponseDTO.pg + 1})}" class="page-btn">＞</a>
+                        </li>
+                    </th:block>
+                </ul>
+
+
+
+            </div>
+
+        </div>
+    </div>
+    </main>
+        <script th:if="${content=='pointdetails'}" th:src="@{/js/pointdetails.js}"></script>
+</th:block>

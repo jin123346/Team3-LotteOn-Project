@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모덜</title>
+    <link rel="stylesheet" href="../../css/admin-modal.css">
+    <script src="../../js/shoplistmodal.js"></script>
+</head>
+<body>
+    <section class="shipping-section">
+        <div id="shipping-modal" class="shipping-modal">
+            <div class="shipping-items">
+                <span class="shipping-close" style="cursor: pointer;">&times;</span>
+                <h3>주문상세</h3>
+            </div>
+            <form class="shipping-main">
+                <div class="shipping-list">
+                    <div class="shipping-order-num">
+                        <div class="order-num">주문번호</div>
+                        <div>
+                            <input type="text" style="width: 300px;height: 35px;" placeholder="123654789"/>
+                        </div>
+                    </div>
+                    <div class="shipping-user-name">
+                        <div class="user-name">수령인</div>
+                        <div>
+                            <input type="text"style="width: 200px;height: 35px;" placeholder="김참찹"/>
+                        </div>
+                    </div>
+                    <div class="shipping-addr-num">
+                        <div class="addr-num">우편번호</div>
+                        <div>
+                            <input type="text"style="width: 200px;height: 35px;" placeholder="12345"/>
+                        </div>
+                    </div>
+                    <div class="shipping-addr1">
+                        <div class="addr1">기본주소</div>
+                        <div>
+                            <input type="text"style="width: 500px;height: 35px;" placeholder="부산광역시 부전동 123"/>
+                        </div>
+                    </div>
+                    <div class="shipping-addr2">
+                        <div class="addr2">상세주소</div>
+                        <div>
+                            <input type="text"style="width: 500px;height: 35px;" placeholder="00 빌딩 3층 301호"/>
+                        </div>
+                    </div>
+                    <div class="shipping-name">
+                        <div class="con-name">택배사</div>
+                        <div>
+                            <select class="first_choice">
+                                <option value="" disabled selected>택배사 선택</option>
+                                <option value="1">자전거</option>
+                                <option value="2">자전거</option>
+                                <option value="3">비행기</option>
+                                <option value="4">트럭</option>
+                                <option value="5">로켓</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="shipping-num">
+                        <div class="num">운송장번호</div>
+                        <div>
+                            <input type="text"style="width: 500px;height: 35px;" placeholder="발급받은 택배사 송장번호입력"/>
+                        </div>
+                    </div>
+                    <div class="shipping-exc">
+                        <div class="etc">기타</div>
+                        <div>
+                            <textarea name="etc"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,31 @@
+
+<th:block th:if="${cate=='product'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'list'">
+      <th:block th:replace="~{content/admin/product/admin_productlist}"></th:block>
+    </th:block>
+    <th:block th:case="'register'">
+      <th:block th:replace="~{content/admin/product/admin_productReg}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='order'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'status'">
+      <th:block th:replace="~{content/admin/order/admin_Delivery}"></th:block>
+    </th:block>
+    <th:block th:case="'delivery'">
+      <th:block th:replace="~{content/admin/order/admin_Order}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>
+<th:block th:if="${cate=='coupon'}">
+  <th:block th:switch="${content}" >
+    <th:block th:case="'list'">
+      <th:block th:replace="~{content/admin/coupon/list}"></th:block>
+    </th:block>
+    <th:block th:case="'issued'">
+      <th:block th:replace="~{content/admin/coupon/issued}"></th:block>
+    </th:block>
+  </th:block>
+</th:block>

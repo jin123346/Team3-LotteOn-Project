@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aside</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: '고딕', sans-serif;
+            font-size: 19px;
+            font-weight: 400;
+        }
+
+        /*asdie*/
+        #aside {
+            width: 200px;
+            border-right: 1px solid rgb(199, 199, 199);
+            box-sizing: border-box;
+
+        }
+        #aside h1 {font-size: large; font-weight: bold; text-align: center; margin: 20px 20px 40px;}
+            .aside_list ul li {overflow: hidden; padding: 16px 0; border-bottom: 1px solid rgb(194, 194, 194); width:140px; margin-left: 10px;}
+            .aside_list ul li:nth-of-type(1) a{font-weight: bold; text-decoration: underline;}
+
+            .active {line-height: 24px;}
+            .active:hover {text-decoration: underline; font-weight: bold;}
+            
+    </style>
+</head> 
+<body>
+    <div id="aside">
+        <h1>문의하기</h1>
+        <div class="aside_list">
+            <ul>
+                <li>
+                    <a class="active" href="#">회원</a>
+                </li>
+                <li>
+                    <a class="active" href="#">쿠폰 / 이벤트</a>
+                </li>
+                <li>
+                    <a class="active" href="#">주문 / 결제</a>
+                </li>
+                <li>
+                    <a class="active" href="#">배송</a>
+                </li>
+                <li>
+                    <a class="active" href="#">취소 / 반품 / 교환</a>
+                </li>
+                <li>
+                    <a class="active" href="#">여행 / 숙박 / 항공</a>
+                </li>
+                <li>
+                    <a class="active" href="#">안전거래</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

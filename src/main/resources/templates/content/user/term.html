@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[${headerInfo.hd_title}]]:[[${headerInfo.hd_subtitle}]]</title>
+    <link rel="stylesheet" th:href="@{/css/user/term.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+
+        <nav class="termTop">
+            <div>
+                <p>약관동의</p>
+            </div>
+        </nav>
+
+        <section id="termMain">
+            <label class="term"><span style="color: red;">( 필 수 )</span> 이용약관</label>
+            <textarea id="term1" rows="4" readonly></textarea>
+            <div style="margin-top: 5px; text-align: right;">
+                <input type="checkbox" id="agree1" style="cursor: pointer; margin-top: 5px">
+                <label for="agree1" style="margin-right: 30px; cursor: pointer; font-size: 16px;">동의하기</label>
+            </div>
+        </section>
+
+        <section id="termMain">
+            <label class="term"><span style="color: red;">( 필 수 )</span> 전자금융</label>
+            <textarea id="term2" rows="4" readonly></textarea>
+            <div style="margin-top: 5px; text-align: right;">
+                <input type="checkbox" id="agree2" style="cursor: pointer; margin-top: 5px">
+                <label for="agree2" style="margin-right: 30px; cursor: pointer; font-size: 16px;">동의하기</label>
+            </div>
+        </section>
+
+        <section id="termMain">
+            <label class="term"><span style="color: red;">( 필 수 )</span> 개인정보 수집</label>
+            <textarea id="term3" rows="4" readonly></textarea>
+            <div style="margin-top: 5px; text-align: right;">
+                <input type="checkbox" id="agree3" style="cursor: pointer; margin-top: 5px">
+                <label for="agree3" style="margin-right: 30px; cursor: pointer; font-size: 16px;">동의하기</label>
+            </div>
+        </section>
+
+        <section id="termMain4" style="display: block;">
+            <label class="term"><span style="color: blue;">( 선 택 )</span> 위치정보</label>
+            <textarea id="term4" rows="4" readonly></textarea>
+            <div style="margin-top: 5px; text-align: right;">
+                <input type="checkbox" id="agree4" style="cursor: pointer; margin-top: 5px">
+                <label for="agree4" style="margin-right: 30px; cursor: pointer; font-size: 16px;">동의하기</label>
+            </div>
+        </section>
+
+
+        <button type="button" class="submit-btn" id="agreeBtn">동의하기</button> <!-- type="button"으로 수정 -->
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userType = new URLSearchParams(window.location.search).get('type'); // URL 파라미터에서 userType 가져오기
+
+            // 약관 내용 설정을 위한 비동기 함수
+            async function loadTerms() {
+                try {
+                    const response = await fetch('/api/terms'); // API에서 약관 데이터 가져오기
+                    const termsList = await response.json(); // JSON 형식으로 파싱
+
+                    // 사용자 타입에 따른 필터링
+                    const filteredTerms = termsList.filter(term => {
+                        if (userType === "member") {
+                            return ["BUYER", "ELECTRONIC_FINANCE", "LOCATION_INFO", "PRIVACY_POLICY"].includes(term.type);
+                        } else if (userType === "seller") {
+                            return ["SELLER", "ELECTRONIC_FINANCE", "PRIVACY_POLICY"].includes(term.type);
+                        }
+                        return false;
+                    });
+
+                    // 각 textarea에 내용 할당
+                    filteredTerms.forEach((term, index) => {
+                        const termId = `term${index + 1}`; // term1, term2, term3 등으로 ID 생성
+                        document.getElementById(termId).value = term.content; // 약관 내용을 텍스트에 설정
+                    });
+
+                    // seller일 경우 term4 섹션 숨김
+                    if (userType === "seller" && filteredTerms.length < 4) {
+                        document.getElementById('termMain4').style.display = 'none'; // seller일 때 term4 섹션 숨김
+                    }
+                } catch (error) {
+                    console.error('약관을 불러오는 데 오류가 발생했습니다:', error);
+                }
+            }
+
+            // 약관 내용 로드
+            loadTerms();
+
+            // 동의 버튼 클릭 시 동작
+            document.getElementById('agreeBtn').addEventListener('click', function () {
+                const isAgree1 = document.getElementById('agree1').checked;
+                const isAgree2 = document.getElementById('agree2').checked;
+                const isAgree3 = document.getElementById('agree3').checked;
+
+                // 필수 약관 동의 체크
+                if (!isAgree1 || !isAgree2 || !isAgree3) {
+                    alert('모든 필수 약관에 동의해야 합니다.');
+                    return;
+                }
+
+                // 약관에 동의한 후 회원가입 페이지로 리다이렉트
+                if (userType === 'member') {
+                    window.location.href = '/user/memberregister'; // 개인 회원가입 페이지
+                } else if (userType === 'seller') {
+                    window.location.href = '/user/sellerregister'; // 판매자 회원가입 페이지
+                }
+            });
+        });
+    </script>
+
+</th:block>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::FAQ</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminfaqview.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+      <div id="admin_service">    
+          <section>
+              <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+              <section id="admin_navi">
+                      <p>고객센터</p>
+                      <p>
+                        <a href="#">HOME</a>
+                        <span>></span>
+                        <a href="#">고객센터</a>
+                        <span>></span>
+                        <a href="#">자주묻는질문</a>
+                    </p>
+              </section>
+              <div id="admin_faq_view">
+                <table class="admin_faq_view_table">
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 90%">
+                    </colgroup>
+                    <tr>
+                        <td>유형</td>
+                        <td th:text="${faq.category.getParent().name} + ' - ' + ${faq.category.getName()}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td th:text="${faq.faqtitle}"></td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td>
+                            <p th:text="${faq.faqcontent}"></p><br>
+                        </td>
+                    </tr>
+                </table>
+              </div>
+              <div class="faq_view_button">
+                <a class="admin_faq_delete_a" th:href="@{/admin/faq/delete(no=${faq.faqNo})}">삭제</a>
+                <a class="faq_view_modify-btn" th:href="@{/admin/faq/modify(no=${faq.faqNo})}">수정</a>
+                <a class="faq_view_list-btn" th:href="@{/admin/faq/list}">목록</a>
+              </div>
+              <div th:if="${message}" class="hidden" th:text="${message}" id="messageDiv"></div>
+            </section>
+              <script>
+                  document.querySelectorAll('.admin_faq_delete_a').forEach(button => {
+                  button.addEventListener('click', function (e) {
+                      e.preventDefault();
+                      const url = this.getAttribute('href');
+                      const deleteconfirm = confirm('정말 삭제하시겠습니까?');
+                      if (deleteconfirm) {
+                          window.location.href = url;
+                      }
+                  })
+              })
+                  document.addEventListener('DOMContentLoaded', function() {
+                  const messageDiv = document.getElementById('messageDiv');
+                  const message = messageDiv.textContent;
+                  if (message) {
+                  alert(message);
+              }
+              });
+          </script>
+</th:block>

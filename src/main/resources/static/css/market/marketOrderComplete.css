@@ -1,0 +1,376 @@
+
+#mainArea .mainWrapper .section.orderCompleted{
+    /* Subtract the aside's width and some padding/margin */
+    
+    width: 100%; /* Subtract the aside's width and some padding/margin */
+    box-sizing: border-box; /* Ensure proper width calculation */
+    margin-top: 20px;
+     /* Ensure proper width calculation */
+}
+
+#mainArea .section .sectionWrapper{
+
+    width: 100%;
+    padding-top: 20px;
+    border: 1px solid #ddd;
+}
+
+#mainArea .section .sectionWrapper.orderCompleted{
+    border-bottom: none;
+}
+#mainArea .section .sectionWrapper .sub_tit {
+
+    margin: 0 auto;
+}
+
+
+.orderCompany{
+    width: 98%;
+    margin: 0 auto;
+}
+/* orderInfo-txt */
+.orderInfo-txt{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    /* padding-bottom: 30px; */
+    border-bottom: 1px solid #999;
+}
+.orderInfo-txt span{
+    font-size: 25px;
+}
+.orderInfo-txt span:nth-child(2){
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.orderInfo-txt span:nth-child(2) strong{
+    font-size: 20px;
+    color: #ef2a23;
+}
+
+.orderInfo-txt p{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.orderInfo-txt p strong{
+    font-size: 17px;
+    color: #ef2a23;
+}
+
+.order-groupbyCom{
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    border: 1px solid #fffdfd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    margin-bottom: 10px;
+}
+.order-groupbyCom h4{
+    font-size: 20px;
+    padding: 20px 5px;
+    margin-left: 10px;
+    height: auto;
+}
+.order-groupbyCom table{
+    border: 1px solid #fffdfd;
+    background-color: #fff;
+    width: 98%;
+}
+.order-items{
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    table-layout: fixed;  /* 각 열의 크기를 고정하여 같은 라인에 배치 */
+}
+.order-items tr td {
+    height: 100%;
+    padding: 10px;
+    vertical-align: middle;  /* 각 <td> 요소의 컨텐츠를 수직 중앙에 배치 */
+}
+
+/* 첫 번째 열 */
+.order-items tr td:nth-child(1) {
+    display: flex;
+    justify-content: flex-start;  /* 왼쪽으로 정렬 */
+    align-items: center;
+    height: 100px;
+}
+
+/* 두 번째 열 */
+.order-items tr td:nth-child(2) {
+    height: 100px;
+    text-align: center;  /* 가운데 정렬 */
+}
+
+/* 세 번째 열 */
+.order-items tr td:nth-child(3) {
+    text-align: right;  /* 오른쪽 정렬 */
+    height: 100px;
+}
+
+.order-items tr td:nth-child(3) p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20%;
+}
+
+.order-items tr td:nth-child(3) p span {
+    margin-left: 10px;
+    width: 60%;
+}
+
+.order-items tr td:nth-child(1) img {
+    width: 80px;
+    margin-right: 10px;
+    height: 80px;
+}
+
+input[type=number] {
+    width: 30px;
+    height: 20px;
+    text-indent: 10px;
+    box-sizing: border-box;
+    border: none;
+}
+
+
+
+
+
+
+
+.order-groupbyCom .totalArea td:nth-child(1){
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    font-size: 18px;
+    height: 30px;
+   
+}
+
+
+
+.order-groupbyCom .totalArea p,.order-groupbyCom .totalArea span{
+    font-size: 18px;
+}
+
+
+.minus::before{
+    content: "-";
+    font-weight: 700;
+    margin-right:10px;
+
+} 
+.order-groupbyCom .totalArea .minus{
+    margin:0 10px;
+}
+
+.order-groupbyCom .totalArea .price.dis{
+    color: #ef2a23;
+}
+.order-groupbyCom table tr:last-child td{
+    width: 244%;
+    color: #757575;
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+    margin-left: 10px;
+}
+.plus::before{
+    content: "+";
+    font-weight: 700;
+    margin-right:10px;
+
+   
+}
+.order-groupbyCom .totalArea .plus{
+    margin:0 10px;
+}
+
+.order-groupbyCom .totalArea .equal{
+    margin:0 10px
+}
+
+
+
+.InfoWrapper{
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 0 auto;
+}
+
+
+
+/* totalOrderInfo */
+
+.totalOrderInfo{
+    width: 98%;
+    margin: 20px auto
+    
+
+}
+
+.totalOrderInfo h4{
+    font-size: 25px;
+    color: #757575;
+    margin-bottom: 20px;
+}
+.totalPrice-bar{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    
+}
+.totalPrice-bar div{
+    width: 25%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dad8d8;
+    background-color: #eee;
+}
+
+
+.totalPrice-bar .separatorminus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: #999;
+    border-radius: 50%;
+    color: #fff;
+    left:25%;
+    top:50%;
+    font-size: 25px;
+    padding: 7px;
+    padding-bottom: 10px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%); /* 가운데 위치 보정 */
+}
+
+.totalPrice-bar .separatorplus{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: #999;
+    border-radius: 50%;
+    color: #fff;
+    left: 50%;
+    top:50%;
+    font-size: 20px;
+    padding: 7px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%); /* 가운데 위치 보정 */
+}
+
+
+
+.totalPrice-bar .separatorequal{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: #999;
+    border-radius: 50%;
+    color: #fff;
+    left:75%;
+    top:50%;
+    font-size: 20px;
+    padding:10px ;
+    box-sizing: border-box;
+    padding-top: 7px;
+    transform: translate(-50%, -50%); /* 가운데 위치 보정 */
+
+}
+
+.totalOrderInfo div div p{
+    font-weight: 800;
+    font-size: 20px ;
+    margin-top: 5px;
+
+}
+
+.totalOrderInfo div div .price.red{
+    color: #ef2a23;
+}
+
+.Info{
+    width: 98%;
+    margin: 0 auto;
+} 
+
+
+.Info h4{
+    font-size: 20px;
+    margin:20px 0;
+}
+
+
+.Info table{
+    width: 95%;
+    border-top: 4px solid #999;
+    
+}
+
+.Info table th{
+    width: 22%;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    text-indent: 20px;
+    font-size: 15px;
+    background-color: #f7f5f5;
+
+}
+
+
+.Info table td{
+    font-size: 15px;
+    text-indent: 20px;
+}
+
+
+.expectPoint {
+    margin-left: 20px;
+   
+    
+}
+
+.expectPoint div{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.expectPoint div span,.expectPoint div p{
+    font-size: 20px;
+
+}
+.expectPoint div p{
+    text-decoration: underline;
+}
+
+.expectPoint h4{
+    width: 90%;
+    padding-bottom: 20px;
+    border-bottom: 4px solid #999;
+}
+
+
+
+

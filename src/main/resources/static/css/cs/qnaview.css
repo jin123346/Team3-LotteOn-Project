@@ -1,0 +1,124 @@
+/* QnA 섹션 */
+.qna-section {
+    width: 90%;
+    margin: 20px 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.qna-section h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* qna-box 스타일 */
+.qna-box {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 테이블 스타일 */
+.qna-table {
+    table-layout: fixed;
+    border: 1px solid #efefef;
+    border-radius: 8px;
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);*/
+}
+
+.qna-table th, .qna-table td {
+    padding: 20px 15px;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.qna-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+}
+
+.qna-table th:first-child {
+    border-top: none;
+}
+
+.qna-table td {
+    background-color: #fff;
+    color: #555;
+    font-size: 14px;
+    height: 100px;
+}
+
+/* 문의 작성자, 작성일, 답변 스타일 */
+.qinfo-label, .qcontent-label, .acontent-label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 버튼 스타일 */
+.button-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-section button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    border: 1px solid #999;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.button-section button:hover {
+    background-color: #f0f0f0;
+}
+
+/* ID와 날짜 스타일 */
+.signup-title {
+    position: relative;
+}
+
+.qinfo-container {
+    margin-top: 5px;
+}
+
+.qinfo-label {
+    display: inline;
+    font-size: 14px;
+    color: #999;
+    margin-right: 10px;
+}
+
+/* 추가 */
+.myqna, .myqnaList{
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 7px;
+    margin: 20px 0;
+    padding-left: 10px !important;
+    margin-left: 7px !important;
+    width: 65% !important;
+    cursor: pointer;
+}
+
+.myqna a, .myqnaList a {
+    font-weight: bold;
+}
+
+.myqnaList p {
+    font-weight: 400;
+    padding-top: 5px;
+    color: rgb(117, 117, 117);
+}
+
+.myqna {
+    margin-bottom: 70%;
+}

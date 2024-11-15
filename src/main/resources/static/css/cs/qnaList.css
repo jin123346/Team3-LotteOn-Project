@@ -1,0 +1,185 @@
+/*첫번째 자주 묻는 질문*/
+h2 {
+    font-weight: bold;
+    font-size: large;
+    margin: 30px 40px 0px;
+}
+
+.first_list {
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 7px;
+    margin: 40px;
+}
+
+.first_li {
+    height: 50px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.first_li a {
+    justify-content: center;
+    align-items: center;
+}
+
+.review-status, .author-id, .date {
+    color: #999;
+}
+
+.first_li:last-child {
+    border-bottom: none;
+}
+
+.first_list li a {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+
+.first_li span {
+    font-weight: 500;
+    font-size: 13px;
+    display: inline-block;
+    padding: 17px 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 길면 ... 표시 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
+
+.first_li span:nth-child(1) {
+    color: rgb(17, 86, 165);
+    font-weight: bold;
+    margin-left: 20px;
+    width: 10%;
+}
+
+.first_li span:nth-child(2) {
+    width: 40%;
+}
+
+.first_li span:nth-child(3) {
+    width: 12%;
+    margin-left: 30px;
+}
+
+
+.first_li span:nth-child(4) {
+    width: 11%;
+    padding-left: 35px;
+}
+
+.first_li span:nth-child(5) {
+    width: 15%;
+    text-align: right;
+}
+
+.first_show {
+    text-align: center;
+}
+
+/*hover 추가*/
+/*.first_li a:hover {*/
+/*    background: linear-gradient(to top, #ffe0e0 50%, transparent 50%);*/
+/*}*/
+
+.qna-write-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-right: 38px;
+}
+
+.btn-Write {
+    width: 80px;
+    border: 1px solid #ef2a23;
+    border-radius: 5px;
+    color: #ef2a23 !important;
+    background-color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+    line-height: 35px;
+}
+
+.btn-Write:hover {
+    background-color: #ef2a23;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pagination {
+    text-align: center;
+    font-family: Roboto, NotoSansKR, Malgun Gothic, AppleSDGothicNeo, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 30px 0;
+}
+
+.pagination a, .pagination button, .pagination span {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: #999;
+    line-height: 26px;
+    margin: 2px 2px;
+    text-indent: -1px;
+}
+
+.pagination a.active, .pagination button.active, .pagination span.active , .qnacurrent{
+    margin: 0 4px;
+    background-color: #343b4d;
+    border: 1px solid #343b4d;
+    color: #fff;
+}
+
+.pagination a:hover, .pagination button:hover {
+    color: #333;
+}
+
+.pagination .prev, .pagination .next {
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+}
+
+.pagination .prev.off, .pagination .next.off {
+    pointer-events: none;
+    background-size: contain;
+}
+
+.pagination .skip {
+    margin: 0 7px 0 4px;
+    width: auto;
+    letter-spacing: 1px;
+}
+
+/* 추가 */
+.myqna, .myqnaList{
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 7px;
+    margin: 20px 0;
+    padding-left: 10px !important;
+    margin-left: 7px !important;
+    width: 65% !important;
+    cursor: pointer;
+}
+
+.myqna a, .myqnaList a {
+    font-weight: bold;
+}
+
+.myqnaList p {
+    font-weight: 400;
+    padding-top: 5px;
+    color: rgb(117, 117, 117);
+}
+
+.myqna {
+    margin-bottom: 70%;
+}

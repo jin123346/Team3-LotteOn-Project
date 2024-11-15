@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/userLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" th:href="@{/css/user/changepass.css}">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <main>
+        <!--<script type="text/javascript" defer th:src="@{/js/changepw.js}"></script>-->
+        <section id="changePass">
+            <form id="passwordResetForm">
+
+                <h2>비밀번호 변경</h2>
+
+                <table class="pwChange">
+                    <tr>
+                        <th class="id" name="id">아이디</th>
+
+                        <td id="uid" th:text="${member.uid}"></td> <!-- 실제 uid 출력 -->
+                        <input type="hidden" name="userId" th:value="${member.uid}"/> <!-- 동적으로 uid 값이 들어가게 설정 -->
+
+                    </tr>
+                    <tr>
+                        <th>새 비밀번호</th>
+                        <td><input type="password" id="newPassword" name="password" placeholder="새 비밀번호 입력"></td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <th>새 비밀번호 확인</th>
+                        <td>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="새 비밀번호 확인">
+                            <span id="resultPass" class="validationMessage"></span>
+                        </td>
+                    </tr>
+                </table>
+                <h5>비밀번호를 변경해 주세요.<br>
+                    영문,숫자,특수문자를 사용하여 8자 이상 입력해 주세요.
+                </h5>
+
+                <div class="btn-group">
+                    <button type="button" class="btnCancel" onclick="history.back();">취소</button>
+                    <button type="submit" class="btnNext">변경</button>
+                </div>
+            </form>
+        </section>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('passwordResetForm'); // ID 수정
+                if (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault(); // 폼 기본 제출 방지
+
+                        const userId = document.querySelector('[name="userId"]').value;
+                        const newPassword = document.getElementById('newPassword').value;
+                        const confirmPassword = document.getElementById('confirmPassword').value;
+                        const resultPass = document.getElementById('resultPass');
+
+                        // 비밀번호가 일치하는지 확인
+                        if (newPassword !== confirmPassword) {
+                            resultPass.textContent = '비밀번호가 일치하지 않습니다.';
+                            resultPass.style.color = 'red';
+                            return;
+                        }
+
+                        // URLSearchParams 사용하여 데이터 직렬화
+                        const formData = new URLSearchParams();
+                        formData.append("uid", userId);
+                        formData.append("password", newPassword);
+
+                        // fetch 요청
+                        fetch("/user/changepass", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: formData.toString(), // 수정된 부분
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text();
+                                } else {
+                                    throw new Error("비밀번호 변경 실패");
+                                }
+                            })
+                            .then(data => {
+                                alert("비밀번호가 성공적으로 변경되었습니다.");
+                                window.location.href = "/user/login";
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                alert("비밀번호 변경 중 문제가 발생했습니다.");
+                            });
+                    });
+                }
+            });
+
+        </script>
+
+    </main>
+</th:block>
+</body>

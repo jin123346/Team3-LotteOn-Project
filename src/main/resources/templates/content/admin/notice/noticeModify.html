@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::Notice</title>
+    <link rel="stylesheet"  th:href="@{/css/admin/adminmodify.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+                        <div id="admin_service">    
+                            <section>
+                                <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                                <section id="admin_navi">
+                                        <p>고객센터</p>
+                                        <p>
+                                            <a href="#">HOME</a>
+                                            <span>></span>
+                                            <a href="#">고객센터</a>
+                                            <span>></span>
+                                            <a href="#">자주묻는질문</a>
+                                        </p>
+                                </section>
+                                <div class="write-box">
+                                    <aside id="adminAside"></aside>
+                                    <div class="coment-box">
+                                        <form class="write-coment">
+                                            <div class="write-table">
+                                                <div class="write-type">
+                                                    <div>유형</div>
+                                                    <div>
+                                                        <td>
+                                                            <select class="first_choice" name="noticetype">
+                                                                <option th:value="${notice.noticetype}" th:text="${notice.noticetype}" disabled selected></option>
+                                                                <th:block th:each="type : ${noticeTypes}">
+                                                                    <option th:value="${type.name()}" th:text="${type.name()}"></option>
+                                                                </th:block>
+                                                            </select>
+                                                        </td>
+                                                    </div>
+                                                </div>
+                                                <div class="write-title">
+                                                    <div>제목</div>
+                                                    <div>
+                                                        <input type="text" placeholder="제목을 입력하세요" name="noticetitle" th:value="${notice.noticetitle}">
+                                                    </div>
+                                                </div>
+                                                <div class="write-input">
+                                                    <div>내용</div>
+                                                    <div>
+                                                        <textarea class="faq-contents" oninput="autoResize(this)" th:value="${notice.noticecontent}" th:text="${notice.noticecontent}" name="noticecontent"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <input type="hidden" class="hidden" th:value="${notice.noticeNo}" name="noticeNo">
+                                                </div>
+                                        </form>
+                                        <div class="write-btn-controoler">
+                                            <a class="write-btn-cancel" href="#">취소하기</a>
+                                            <a class="write-btn-modify" href="#">수정하기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <script>
+                                const form = document.getElementsByTagName('form')[0];
+                                const modifybtn = document.getElementsByClassName('write-btn-modify')[0];
+
+
+                                modifybtn.addEventListener('click', function (e){
+                                    e.preventDefault();
+                                    const data = new FormData(form);
+                                    const selectedType = document.querySelector('select[name="noticetype"]').value;
+
+
+                                    if (!selectedType) {
+                                        // 기존 값
+                                        data.set("noticetype", '${notice.noticetype}');
+                                    }
+                                    fetch('/admin/notice/modify' , {
+                                        method : 'POST',
+                                        body : data
+                                    })
+                                        .then(resp => resp.json())
+                                        .then(data => {
+                                            console.log(data);
+                                            if(data != null){
+                                                alert('수정되었습니다.');
+                                                window.location.href = '/admin/notice/list';
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                            alert('실패');
+                                        });
+                                })
+                            </script>
+</th:block>

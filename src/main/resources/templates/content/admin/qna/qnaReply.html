@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin::qna</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminqnareply.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div id="admin_service">
+        <section>
+            <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+            <section id="admin_navi">
+                <p>고객센터</p>
+                <p>
+                    <a href="#">HOME</a>
+                    <span>></span>
+                    <a href="#">고객센터</a>
+                    <span>></span>
+                    <a href="#">자주묻는질문</a>
+                </p>
+            </section>
+            <div id="admin_qna_view">
+                <table class="admin_qna_view_table">
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 90%">
+                    </colgroup>
+                    <tr>
+                        <td>유형</td>
+                        <td th:text="${qna.category.getParent().name} + ' - ' + ${qna.category.getName()}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제목</td>
+                        <td th:text="${qna.qnatitle}"></td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td>
+                            <p th:text="${qna.qnacontent}"></p><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>답변</td>
+                        <td>
+                            <textarea oninput="autoResize(this)" name="qnareply" placeholder="내용을 입력하세요"></textarea>
+                        </td>
+                        <input class="hidden" th:value="${qna.qnaNo}" name="qnaNo" id="qnaNo">
+                    </tr>
+                </table>
+            </div>
+            <div class="qna_view_button">
+                <a class="admin_qna_delete_a" id="qna_delete_btn" th:href="@{/admin/qna/delete(no=${qna.qnaNo})}">삭제</a>
+                <a class="qna_reply-btn" id="qna_reply_btn" th:href="@{/admin/qna/reply(no=${qna.qnaNo})}">답변등록</a>
+                <a class="qna_list-btn" th:href="@{/admin/qna/list}">목록</a>
+            </div>
+            <div th:if="${message}" class="hidden" th:text="${message}" id="messageDiv"></div>
+        </section>
+        <!--삭제스크립트-->
+        <script>
+            document.getElementById('qna_delete_btn').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    console.log("url이머야:" + url);
+                    const deleteconfirm = confirm('정말 삭제하시겠습니까?');
+                    if (deleteconfirm) {
+                        window.location.href = url;
+                    }
+            })
+            document.addEventListener('DOMContentLoaded', function() {
+                const messageDiv = document.getElementById('messageDiv');
+                const message = messageDiv.textContent;
+                if (message) {
+                    alert(message);
+                }
+            });
+        </script>
+        <script>
+            replybtn = document.getElementById('qna_reply_btn');
+            replybtn.addEventListener('click' , function(e){
+                e.preventDefault();
+
+                const replyContent = document.querySelector('textarea[name="qnareply"]').value;
+                if(!replyContent){
+                    alert('답변이 작성되지않았습니다.')
+                    return;
+                }
+
+                const qnaNo = document.getElementById('qnaNo').value;
+
+                fetch(`/admin/qna/reply?no=${qnaNo}`, {
+                    method : 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',  // JSON 형식으로 설정
+                    },
+                    body: JSON.stringify({
+                        qnareply: replyContent  // reply 내용만 포함
+                    })
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log(data);
+                        if(data != null){
+                            alert('답변이 등록되었습니다.')
+                            window.location.href = `/admin/qna/reply?no=${qnaNo}`
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            })
+        </script>
+</th:block>

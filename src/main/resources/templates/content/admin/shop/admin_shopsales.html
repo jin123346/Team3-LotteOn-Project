@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/sellerLayout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Banner Page</title>
+    <link rel="stylesheet" th:href="@{/css/admin/adminShopsales.css}">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+            <div id="admin_service">
+                <section>
+                    <th:block th:replace="~{content/admin/admin_gate}"></th:block>
+
+                    <section id="admin_navi">
+                        <p>매출현황</p>
+                        <p><a href="#">HOME</a> > 상점관리 > 매출현황</p>
+                </section>
+              
+                <article id="admin_banner_main">
+                
+                <div>
+                    <table class="admin_banner_table">
+                        <colgroup>
+                            <col style="width: 7%">
+                            <col style="width: 10%">
+                            <col style="width: 16%">
+                            <col style="width: 7%">
+                            <col style="width: 7%">
+                            <col style="width: 7%">
+                            <col style="width: 7%">
+                            <col style="width: 7%">
+                            <col style="width: 16%">
+                            <col style="width: 16%">
+                        </colgroup>
+                        <div>
+                        <select id="shopsearch" >
+                            <option value="">일별</option>
+                            <option value="">주간</option>
+                            <option value="">한달</option>
+                        </select>
+                        </div>
+                       
+                        <tr>
+                            <th>번호</th>
+                            <th>상호명</th>
+                            <th>사업자등록번호</th>
+                            <th><a href="">주문건수</a></th>
+                            <th>결제완료</th>
+                            <th>배송중</th>
+                            <th>배송완료</th>
+                            <th>구매확정</th>
+                            <th><a href="">주문합계</a></th>
+                            <th><a href="">매출합계</a></th>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>(주)다나와</td>
+                            <td>112-12-12345</td>
+                            <td>103</td>
+                            <td>90</td>
+                            <td>56</td>
+                            <td>52</td>
+                            <td>50</td>
+                            <td>12,870,600</td>
+                            <td>10,870,600</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>(주)다나와</td>
+                            <td>112-12-12345</td>
+                            <td>103</td>
+                            <td>90</td>
+                            <td>56</td>
+                            <td>52</td>
+                            <td>50</td>
+                            <td>12,870,600</td>
+                            <td>10,870,600</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>(주)다나와</td>
+                            <td>112-12-12345</td>
+                            <td>103</td>
+                            <td>90</td>
+                            <td>56</td>
+                            <td>52</td>
+                            <td>50</td>
+                            <td>12,870,600</td>
+                            <td>10,870,600</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>(주)다나와</td>
+                            <td>112-12-12345</td>
+                            <td>103</td>
+                            <td>90</td>
+                            <td>56</td>
+                            <td>52</td>
+                            <td>50</td>
+                            <td>12,870,600</td>
+                            <td>10,870,600</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>(주)다나와</td>
+                            <td>112-12-12345</td>
+                            <td>103</td>
+                            <td>90</td>
+                            <td>56</td>
+                            <td>52</td>
+                            <td>50</td>
+                            <td>12,870,600</td>
+                            <td>10,870,600</td>
+                        </tr>
+                      
+                       
+                    </table>
+                </article>
+            </section>
+                <script th:src="@{/js/sellerList.js}"></script>
+
+</th:block>

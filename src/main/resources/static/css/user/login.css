@@ -1,0 +1,446 @@
+a.bgColorRed[data-v-5e1c3199],
+button.bgColorRed[data-v-5e1c3199] {
+    background-color: #ef2a23
+}
+
+a.bgColorRed[data-v-5e1c3199]:active,
+button.bgColorRed[data-v-5e1c3199]:active {
+    background-color: #d81d16
+}
+
+a.hasBgColor[data-v-5e1c3199]:not(.bgColorLightGray):not(.bgColorWhite):not(.bgColorKakao),
+button.hasBgColor[data-v-5e1c3199]:not(.bgColorLightGray):not(.bgColorWhite):not(.bgColorKakao) {
+    border: none;
+    color: #fff !important
+}
+
+a.util[data-v-5e1c3199],
+a.utilRound[data-v-5e1c3199],
+button.util[data-v-5e1c3199],
+button.utilRound[data-v-5e1c3199] {
+    width: auto;
+    min-width: 64px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -.23px;
+    color: #333;
+    border-color: #ddd
+}
+
+a.util.sizeFull[data-v-5e1c3199],
+a.utilRound.sizeFull[data-v-5e1c3199],
+button.util.sizeFull[data-v-5e1c3199],
+button.utilRound.sizeFull[data-v-5e1c3199] {
+    width: 100%;
+    font-size: 17px
+}
+
+a.text[data-v-5e1c3199],
+a.textBlack[data-v-5e1c3199],
+a.textLight[data-v-5e1c3199],
+button.text[data-v-5e1c3199],
+button.textBlack[data-v-5e1c3199],
+button.textLight[data-v-5e1c3199] {
+    width: auto;
+    height: auto;
+    border: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.38;
+    letter-spacing: -.3px;
+    color: rgba(0, 0, 0, .5)
+}
+
+.loginContent.withAd {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 815px
+}
+
+.loginContent.withAd .loginWrap {
+    width: 420px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 420px;
+    flex: 0 0 360px
+}
+
+.loginContent.withAd .adWrap {
+    width: 270px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 270px;
+    flex: 0 0 270px;
+    margin-left: 50px;
+    margin-top: 30px;
+    height: 352px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 6px
+}
+
+.loginContent.withAd .adWrap a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+}
+
+.loginContent.withAd .adWrap a img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.loginContent.withAd.vertical {
+    width: 735px
+}
+
+.loginContent.withAd.vertical .adWrap {
+    width: 320px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 270px;
+    flex: 0 0 320px;
+    height: 587px;
+}
+
+.space {
+    padding-top: 24px;
+    padding-bottom: 80px;
+}
+
+.loginContent {
+    padding-top: 60px;
+    width: 420px;
+    margin: 0 auto
+}
+
+.loginWrap.lotteOn .titLogin {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-bottom: 60px
+}
+
+.loginWrap .titLogin span {
+    display: block;
+    padding-bottom: 5px
+}
+
+.loginWrap .loginForm .inputSet:last-child {
+    margin-top: 10px
+}
+
+.loginWrap .autoLogin {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding-top: 20px
+}
+
+.loginWrap .autoLogin label {
+    padding-left: 8px;
+    font-size: 14px;
+    letter-spacing: -.023em
+}
+
+.loginWrap .btnFindIdPasswordWrap button {
+    position: relative;
+    font-size: 13px;
+    line-height: 1.46;
+    letter-spacing: -.2px;
+    color: #999;
+    margin-right: 13px
+}
+
+.loginWrap .btnFindIdPasswordWrap button + button {
+    margin-right: 0;
+    padding-left: 11px
+}
+
+.loginWrap .btnConfirmWrap {
+    padding-top: 20px;
+    text-align: center
+}
+
+.loginWrap .btnConfirmWrap .util {
+    height: 52px
+}
+
+.socialSignupWrap {
+    margin-top: 20px
+}
+
+.socialSignupWrap .btnLoginGroup {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.socialSignupWrap .btnLoginGroup button {
+    display: inline-block;
+    margin: 0 20px;
+    padding-top: 58px;
+    width: 50px;
+    font-size: 15px;
+    letter-spacing: -.27px;
+    color: #000;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 50px 50px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.socialSignupWrap .kakaoLoginBtn {
+    background-image: url(/images/member/icon_easy_kakao.svg)
+}
+
+.socialSignupWrap .kakaoLoginBtn.disabled {
+    background-image: url(/images/member/icon_easy_kakao.svg)
+}
+
+.socialSignupWrap .naverLoginBtn {
+    background-image: url(/images/member/icon_easy_naver.svg)
+}
+
+.socialSignupWrap .naverLoginBtn.disabled {
+    background-image: url(/images/member/icon_easy_naver.svg)
+}
+
+.socialSignupWrap .googleLoginBtn {
+    background-image: url(/images/member/icon_easy_google.svg)
+}
+
+.signupSpeed.lineType {
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid #dfdfdf
+}
+
+/* 작업 */
+.signupSpeed .subTitle {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.11;
+    letter-spacing: -.26px;
+    font-weight: 400
+}
+
+
+/* 글씨체 추가 */
+.cornorBox {
+    margin-top: 50px;
+}
+
+.cornorBox .moveJoinMember {
+    position: relative;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+}
+
+.cornorBox .moveJoinMemberTxt {
+    margin-bottom: 8px;
+}
+
+.cornorBox .moveJoinMemberTxt strong {
+    display: block;
+    font-weight: 700;
+}
+
+.cornorBox .moveJoinMember .moveJoinMemberItem {
+    display: block;
+    height: 54px;
+    font-size: 16px;
+    line-height: 54px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+/* pull 이후 추가 */
+.loginWrap .titLogin {
+    margin: 0 0 20px;
+    font-size: 36px;
+    line-height: 52px;
+    letter-spacing: -1.1px
+}
+
+.inputSet.login input {
+    height: 50px;
+    padding: 0 16px;
+    border: 0;
+    background: #f5f5f5;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333
+}
+
+.inputSet input {
+    width: 92%;
+    border: 1px solid #ddd;
+    height: 44px;
+    border-radius: 6px;
+    padding: 0 14px;
+    color: #333;
+    font-size: 14px
+}
+
+.loginWrap .titLogin {
+    margin: 0 0 20px;
+    font-size: 36px;
+    line-height: 52px;
+    letter-spacing: -1.1px
+}
+
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+q,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    widows: 1
+}
+
+
+a,
+button,
+html,
+input,
+select,
+textarea {
+    font-family: NotoSansKR, Malgun Gothic, arial, sans-serif;
+    /* color:#333; */
+    padding: 0;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0
+}
+
+.awards-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.awards-banner img {
+    width: 180px;
+    height: 50px;
+    margin: 0 10px;
+}

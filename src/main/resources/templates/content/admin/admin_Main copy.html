@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admin Main</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<style>
+        *{margin: 0; padding:0; font-family: '고딕', sans-serif; box-sizing: border-box; font-size: 12px;}
+        html{color:#111; position:relative;}
+        html, body{height:100%;}
+        ol,ul {list-style: none}
+        a {text-decoration: none; color: inherit;}
+        .hidden {display: none;}
+
+        #wrapper {width: 100%; height: auto; display: flex; flex-direction: column;}
+        
+
+
+        /*관리자 헤더*/
+        #admin_header {width: 100%; height: 100px; margin: 0 auto; background: linear-gradient(to bottom, rgb(239, 42, 35) 73%, rgba(239, 42, 35, 0.527) 27%); border-bottom: 0.1px solid #ffe8e8;}
+
+        #admin_top {width: 1200px; margin: 0 auto; display: flex; height: 100px;}
+        /*로고 + 홈, 로그인, 로그아웃*/
+        .top_log {display: block;  width: 150px; height: 30px; margin: 20px;}
+
+
+
+
+        /*메인*/
+        #admin_main {
+            flex: 1;
+            width: 1200px;
+            height: auto;
+            position: relative;
+            margin: 0 auto;
+        }
+        /*메인 컨테이너*/
+        #admin_container {
+            display: flex;
+            width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;        
+        }
+        /*관리자 어사이드*/
+        #admin_aside {
+            width: 200px;
+            box-sizing: border-box;
+            background-color: #293042; /* 배경색 추가 */
+            padding: 10px; /* 내부 여백 추가 */
+        }
+
+        /* 어사이드 - 관리자 메인 */
+        .aside_first {
+            margin: 55px 0 10px 10px;
+        }
+        #admin_aside_list img {width: 100px; height: 23px; margin: 18px auto 0;}
+
+        .aside_first > h2 {
+            margin-top: 10px;
+            margin-bottom: 0px;
+            font-size: 15px;
+            color: rgb(182, 182, 182); /* 글자색 조정 */
+            text-align: left; /* 중앙 정렬 */
+        }
+
+        /* 어사이드 - 메뉴 */
+        .aside_second {
+            /*border-top: 1px solid rgb(196, 196, 196);/*
+            /*border-bottom: 1px solid rgb(196, 196, 196);*/
+            margin: 20px 0 10px 10px;
+        }
+
+        .admin_menu {
+            margin-top: 10px;  /* 위쪽 간격 줄이기 */
+            margin-bottom: 10px; /* 아래쪽 간격 줄이기 */
+        }
+        
+        .admin_menu > li {
+            cursor: pointer;
+            padding: 5px; /* 항목 여백 추가 */
+            border-radius: 5px; /* 항목 둥글게 */
+            transition: background 0.3s; /* 배경 변화 효과 */
+            color: rgb(174, 174, 174);
+        }
+
+        .admin_menu > li:hover {
+            background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+        }
+
+        /* 서브 메뉴 */
+        .admin_sub_menu {
+            visibility: hidden;
+            padding: 5px;
+            padding-left: 20px;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+            overflow: hidden;
+            /* background-color: #f0f0f0; 서브 메뉴 배경색 */
+            border-radius: 5px; /* 둥글게 */
+        }
+
+        .admin_sub_menu.open {
+            max-height: 196px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .admin_sub_menu > li {
+            margin: 5px;
+            padding: 5px 10px; /* 서브 메뉴 항목 여백 추가 */
+            border-radius: 3px; /* 서브 메뉴 항목 둥글게 */
+            transition: background 0.3s; /* 서브 메뉴 항목 배경 변화 효과 */
+        }
+
+        /* 메인 서비스 */
+        #admin_service {
+            display: flex; /* 내부 콘텐츠를 flexbox로 */
+            flex-direction: column; 
+            flex-grow: 1;
+            min-width: 0;
+            width: 1000px;
+            background-color: rgb(247,249,252);
+        }
+
+.admin_gate { 
+    height: 65px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽으로 구분 */
+    align-items: center; /* 수직 중앙 정렬 */
+    padding-right: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
+}
+
+.left-icons {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.left-icons a {
+    margin-left: 25px; /* 아이콘 간 간격 */
+}
+
+.left-icons a img {
+    width: 20px;
+    height: 20px; /* 아이콘 크기 20x20 */
+}
+
+.right-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.right-icons a {
+    margin-left: 25px; /* 아이콘 간 간격 */
+}
+
+.right-icons a img {
+    width: 20px;
+    height: 20px;
+}
+
+.right-icons span {
+    margin-left: 13px; /* span과 마지막 아이콘 사이의 간격 */
+}
+
+
+        /* 내비게이션 */
+        #admin_navi {
+            width: 900px;
+            height: auto;
+            
+            display: flex;
+            margin: 30px auto;
+        }
+
+        #admin_navi p:nth-of-type(1):before {
+            content: ""; 
+            display: inline-block; 
+            width: 5px; 
+            height: 13px; 
+            background-color: #161a1f; 
+            margin-right: 5px; 
+        }
+
+        #admin_navi p {
+            font-size: 15px; 
+            font-weight: bold; 
+            margin-top: 5px; 
+        }
+
+        #admin_navi p:nth-of-type(2) {
+            margin-left: auto;
+        }
+
+        /* 테이블 헤더 왼쪽 정렬 */
+        .a_status tr th, 
+        .o_status tr th, 
+        .admin_notice tr th, 
+        .admin_inquire tr th {
+            text-align: left;
+        }
+
+        /* 운영상황 */
+        .a_status {
+            width: 900px;
+            border-collapse: collapse;
+            table-layout: fixed; 
+            margin: 0px auto;
+            border-radius: 8px;
+            overflow: hidden; /* 모서리 둥글게 하기 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+        }
+        .a_status tr:nth-of-type(2) {
+            background: #fbfdff; 
+        }
+
+        .a_status th, 
+        .a_status td {
+            border: 1px solid rgba(172, 172, 172, 0.5);
+            padding: 10px;
+            text-align: center; 
+        }
+
+.a_status tr:first-child th {
+    border-top: none;
+    border-right: none;
+    border-left: none; /* 첫 번째 행의 위쪽 테두리 없애기 */
+}
+
+.a_status tr:last-child td {
+    border-bottom: none; /* 마지막 행의 아래쪽 테두리 없애기 */
+}
+
+.a_status td:first-child {
+    border-left: none; /* 첫 번째 열의 왼쪽 테두리 없애기 */
+}
+
+.a_status td:last-child {
+    border-right: none; /* 마지막 열의 오른쪽 테두리 없애기 */
+}
+
+        .a_status th {
+            background-color: rgb(226,232,238); /* 헤더 배경 색 */
+            font-weight: bold; 
+        }
+
+        .a_status tr:hover {
+            background-color: rgba(240, 240, 240, 0.5); /* 마우스 오버 시 효과 */
+        }
+
+        .a_status tr:nth-of-type(2) p:nth-of-type(2) {
+            color: red;
+        }
+
+        .a_status tr:nth-of-type(2) {
+            font-weight: bold;
+        }
+
+        /* 주문상황 */
+        .o_status {
+            width: 900px;
+            border-collapse: collapse; 
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden; /* 모서리 둥글게 하기 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /*그림자 효과*/
+        }
+
+        .o_status tr:nth-of-type(2) {
+            background: #fbfdff; ;
+        }
+
+        .o_status th, 
+        .o_status td {
+            border: 1px solid rgba(172, 172, 172, 0.5);
+            padding: 10px;
+            text-align: center;
+        }
+
+
+
+/* 겉 테두리 없애기 위한 조정 */
+.o_status tr:first-child th {
+    border-top: none;
+    border-right: none;
+    border-left: none; /* 첫 번째 행의 위쪽 테두리 없애기 */
+}
+
+.o_status tr:last-child td {
+    border-bottom: none; /* 마지막 행의 아래쪽 테두리 없애기 */
+}
+
+.o_status td:first-child {
+    border-left: none; /* 첫 번째 열의 왼쪽 테두리 없애기 */
+}
+
+.o_status td:last-child {
+    border-right: none; /* 마지막 열의 오른쪽 테두리 없애기 */
+}
+
+.o_status th {
+    background-color: rgb(226,232,238) /* 헤더 배경 색 */
+}
+.o_status tr:hover {
+    background-color: rgba(240, 240, 240, 0.5); /* 마우스 오버 시 효과 */
+}
+.o_status tr:nth-of-type(2) p:nth-of-type(2) {
+    color: red;
+}
+.o_status tr:nth-of-type(2) {
+    font-weight: bold;
+}
+
+
+
+        /* 공지사항, 고객문의 */
+        #admin_notice_admin_inquire {
+            width: 900px;
+            margin: 20px auto; 
+            display: flex; 
+            justify-content: space-between; 
+        }
+
+        .admin_notice, 
+        .admin_inquire {
+            width: 420px; 
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden; /* 모서리 둥글게 하기 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+        }
+
+        .admin_notice td, 
+        .admin_inquire td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50px;
+        }
+
+        .admin_notice th, 
+        .admin_notice td, 
+        .admin_inquire th, 
+        .admin_inquire td {
+            border-bottom: 1px dotted rgba(172, 172, 172, 0.5); 
+            padding: 10px;
+        }
+
+        .admin_notice th:nth-of-type(1), 
+        .admin_notice th:nth-of-type(2) {
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5); 
+            background-color: rgb(226,232,238) /* 헤더 배경 색 */
+        }
+
+        /* 공지사항, 고객문의 전체보기 오른쪽 정렬 */
+        .admin_notice tr th:nth-of-type(2), 
+        .admin_inquire tr th:nth-of-type(2) {
+            text-align: right; 
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5); 
+            padding: 10px;
+        }
+
+        .admin_inquire tr th:nth-of-type(1) {
+            text-align: left; 
+            border-bottom: 1px solid rgba(172, 172, 172, 0.5); 
+            padding: 10px;
+        }
+        .admin_inquire tr th {background-color: rgb(226,232,238) /* 헤더 배경 색 */}
+
+        /* 아이디 날짜 가운데 정렬 */
+        .admin_notice td:nth-of-type(2), 
+        .admin_inquire td:nth-of-type(2), 
+        .admin_inquire td:nth-of-type(3) {
+            text-align: center;
+        }
+
+
+        /*footer*/
+        #admin_footer {
+        width: 100%;
+        background: #ffffff ;
+        }
+
+             
+/*접고 열기*/
+#admin_service {
+    width: 1000px; /* 기본 너비 */
+    transition: width 0.3s; /* 부드러운 전환 효과 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#admin_service.expanded {
+    width: 1200px; /* aside가 숨겨질 때의 너비 */
+}
+
+#admin_gate {
+    width: 100%; /* 기본적으로 100%로 설정 */
+    transition: width 0.3s ease; /* 너비에 대한 부드러운 전환 효과 */
+}
+
+#admin_service.expanded #admin_gate {
+    width: calc(1200px - 200px); /* aside가 숨겨질 때 gate의 너비 조정 */
+}
+
+#admin_aside.hidden {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.graph {
+            display: flex; /* 플렉스박스 사용 */
+            justify-content: space-between; /* 양옆으로 배치 */
+            align-items: flex-start; /* 위쪽 정렬 */
+            margin: 20px; /* 외부 여백 */ flex-grow: 1;
+        }
+
+canvas {
+            width: 600px!important;
+            height: 200px !important;;
+            margin: 10px auto;
+        }
+
+</style>
+<body>
+    <div id="wrapper">
+        <main id="admin_main">
+            <div id="admin_container">
+                <div id="admin_aside">
+                    <div id="admin_aside_list">
+                        <img class="top_log" src="../images/sample/lotte로고(white).png" alt="로고사진">
+                        <div class="aside_first">
+                            <h2>관리자 메인</h2>
+                        </div>
+                        <div class="aside_second">
+                            <ul class="admin_menu">
+                                <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="share-2" class="lucide lucide-share-2 align-middle"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>
+                                  환경설정</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-bag" class="lucide lucide-shopping-bag align-middle"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                    상점관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users align-middle"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                    회원관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-square" class="lucide lucide-check-square align-middle"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                    상품관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="files" class="lucide lucide-files align-middle"><path d="M20 7h-3a2 2 0 0 1-2-2V2"></path><path d="M9 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7l4 4v10a2 2 0 0 1-2 2Z"></path><path d="M3 7.6v12.8A1.6 1.6 0 0 0 4.6 22h9.8"></path></svg>
+                                    주문관리</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    고객센터</a>
+                                    <ul class="admin_sub_menu">
+                                        <li><a href="#" class="active">기본설정</a></li>
+                                        <li><a href="#" class="active">배너관리</a></li>
+                                        <li><a href="#" class="active">약관관리</a></li>
+                                        <li><a href="#" class="active">버전이력</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <div id="admin_service">    
+                <section>
+                    <div class="admin_gate">
+                        <div class="left-icons">
+                            <a href="#" id="toggle-aside"><img src="../images/sample/menu.png" alt=""></a>
+                        </div>
+                        <div class="right-icons">
+                            <a href="#"><img src="../images/sample/home.png" alt=""></a>
+                            <a href="#"><img src="../images/sample/login.png" alt=""></a>
+                            <a href="#"><img src="../images/sample/logout.png" alt=""></a>
+                            <span>홍길동님</span>
+                        </div>
+                    </div>
+                    <section id="admin_navi">
+                            <p>관리자 메인</p>
+                            <p><a href="#">HOME</a> > 관리자 메인</p>
+                    </section>
+                    <div class="graph">
+                        <h2>집계현황</h2>
+                        <canvas id="barChart" width="450" height="200"></canvas>
+                        <canvas id="pieChart" width="450" height="200"></canvas>
+                    </div>
+                    <article id="admin_status">
+                        <table class="a_status">
+                            <tr>
+                                <th colspan="10">운영현황</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>주문건수</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>주문금액</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>회원가입</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>방문자 수</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td colspan="2">
+                                    <p>신규 게시물</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>pc</p>
+                                    <p>mobile</p>
+                                </td>
+                                <td>
+                                    <p>60</p>
+                                    <p>70</p>
+                                </td>
+                                <td>
+                                    <p>pc</p>
+                                    <p>mobile</p>
+                                </td>
+                                <td>
+                                    <p>60</p>
+                                    <p>70</p>
+                                </td>
+                                <td>
+                                    <p>pc</p>
+                                    <p>mobile</p>
+                                </td>
+                                <td>
+                                    <p>60</p>
+                                    <p>70</p>
+                                </td>
+                                <td>
+                                    <p>pc</p>
+                                    <p>mobile</p>
+                                </td>
+                                <td>
+                                    <p>60</p>
+                                    <p>70</p>
+                                </td>
+                                <td>
+                                    <p>pc</p>
+                                    <p>mobile</p>
+                                </td>
+                                <td>
+                                    <p>60</p>
+                                    <p>70</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </article>
+                    <article id="order_status">
+                        <table class="o_status">
+                            <tr>
+                                <th colspan="5">주문현황</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>입금대기</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td>
+                                    <p>배송준비</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td>
+                                    <p>취소요청</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td>
+                                    <p>교환요청</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                                <td>
+                                    <p>반품요청</p><br>
+                                    <p><a href="#">300</a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </article>
+                    <article id="admin_notice_admin_inquire">
+                            <table class="admin_notice">
+                                <colgroup>
+                                    <col style="width: 750px">
+                                    <col style="width: 150px">
+                                </colgroup>
+                                <tr>
+                                    <th>공지사항</th>
+                                    <th><a href="#">전체보기</a></th>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                    <td>22.10.31</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                    <td>22.10.31</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                    <td>22.10.31</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                    <td>22.10.31</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[안내] 해외결제사 창 문자주의ddddddddddddddddddddddddddddddddddddddddddddddd</a></td>
+                                    <td>22.10.31</td>
+                                </tr>
+                            </table>
+                            <table class="admin_inquire">
+                                <colgroup>
+                                    <col style="width: 600px">
+                                    <col style="width: 150px"> 
+                                    <col style="width: 150px"> 
+                                </colgroup>
+                                <tr>
+                                    <th>고객문의</th>
+                                    <th colspan="2"><a href="#">전체보기</a></th>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                    <td>wlgus59**</td>
+                                    <td>20.12.11</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                    <td>wlgus59**</td>
+                                    <td>20.12.11</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                    <td>wlgus59**</td>
+                                    <td>20.12.11</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                    <td>wlgus59**</td>
+                                    <td>20.12.11</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#">[가입] 가입 문의 내용ddddddddddddddddddddddddddd</a></td>
+                                    <td>wlgus59**</td>
+                                    <td>20.12.11</td>
+                                </tr>
+                            </table>
+                    </article>  
+                </section>
+                <footer id="admin_footer">
+                    <div>머시기저시기</div>
+                    <div>Copyright 3조</div>
+                </footer>
+
+            </div>
+
+        </div>
+
+        </main>
+
+    </div>
+</body>
+<script>
+    document.querySelectorAll('.admin_menu > li').forEach(menu => {
+        const submenu = menu.querySelector('.admin_sub_menu');
+        
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            
+            if(submenu) {
+                submenu.classList.toggle('open');
+
+            }
+        });
+
+        // 서브 메뉴 항목 클릭 이벤트
+        if(submenu){
+            submenu.querySelectorAll('li').forEach(subLi => {
+                subLi.addEventListener('click', function(e){
+                    e.stopPropagation();       
+                })
+            })
+        }
+
+
+    })
+
+
+</script>
+<script>
+document.getElementById('toggle-aside').addEventListener('click', function(e) {
+    e.preventDefault(); // 기본 링크 동작 방지
+    
+    const aside = document.getElementById('admin_aside');
+    const main = document.getElementById('admin_service');
+    const gate = document.getElementById('admin_gate'); // admin_gate 추가
+    
+    // aside가 숨겨져 있는지 여부에 따라 클래스 조정
+    if (aside.classList.contains('hidden')) {
+        aside.classList.remove('hidden'); // aside 보이기
+        main.classList.remove('expanded'); // main 원래 너비로
+        gate.classList.remove('expanded'); // gate도 원래 너비로
+    } else {
+        aside.classList.add('hidden'); // aside 숨기기
+        main.classList.add('expanded'); // main 너비 늘리기
+        gate.classList.add('expanded'); // gate도 너비 늘리기
+    }
+});
+</script>
+<script>
+    // 막대 그래프
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['10-10', '10-11', '10-12', '10-13'], // x축 레이블
+            datasets: [
+                {
+                    label: '주문',
+                    data: [12, 19, 3, 5],
+                    backgroundColor: 'rgba(75, 192, 192, 0.8)', // 색깔 설정
+                    barPercentage: 0.3 // 막대 너비 조정
+                },
+                {
+                    label: '결제',
+                    data: [8, 12, 4, 7],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)', // 색깔 설정
+                    barPercentage: 0.3 // 막대 너비 조정
+                },
+                {
+                    label: '취소',
+                    data: [10, 15, 6, 9],
+                    backgroundColor: 'rgba(255, 206, 86, 0.8)', // 색깔 설정
+                    barPercentage: 0.3 // 막대 너비 조정
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    stacked: false // 막대를 쌓지 않음
+                },
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+            }
+        }
+    });
+
+    // 원형 그래프
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    const pieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['가전', '식품', '의류', '기타'], // 레이블 추가
+            datasets: [{
+                label: '색상 비율',
+                data: [100, 30, 50, 150], // 데이터 값 추가
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)' // 새로운 색상 추가
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)' // 새로운 색상 추가
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {maintainAspectRatio: false}
+    });
+</script>
+</html>
